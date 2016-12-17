@@ -1,0 +1,1 @@
+var getcentre = angular.module('getcentre', ['ngRoute','ngResource']);
