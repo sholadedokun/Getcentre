@@ -1,0 +1,90 @@
+<div class="container searchPage">
+	<div class="col-xs-18 search_result partial_view">
+		<div class="col-xs-18 " ng-controller="GetCentre">
+	        <div class="col-md-6 col-xs-18 tra_nav hidden-xs">Your Trip Bag</div>
+	        <div class="col-md-6 col-xs-18 tra_nav hidden-xs">Guest | Passenger and Payment Details</div>
+	        <div class="col-md-6 col-xs-18 tra_nav curhead">Voucher</div>
+	    </div>
+	    <div class="col-xs-18 voucher_Notification">
+
+	        <div class="voucher_success col-xs-18">Your Booking Was Successful</div>
+	        <div class="voucher_email_sent col-xs-18">We have emailed a copy of your Booking Itinery / Ticket Itinery  to your email at <span class="email_add" ng-bind="voucher_det.email"></span></div>
+	        <div class="voucher_email_sent col-xs-18">Below are list of your reservations.</div>
+	    </div>
+	  	<div class="col-xs-18 view_all_boards">
+	        <div class="col-xs-18 payment_bh">
+	        	<div class="hidden-xs col-md-12 all_boards">
+	                <div class="col-md-3 nopadding">Service Type</div>
+	                <div class="col-md-9 nopadding">Service Name</div>
+	                <div class="col-md-3 nopadding">Tickets</div>
+	                <div class="col-md-3 nopadding">Unit Price</div>
+	            </div>
+	        	<div class="col-xs-18 nopadding other_room_spec" ng-repeat="each_trip in tot_trip">
+	                <div class=" col-md-12 room_spec">
+	                    <div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Service Type : </b><br /></span>{{each_trip.productType}}</div>
+	                    <div class="col-xs-18 col-md-9 nopadding"><span class="visible-xs"><b>Service Name: </b><br /></span>{{each_trip.Name}}</div>
+	                    <div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Tickets : </b><br /></span>{{each_trip.Adult}} Adults, {{each_trip.Child}} kid</div>
+	                    <div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Unit Price : </b><br /></span> &#8358; {{each_trip.Price |currencyConvert | number:2}}</div>
+	                </div>
+	                <!-- <div class="col-md-6 t_price">
+	                    <div class="col-md-12 s_label"><a href="#">Cancel Booking</a></div>
+	                    <div class="book_but col-md-6 get_button_primary btn-sm">Print Voucher</div>
+	                </div> -->
+	            </div>
+	            	<div class="voucher_success col-xs-18 booking_onhold">This Reservation has been booked onhold </div>
+	            	<div class="voucher_email_sent col-xs-18">We expect to receive a full payment before <span class="email_add" ng-bind="lateDate"></span>. <br />Else your present resevation at the current price might be automatically canceled. </div>
+	                <div class="voucher_email_sent col-xs-18">Below are list of our Payment Options.</div>
+	                <div class="col-xs-18"><br /><br /><b>Bank :</b> use 'Grand Express Tour Centre LTD' as account name for all our accounts.</div>
+	                <div class="col-xs-18 hidden-xs all_boards">
+	                    <div class="col-md-4">Bank Name</div>
+	                    <div class="col-md-5">Account Type</div>
+	                    <div class="col-md-3">Account Number</div>
+	                    <div class="col-md-6">Depositor's Name</div>
+	                </div>
+					<div class="col-xs-18 nopadding other_room_spec">
+	                    <div class="col-xs-18 col-md-4 room_spec">
+	                    	<span class="visible-xs"><b> Bank:</b><br /></span>Wema Bank PLC</div>
+	                    <div class="col-xs-18 col-md-5 room_spec">
+	                    	<span class="visible-xs"><b>Account Type:</b><br /></span>Naira Account</div>
+	                    <div class="col-xs-18 col-md-3 room_spec">
+	                    	<span class="visible-xs"><b>Account Number:</b><br /></span>0122550919</div>
+	                    <div class="col-xs-18 col-md-6 t_price"><span class="visible-xs"><b>Depositor's Name</b><br /></span>{{voucher_det.email}}</div>
+	                </div>
+	            	<div class="col-xs-18 nopadding other_room_spec">
+	                    <div class="col-xs-18 col-md-4 room_spec">
+	                    	<span class="visible-xs"><b> Bank:</b><br /></span>Guarantee Trust Bank PLC</div>
+	                    <div class="col-xs-18 col-md-5 room_spec">
+	                    	<span class="visible-xs"><b>Account Type:</b><br /></span>Naira Account</div>
+	                    <div class="col-xs-18 col-md-3 room_spec">
+	                    	<span class="visible-xs"><b>Account Number:</b><br /></span>0163549553</div>
+	                    <div class="col-xs-18 col-md-6 t_price"><span class="visible-xs"><b>Depositor's Name</b><br /></span>{{voucher_det.email}}</div>
+	                </div>
+
+	                <div class="col-xs-18 nopadding other_room_spec">
+	                    <div class="col-xs-18 col-md-4 room_spec">
+	                    	<span class="visible-xs"><b> Bank:</b><br /></span>Diamond Bank</div>
+	                    <div class="col-xs-18 col-md-5 room_spec">
+	                    	<span class="visible-xs"><b>Account Type:</b><br /></span>Naira Account</div>
+	                    <div class="col-xs-18 col-md-3 room_spec">
+	                    	<span class="visible-xs"><b>Account Number:</b><br /></span>0057898295</div>
+	                    <div class="col-xs-18 col-md-6 t_price"><span class="visible-xs"><b>Depositor's Name</b><br /></span>{{voucher_det.email}}</div>
+	                </div>
+	                <div class="col-xs-18 nopadding other_room_spec">
+	                    <div class="col-xs-18 col-md-4 room_spec">
+	                    	<span class="visible-xs"><b> Bank:</b><br /></span>Diamond Bank</div>
+	                    <div class="col-xs-18 col-md-5 room_spec">
+	                    	<span class="visible-xs"><b>Account Type:</b><br /></span>Dollar </div>
+	                    <div class="col-xs-18 col-md-3 room_spec">
+	                    	<span class="visible-xs"><b>Account Number:</b><br /></span>0057900017</div>
+	                    <div class="col-xs-18 col-md-6 t_price"><span class="visible-xs"><b>Depositor's Name</b><br /></span> {{voucher_det.email}}</div>
+	                </div>
+
+	                <div class="col-xs-18" style="text-align:right;">
+	                	<span class="important_t">*</span><span>The Depositor's Name must be quoted on the bank teller as stated above</span>
+	                </div>
+	            </div>
+
+
+	        </div>
+	</div>
+</div>

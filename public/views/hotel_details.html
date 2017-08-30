@@ -1,0 +1,327 @@
+
+<div class="container searchPage">
+    <div class="col-xs-18 search_result partial_view">
+        <div class="col-xs-18 search_bar">
+            <div class="col-xs-18 col-md-14"><h3>{{search_c.hname}}</h3></div>
+            <div class="col-xs-18 col-md-4">
+            	 <label class="col-xs-18" style="padding:0.4em 0 0 0" for="sorting">Return to Search List</label>
+            </div>
+        </div>
+        <div class="col-xs-18 col-md-11 nopadding">
+        	<div class="col-xs-18 img_slide nopadding">
+            	<div class="col-xs-18 img_holder_lg nopadding">
+                	<img src="{{mainImageUrl | imglarge}}" width="100%" height="100%" />
+                </div>
+                <div class="col-xs-18 nopadding thumb_hold">
+                    <div id="thumb_load">
+                        <div class="hthumb" name="{{$index}}" ng-repeat="thumb in hotel_Detail.details">
+                            <img ng-src="{{thumb.img_path}}" ng-click="setImage(thumb.img_path, $index)" width="90" height="60" />
+                        </div>
+                    </div>
+                    <div class="col-xs-18">
+                    	<span class="col-xs-3 col-md-1 get_pad slide_arrow" id="left_th"><</span>
+                        <span class="col-xs-12 col-md-16 get_pad slide_num">{{curr_pic}} <span class="s_label">of</span> {{hotel_Detail.details.length}}</span>
+                        <span class="col-xs-3 col-md-1 get_pad slide_arrow" id="right_th">></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-18 hdetails nopadding">
+            	<div class="col-xs-18 col-md-14 search_result">
+                    <div class="col-xs-18 col-md-12 h_title nopadding"><h3>{{search_c.hname}}</h3></div>
+                    <div class="col-xs-18 col-md-6 h_rate">
+                        <span class="icon-star"></span>
+                        <span class="icon-star"></span>
+                        <span class="icon-star"></span>
+                        <span class="icon-star"></span>
+                    </div>
+                    <div class="col-xs-18 map_shdetails">{{hotel_Detail.details[0].address}},  {{hotel_Detail.details[0].city}},  {{hotel_Detail.details[0].counrty_code}} <span><a href="#">Show Map</a></span></div>
+                    <div class="col-xs-18 h_details">{{hotel_Detail.details[0].hotel_desc}}</div>
+
+                </div>
+                <div class="col-xs-18 col-md-4 nopadding">
+                    <div class="col-xs-18 h_details_rate nopadding ">
+                        <div class="col-xs-18 rate_title u_price"><h3>User Rating</h3></div>
+                        <div class="col-xs-18 rating_num">4.4</div>
+                        <div class="col-xs-18 rate_title">Based On 20 Opinions</div>
+                    </div>
+
+                    <div class="col-xs-18 trip_advisor">
+
+                    </div>
+                </div>
+                <div class="col-xs-18" ng-if="HotelF[0]!=null">
+                    <div class="col-md-9" ng-repeat="fact in HotelF">
+                    <b>{{fact.name}} : </b> {{fact.number}}</div>
+                </div>
+                <div class="col-xs-18" ng-if="HotelIs[0]!=null">
+                	<div class="col-xs-18" ng-repeat="issu in HotelIs">
+                        <label class="col-xs-18">Possible Issues With This Hotel FROM {{issu.datefrom}}  TO  {{issu.dateto}}</label>
+                        {{issu.incidence}}
+                    </div>
+                </div>
+                <div class="col-xs-18" ng-if="HotelP[0]!=null">
+                	<div class="col-xs-18 get_pad">
+                        <label class="col-xs-18 get_pad">Acceptable Payment at this Hotel</label>
+                        <div class="col-xs-9" ng-repeat="pay in HotelP">{{pay.name}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-18 update_search">
+            <div class="col-xs-18 col-md-11"><div class="col-xs-18 serv_name">Confirm Room Availability</div></div>
+            <div class="col-xs-18  col-sm-8">
+                <div class="col-xs-18"><label>From<input type="text" id="fromdate" class="datepicker_dummy" date-from /></label></div>
+                <div class="nopadding get_input col-xs-18">
+                    <input type="text" class="col-xs-4 form-control day_month get_pad input-md trans_input" ng-click="setfromdate(0)" ng-model="f_day"  id="h_from_date" placeholder="01" name="" >
+                    <input type="text" class="col-xs-5 form-control day_month get_pad input-md trans_input" ng-click="setfromdate(0)" ng-model="f_month"  id="h_from_month" placeholder="July" name="">
+                    <input type="text" class="col-xs-6 form-control day_month get_pad input-md trans_input" ng-click="setfromdate(0)" ng-model="f_year" id="h_from_year" placeholder="2015" name="">
+
+                    <span ng-click="setfromdate(0)" class="icon-get_calendar nopadding ic_sm_s col-xs-3"></span>
+                </div>
+            </div>
+            <div class="col-xs-18 col-sm-8">
+                <div class="col-xs-18"><label>Until<input type="text" id="todate" class="datepicker_dummy" date-to /></label></div>
+                <div class="nopadding get_input col-xs-18 ">
+                            <input type="text" class="col-xs-4 form-control day_month get_pad input-md trans_input" ng-click="settodate(0)" ng-model="t_day"  id="h_to_date" placeholder="01">
+                            <input type="text" class="col-xs-5 form-control day_month get_pad input-md trans_input" ng-click="settodate(0)" ng-model="t_month"  id="h_to_month" placeholder="Dec">
+                            <input type="text" class="col-xs-6 form-control day_month get_pad input-md trans_input" ng-click="settodate(0)" ng-model="t_year"  id="h_to_year" placeholder="2015">
+                            <span ng-click="settodate()" class="icon-get_calendar nopadding ic_sm_s col-xs-3"></span>
+                        </div>
+            </div>
+
+            <div class="col-xs-18 change_occu"> <span class="cha_label">For :</span> {{search_c.Adult}} Adults <span ng-if="search_c.Child>0">{{search_c.Child}} Kids</span> From {{search_c.fDepDateLong}} - {{search_c.fDesDateLong}}<span class="cha_action"> (Change Guests)</span></div>
+        </div>
+        	<!--<div class="col-xs-18 view_all_boards">
+                <div class="col-xs-18 s_label">Available Rooms</div>
+                <div class="col-xs-18 all_boards">
+                    <div class="col-md-13 nopadding">
+                        <div class="col-md-2 nopadding">Guest</div>
+                        <div class="col-md-6 nopadding">Room Type</div>
+                        <div class="col-md-6 nopadding">Boarding Type</div>
+                        <div class="col-md-4 nopadding">Room Rate</div>
+                    </div>
+                    <div class="col-md-5 nopadding">Total Price</div>
+                </div>
+                <div class="col-xs-18 nopadding">
+                    <div class="col-md-13 nopadding other_room_spec">
+                        <div class="col-xs-18 room_spec" ng-repeat="room in  room_allo">
+                            <label class="col-xs-18">Room {{$index+1}}</label>
+                            <div class="col-md-2 room_type nopadding">
+                                <label><sup>{{room[0].HotelOccupancy.Occupancy.AdultCount}}</sup> <span class="icon-get_man ic_sm f_ic_guest "></span> <sup>{{room[0].HotelOccupancy.Occupancy.ChildCount}}</sup> <span class="icon-get_boy ic_sm"></span></label>
+                            </div>
+                            <div class="col-md-6 get_pad">
+                                <div class="col-xs-18 get_pad  get_input room_type">
+                                        <select class="input_xs col-xs-18" ng-model="Selectedroomtype" ng-change="get_room_type(Selectedroomtype, Selectedboard, $index)" ng-options="roomty.HotelRoom.RoomType.$ as roomty.HotelRoom.RoomType.$ for roomty in room | unique: 'HotelRoom.RoomType.$'  " ng-init="Selectedroomtype = room[0].HotelRoom.RoomType.$"    >
+                                        </select>
+                                    </div>
+                            </div>
+                            <div class="col-md-6 get_pad">
+                                <div class="col-xs-18 get_pad get_input room_type">
+                                        <select class="input_xs col-xs-18" ng-model="Selectedboard" ng-change="get_room_board(Selectedroomtype, Selectedboard, $index)" ng-options="roomboard.HotelRoom.Board.$ as roomboard.HotelRoom.Board.$ for roomboard in room | unique:'HotelRoom.Board.$'" ng-init="Selectedboard=room[0].HotelRoom.Board.$">
+
+                                        </select>
+                                    </div>
+                            </div>
+                            <div class="col-md-4 u_price"><label><span ng-bind-html="convS"></span> {{roomTotalPrice[$index+1] | currencyConvert | number:2}}</label></div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 t_price_book">
+                        <div class="col-xs-18"><sup class="curr_book" ng-bind-html="convS"></sup><span>{{roomTotalPrice[0] | currencyConvert | number:2}}</span></div>
+                        <div class="book_but pull-right col-md-6 get_button_primary btn-sm"  ng-click="book_room($event, ind, room)">Book</div>
+                    </div>
+                </div>
+        	</div>-->
+            <div class="col-xs-18 view_all_boards">
+                <div class="col-xs-18 all_boards hidden-xs">
+                    <div class="col-md-2 nopadding">Guest</div>
+                    <div class="col-md-6 ">Room Type</div>
+                    <div class="col-md-6 ">Boarding Type</div>
+                    <div class="col-md-4 ">Room Rate</div>
+                </div>
+                <div class="col-xs-18 nopadding">
+                    <div class="col-xs-18 nopadding other_room_spec">
+                        <div class="col-xs-18 room_spec t_bl" ng-repeat="room in  room_allo">
+                            <label class="col-xs-18" ng-if="room_allo.length>1"><span class="visible-xs"><b>Guest : </b><br /></span>Room {{$index+1}}</label>
+                            <div class="col-xs-18 col-md-2 nopadding room_type">
+                                <label><sup>{{room[0].HotelOccupancy.Occupancy.AdultCount}}</sup> <span class="icon-get_man ic_sm f_ic_guest "></span> <sup>{{room[0].HotelOccupancy.Occupancy.ChildCount}}</sup> <span class="icon-get_boy ic_sm_c"></span></label>
+                            </div>
+                            <div class="col-xs-18 col-md-6">
+                                <span class="visible-xs"><b>Room Type : </b><br /></span>
+                                <div class="col-xs-18 get_pad  get_input room_type">
+                                        <select class="input_xs col-xs-18" ng-model="Selectedroomtype" ng-change="get_room_type(Selectedroomtype, Selectedboard, $index)" ng-options="roomty.HotelRoom.RoomType.$ as roomty.HotelRoom.RoomType.$ for roomty in room | unique: 'HotelRoom.RoomType.$'  " ng-init="Selectedroomtype = room[0].HotelRoom.RoomType.$"    >
+                                        </select>
+                                    </div>
+                            </div>
+                            <div class="col-xs-18 col-md-6">
+                            	<span class="visible-xs"><b>Boarding Type : </b><br /></span>
+                                <div class="col-xs-18 get_pad get_input room_type">
+
+                                        <select class="input_xs col-xs-18" ng-model="Selectedboard" ng-change="get_room_board(Selectedroomtype, Selectedboard, $index)" ng-options="roomboard.HotelRoom.Board.$ as roomboard.HotelRoom.Board.$ for roomboard in room | unique:'HotelRoom.Board.$'" ng-init="Selectedboard=room[0].HotelRoom.Board.$">
+
+                                        </select>
+                                    </div>
+                            </div>
+                            <div class="col-xs-18 col-md-4"> <span class="visible-xs"><b>Room Rate : </b><br /></span><label><span ng-bind-html="convS"></span> {{roomTotalPrice[$index+1]| currencyConvert | number:2}}</label></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-18 col-md-10 col-md-offset-8 pTab">
+                            <div class="col-xs-18 col-md-12 f_price tA_C_xs">
+                                <div class="col-xs-18 col-md-11 nopadding">
+                                    <sup class="curr_book" ng-bind-html="convS"></sup><span>{{roomTotalPrice[0]| currencyConvert | number:2}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-18 col-md-6 btn-sm btn get_button_primary flight_sel_butt" style="padding:1em" name="{{$index}}"  ng-click="book_room($event, guestBreak)">Book</div>
+                        </div>
+                                <!--<div class="col-md-5 t_price_book">
+                        <div class="col-xs-18"><sup class="curr_book" ng-bind-html="convS"></sup><span>{{roomTotalPrice[0]| currencyConvert | number:2}}</span></div>
+                        <div class="book_but pull-right col-md-6 get_button_primary btn-sm"  ng-click="book_room($event, ind, guestBreak)">Book</div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-18 col-md-7 list_holder">
+            <ul class="col-xs-18 s_filter">
+                <li class="col-xs-18 pr_item">
+                    <div class="col-xs-18"><label>Hotel Features</label></div>
+                </li>
+                <li class="col-xs-18 sf_item">
+                	<div class="col-xs-18 service_list">
+                        <div class="col-xs-15">Hotel Amenities and Services</div>
+                        <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-xs-18 s_input" ng-if="HotelHo[0]!=null">
+                    	<div class="col-xs-18 col-md-9" ng-repeat="hotelh in HotelHo">
+                        	{{hotelh.name}}<span ng-if="hotelh.fee=='S'" ng-init="setvis(0)" class="pab"><b>*</b></span>
+
+                        </div>
+                        <span class="col-xs-18 paidFac" ng-if="visT[0]=='S'"><b>(*)</b> Some Services / Facilities may be Paid at the Establishment.</span>
+                    </div>
+                </li>
+                <li class="col-xs-18 sf_item" ng-show="HotelR[0]!=null">
+                	<div class="col-xs-18 service_list">
+                        <div class="col-xs-15">Standard Room Facility</div>
+                        <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-xs-18 s_input" >
+                    	<div class="col-xs-18 col-md-9" ng-repeat="roomq in HotelR">
+                        	{{roomq.name}}<span ng-if="roomq.fee=='S'" ng-init="setvis(1)" class="pab">*</span>
+                        </div>
+                        <span class="col-xs-18 paidFac" ng-if="visT[1]=='S'"><b>(*)</b> Some Services / Facilities may be Paid at the Establishment.</span>
+                    </div>
+                </li>
+                <li class="col-xs-18 sf_item" ng-show="HotelRE[0]!=null">
+                	<div class="col-xs-18 service_list">
+                        <div class="col-xs-15">Room Equipment</div>
+                        <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-xs-18 s_input" >
+                    	<div class="col-xs-18 col-md-9" ng-repeat="roome in HotelRE">
+                        	{{roome.name}}<span ng-if="roome.fee=='S'" ng-init="setvis(1)" class="pab">*</span>
+                        </div>
+                        <span class="col-xs-18 paidFac" ng-if="visT[1]=='S'"><b>(*)</b> Some Services / Facilities may be Paid at the Establishment.</span>
+                    </div>
+                </li>
+                <li class="col-xs-18 sf_item" ng-show="HotelPr[0]!=null">
+                	<div class="col-xs-18 service_list">
+                        <div class="col-md-15">Nearest Tourist Attraction</div>
+                        <div class="col-md-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-xs-18 s_input" >
+                    	<div class="col-xs-18 col-md-9" ng-repeat="place in HotelPr">
+                        	<label>{{place.place}}</label> ({{place.distance}}) Meters
+                        </div>
+                    </div>
+                </li>
+                <li class="col-xs-18 sf_item"  ng-show="HotelE[0]!=null">
+                	<div class="col-xs-18 service_list">
+                        <div class="col-xs-15">Hotel Entertainment</div>
+                        <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-xs-18 s_input">
+                    	<div class="col-xs-18 col-md-9" ng-repeat="ent in HotelE">
+                        	{{ent.name}}<span ng-if="ent.fee=='S'" ng-init="setvis(2)" class="pab">*</span>
+                        </div>
+                        <span class="col-xs-18 paidFac" ng-if="visT[2]=='S'"><b>(*)</b> Some Services / Facilities may be Paid at the Establishment.</span>
+                    </div>
+
+                </li>
+                <li class="col-xs-18 sf_item" ng-show="HotelMe[0]!=null">
+                	<div class="col-xs-18 service_list">
+                        <div class="col-xs-15">Restaurant Services</div>
+                        <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-xs-18 s_input" >
+                    	<div class="col-xs-18 col-md-9" ng-repeat="place in HotelMe">
+                        	{{place.name}}<span ng-if="place.fee=='S'" ng-init="setvis(3)" class="pab">*</span>
+                        </div>
+                        <span class="col-xs-18 paidFac" ng-if="visT[3]=='S'"><b>(*)</b> Some Services / Facilities may be Paid at the Establishment.</span>
+                    </div>
+
+                </li>
+                <li class="col-xs-18 sf_item" ng-show="HotelG[0]!=null">
+                	<div class="col-xs-18 service_list">
+                        <div class="col-xs-15">Hotel Green Programs</div>
+                        <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-xs-18 s_input" >
+                    	<div class="col-xs-18 col-md-9" ng-repeat="green in HotelG">
+                        	{{green.name}}<span ng-if="green.fee=='S'" ng-init="setvis(4)" class="pab">*</span>
+                        </div>
+                         <span class="col-xs-18 paidFac" ng-if="visT[4]=='S'"><b>(*)</b> Some Services / Facilities may be Paid at the Establishment.</span>
+                    </div>
+
+                </li>
+                <li class="col-xs-18 sf_item" ng-show="HotelH[0]!=null">
+                	<div class="col-xs-18 service_list">
+                        <div class="col-xs-15">Hotel Health Services</div>
+                        <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-xs-18 s_input" >
+                    	<div class="col-xs-18 col-md-9" ng-repeat="health in HotelH">
+                        	{{health.name}}<span ng-if="health.fee=='S'" ng-init="setvis(5)" class="pab">*</span>
+                        </div>
+                        <span class="col-xs-18 paidFac" ng-if="visT[5]=='S'"><b>(*)</b> Some Services / Facilities may be Paid at the Establishment.</span>
+                    </div>
+
+                </li>
+                <li class="col-xs-18 sf_item" ng-show="HotelS[0]!=null">
+                	<div class="col-xs-18 service_list">
+                        <div class="col-xs-15">Hotel Sport Facility</div>
+                        <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-xs-18 s_input" >
+                    	<div class="col-xs-18 col-md-9" ng-repeat="health in HotelS">
+                        	{{health.name}}<span ng-if="health.fee=='S'" ng-init="setvis(6)" class="pab">*</span>
+                        </div>
+                        <span class="col-xs-18 paidFac" ng-if="visT[6]=='S'"><b>(*)</b> Some Services / Facilities may be Paid at the Establishment.</span>
+                    </div>
+
+                </li>
+                <li class="col-xs-18 sf_item" ng-show="HotelN[0]!=null">
+                	<div class="col-xs-18 service_list">
+                        <div class="col-xs-15">Hotel Surrounding</div>
+                        <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-xs-18 s_input" >
+                    	<div class="col-xs-18" ng-repeat="nearS in HotelN">
+                        	<label>{{nearS.name}}</label> ({{nearS.distance}}) Meters
+                        </div>
+                    </div>
+                </li>
+                <li class="col-xs-18 sf_item" ng-show="HotelTerm[0]!=null">
+                	<div class="col-xs-18 service_list">
+                        <div class="col-xs-15">Nearest Terminal</div>
+                        <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-xs-18 s_input" >
+                    	<div class="col-xs-18" ng-repeat="Term in HotelTerm">
+                        	<label>{{Term.tname}}</label> ({{Term.TdistKM}}) Kilometers | {{Term.TdistMin}} Minutes
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="loading_note" ng-if="load_note" loading></div>
+    </div>
+</div>

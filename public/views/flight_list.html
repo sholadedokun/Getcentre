@@ -1,0 +1,222 @@
+<div class="container searchPage">
+    <div class="col-xs-18 search_result partial_view">
+        <div class="col-xs-18 search_bar">
+            <div class="col-xs-18 col-md-14">Search Result for Return Flight From <span ng-bind="search_c.fDepAirpName|custNo"></span> to <span ng-bind="search_c.fDesAirpName|custNo"></span>
+            <input type="hidden" id="new_list" ng-model="new_list" value="{{list | orderBy:sort}}"/></div>
+            <div class="col-xs-18 col-md-4 nopadding">
+            	 <label class="col-xs-6" style="padding:0.4em 0 0 0" for="sorting">Sort By</label>
+                  <div class="col-xs-12 nopadding">
+                      <select class="col-xs-18 nopadding input-sm" id="sorting" ng-model="sort" ng-options="option.value as option.name for option in sorting">
+                      </select>
+                  </div>
+            </div>
+        </div>
+        <div class="col-xs-18 col-md-5 filter_s">
+            <div class="col-xs-18 s_info">
+                <p>Your Search returned <span><span ng-bind="total_flight"></span> Flights</span> From</p>
+                <p class="sf_price"> <sup class="curr"> &#8358; </sup><span><span ng-bind="lowest_price | number:2"></span></span></p>
+                <span>Use the field below to refine your search</span>
+            </div>
+            <ul class="col-md-18 s_filter nopadding hidden-xs">
+                <li class="col-md-18 pr_item">
+                    <div class="col-md-18"><label>Price</label></div>
+                    <div class=" col-md-6 col-xs-9 s_fil_pad">
+                        <div class="col-md-18 get_input">
+                            <input type="text" class="col-md-18 form-control form_pad input-md trans_input" ng-model="minP" placeholder="from" name="">
+                        </div>
+                    </div>
+                    <div class=" col-md-6 col-xs-9 s_fill_pad">
+                        <div class="col-md-18 get_input">
+                            <input type="text" class="col-md-18 form-control form_pad input-md trans_input" ng-model="maxP" placeholder="to" name="">
+                        </div>
+                    </div>
+                    <div class="col-xs-18 col-md-6 s_fil_pad">
+                        <div class="col-md-18 get_button_primary btn-lg" ng-click="applyfilter()">Apply</div>
+                    </div>
+                </li>
+                <li class="col-md-18 sf_item">
+                	<div class="col-md-18 service_list">
+                        <div class="col-md-15">Airline Name</div>
+                        <div class="col-md-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-md-18 s_input">
+                        <select class="col-sm-18 nopadding get_input input-sm" ng-model="fairline" ng-options="o as o for o in sidefilt.airname.depart"></select>
+                    </div>
+                </li>
+                <li class="col-md-18 sf_item">
+                	<div class="col-md-18 service_list">
+                        <div class="col-md-15">Cabin Class</div>
+                        <div class="col-md-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-md-18 s_input">
+                    	<select class="col-sm-18 nopadding get_input input-sm" ng-model="fcabin" ng-options="o as o+' Class' for o in sidefilt.cabin.depart"></select>
+                    </div>
+                </li>
+                <li class="col-md-18 sf_item">
+                	<div class="col-md-18  service_list">
+                        <div class="col-md-15">Stopovers</div>
+                        <div class="col-md-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-md-18 s_input">
+                    	<select class="col-sm-18 nopadding get_input input-sm"  ng-model="fstop" ng-options="o as o+' Stopover' for o in sidefilt.stopover.depart"></select>
+                    </div>
+                </li>
+                <li class="col-md-18 sf_item">
+                	<div class="col-md-18  service_list">
+                        <div class="col-md-15">Flight Duration</div>
+                        <div class="col-md-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-md-18 s_input">
+                    	<select class="col-sm-18 nopadding get_input input-sm"  ng-model="fduration" ng-options="o as o for o in sidefilt.duration.depart"></select>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-18 col-md-13 list_holder">
+           <div class="col-xs-18 main_list fsanim"  ng-repeat="flightList in allFlights | orderBy:sort | filter:priceMin | filter:priceMax | filter:f_airline | filter:f_cabin | filter:f_stop | filter:f_duration " >
+               <!-- | filter:priceMin | filter:priceMax | filter:f_airline | filter:f_cabin | filter:f_stop | filter:f_duration -->
+                <div class="col-xs-18 nopadding dep flightC" >
+                    <div class="col-xs-18 fkl nopadding" ng-repeat="flight in flightList.flightList">
+                        <div class="col-xs-18 t_bl nopadding" >
+                        	<div class="col-xs-18 col-md-5 f_carr">
+                                <div ng-if="flight[0].type=='outbound' || flightList.type=='MT'" class="col-xs-4 col-md-5 t_90 f_ic icon-get_plane"></div>
+                                <div ng-if="flight[0].type=='inbound'" class="col-xs-4 col-md-5 t_270 f_ic icon-get_plane"></div>
+                                <div class="col-xs-14 col-md-13 f_pad tA_l" ng-bind="flight[0].details.leg0['@carrierCodeDesc']"></div>
+                            </div>
+                            <div class="col-xs-18 col-md-9 nopadding">
+                                <div class="col-xs-18 col-md-8 f_pad2">
+                                    <div class="col-xs-18 nopadding">
+                                        <label ng-bind="flight[0].details.leg0['@depDesc']"></label>
+                                        <span ng-bind="flight[0].details.leg0['@depDescExt']"></span>
+                                    </div>
+                                    <div class="col-xs-18 nopadding visible-xs visible-sm">
+                                    	<span ng-bind="flight[0].details.leg0['@depDate']|shortdate"></span> | <b><span ng-bind="flight[0].details.leg0['@depTime']"></span></b>
+                                    </div>
+                                </div>
+                                <div class="col-xs-18 col-md-2 t_90_xs icon-Arrow38 tA_c" style="padding:0.6em 0; font-size:16px"></div>
+                                <div class="col-xs-18 col-md-8 f_pad2 tA_l tA_C_xs">
+                                	<div class="col-xs-18 nopadding" ng-bind-html="flight[0].details | lastlegDes">
+                                     </div>
+                                      <div class="col-xs-18 nopadding visible-xs visible-sm">
+                                    	<span ng-bind="flight[0].details | lastlegDate" | <b><span ng-bind="flight[0].details | lastlegTime "</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-18 col-md-4 f_pad3">
+                                <div class="col-xs-18 nopadding"><b>Duration</b> <span ng-bind="flight[1].details['@minutes']|hrtomin "</div>
+                                <div class="col-xs-18 visible-xs visible-md"><label><span ng-bind="flight[0].details |stopover"></span></label> Stopover</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-18 t_bl2 hidden-xs hidden-sm">
+                            <div class="col-xs-18 col-md-5 f_pad3 tA_l link" ng-click="flight.detO='Y'">View Details</div>
+                            <div class="col-xs-18 col-md-9 nopadding">
+                                <div class="col-xs-18 col-md-8 f_pad2">
+                                <span ng-bind="flight[0].details.leg0['@depDate']|shortdate"></span> | <b><span ng-bind="flight[0].details.leg0['@depTime']"></span> </b> </div>
+                                <div class="col-xs-18 col-md-2 f_pad2"></div>
+                                <div class="col-xs-18 col-md-8 f_pad2 tA_l"><span ng-bind="flight[0].details | lastlegDate"></span> | <b><span ng-bind=" flight[0].details | lastlegTime "></span></b></div>
+                            </div>
+                            <div class="col-xs-18 col-md-4 f_pad3"><label><span ng-bind="flight[0].details|stopover"></span></label> Stopover</div>
+                        </div>
+                        <div class="col-xs-18 nopadding" ng-show="flight.detO=='Y'">
+                        	<div class="col-xs-18 fvdet" ng-repeat="leg in flight[0].details">
+                            	<div class="col-xs-18 get_pad tA_l fvd"> <b>Trip <span ng-bind="$index+1"></span></b></div>
+                                <div class="col-xs-18 t_bl f_pad3">
+                                    <span class="col-xs-18 col-md-9">
+                                        <label class="col-xs-6 nopadding">Departs:</label> <span class="col-xs-12 tA_l"> (<span ng-bind=" leg['@depDesc']"></span>) <span ng-bind=" leg['@depDescExt']"></span></span>
+                                    </span>
+                                    <span class="col-xs-18 col-md-9">
+                                        <label class="col-xs-6 nopadding">Date & Time:</label> <span class="col-xs-12 tA_l"><span ng-bind="leg['@depDate']|shortdate"></span> | <span ng-bind="leg['@depTime']"></span></span>
+                                    </span>
+                                </div>
+                                <div class="col-xs-18 t_bl f_pad3">
+                                    <span class="col-xs-18 col-md-9">
+                                        <label class="col-xs-6 nopadding">Arrives:</label> <span class="col-xs-12 tA_l"> (<span ng-bind=" leg['@desDesc']"></span>) <span ng-bind=" leg['@desDescExt']"></span></span>
+                                    </span>
+                                    <span class="col-xs-18 col-md-9">
+                                        <label class="col-xs-6 nopadding">Date & Time:</label> <span class="col-xs-12 tA_l"><span ng-bind="leg['@desDate']|shortdate"></span> | <span ng-bind="leg['@desTime']"></span></span>
+                                    </span>
+
+                                </div>
+                                <div class="col-xs-18 t_bl f_pad3">
+                                    <span class="col-xs-18 col-md-9">
+                                        <label class="col-xs-6 nopadding">Plane:</label> <span class="col-xs-12 tA_l"> <span ng-bind=" leg['@equipmentType']"></span></span>
+                                    </span>
+                                    <span class="col-xs-18 col-md-9">
+                                        <label class="col-xs-6 nopadding">Airline:</label> <span class="col-xs-12 tA_l"><span ng-bind="leg['@carrierCodeDesc']"></span></span>
+                                    </span>
+
+                                </div>
+                                <div class="col-xs-18 t_bl f_pad3">
+                                    <span class="col-xs-18 col-md-9">
+                                        <label class="col-xs-6 nopadding">Flight Number:</label> <span class="col-xs-12 tA_l"> <span ng-bind=" leg['@flightNumber']"></span></span>
+                                    </span>
+                                    <span class="col-xs-18 col-md-9">
+                                        <label class="col-xs-6 nopadding">Ticket Class:</label> <span class="col-xs-12 tA_l"><span ng-bind="leg['@flightClass']"></span></span>
+                                    </span>
+
+                                </div>
+                                <div class="col-xs-18 t_bl f_pad3">
+                                    <span class="col-xs-18 col-md-9">
+                                        <label class="col-xs-6 nopadding">Available Seat:</label> <span class="col-xs-12 tA_l"> <span ng-bind=" leg['@seatsAvail']"></span></span>
+                                    </span>
+                                    <span class="col-xs-18 col-md-9">
+                                        <label class="col-xs-6 nopadding">Facility:</label> <span class="col-xs-12 tA_l"><span ng-bind="leg['@mealsInclDesc']"></span></span>
+                                    </span>
+                                </div>
+                                <div class="col-xs-18 t_bl f_pad3">
+                                    <span class="col-xs-18">
+                                        <label class="col-xs-6 nopadding">Luggage:</label> <span class="col-xs-12 tA_l"> <span ng-bind=" leg['@luggageInclDesc']"></span></span>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-18 col-md-5 get_pad">
+                	<a class="col-xs-18 get_pad fcond" ng-click="getCond(flightList.id, flightList.tourOp)">Flight Rules and Penalties</a>
+                </div>
+                <div class="col-xs-18 col-md-13 pTab">
+
+                    <div class="col-xs-18 col-md-14 f_price tA_C_xs">
+                        <div class="col-xs-18 col-md-6">
+                        	<label>
+                            	<sup><span ng-bind="search_c.Adult"></span></sup>
+                                <span class="icon-get_man ic_sm f_ic_guest sf_price "></span>
+                            </label>
+                            <label ng-if="search_c.Child">
+                                <sup><span ng-bind="search_c.Child"></span></sup>
+                                <span class="icon-get_boy ic_sm_c"></span>
+                             </label>
+                             <label ng-if="search_c.Infant" style="font-size:18px">
+                                <sup><span ng-bind="search_c.Infant"></span></sup>
+                                <span class="icon-Baby ic_sm_c"></span>
+                             </label>
+                        </div>
+                        <div class="col-xs-18 col-md-7 nopadding">
+                        	<sup class="curr_book">&#8358;</sup><span><span ng-bind=" flightList.persons | fprice | number:2 "></span></span>
+                        </div>
+                        <div class="col-xs-18 col-md-5 nopadding" ng-if="search_c.Adult>1 || search_c.Child>0 || search_c.Infant>0">
+                        	<span ng-click="flightList.priceBr='Y'" style="font-size:12px; cursor:pointer">Price Breakdown</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-18 col-md-4 btn-sm btn get_button_primary flight_sel_butt" style="padding:1.23em 1em" id="{{flightList.id}}" name="{{$index}}" ng-click="setcode($event)">Select Flight</div>
+                </div>
+                <div class="col-xs-18 col-md-10 col-md-offset-8" ng-show="flightList.priceBr=='Y'">
+                	<div class="col-xs-18 col-md-9" ng-repeat="per in flightList.persons ">
+                    	<div class="col-xs-5">
+                            <span class="col-xs-18 icon-get_man ic_sm_xx f_ic_guest " ng-if="per['@type']=='ADT'"></span>
+                            <span class="col-xs-18 icon-get_boy ic_sm_xx f_ic_guest " ng-if="per['@type']!='ADT' && per['@type']!='INF'"></span>
+                            <span style="font-size:18px" class="col-xs-18 icon-Baby ic_sm_xx f_ic_guest " ng-if="per['@type']=='INF'"></span>
+                        </div>
+                        <span class="col-xs-13 get_pad  fcond"><span class="curr_book">&#8358;</span><span><span ng-bind="per['@price']|number:2"></span></span></span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div ng-show="more" class="col-xs-18 lmore" ng-bind="more_message"></div>
+        <div class="loading_note" ng-if="load_note" loading></div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="col-md-5 tsumm_s">
+    <div class="col-md-18 tsumm_info">
+        <p class="tsumm_head"> Your Trip Summary</p>
+    </div>
+    <ul class="col-md-18 nopadding tsumm_list">
+        <li class="col-md-18 sf_item" ng-repeat="service in travelPD">
+            <div class="col-md-18 serv_name">{{service.fname}}</div>
+            <div class="col-md-18 serv_type">{{service.productType}}</div>
+            <div class="col-md-18 serv_price_det">
+                <div class="col-md-9 serv_det nopadding">Details</div>
+                <div class="col-md-9 serv_price nopadding">Price: <span ng-bind-html="convS"></span>{{service.convertedPrice | number:2}}</div>
+            </div>
+        </li>
+    </ul>
+    <div class="col-md-18 serv_total">
+         <div class="col-md-7 nopadding"><div class="serv_tlabel">Total Amount:</div></div>
+         <div class="col-md-11 serv_tprice nopadding"><sup class="curr_book" ng-bind-html="convS"></sup>{{totalPrice | number:2}}</div>
+    </div>
+</div>

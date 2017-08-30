@@ -1,0 +1,34 @@
+<div class="col-xs-18 update_search">
+        <div class="col-xs-18 col-sm-6">
+            <div class="col-xs-18"><label>I'm Going to</label></div>
+            <div class="nopadding get_input col-sm-18  col-xs-11">
+                <input type="text" class="col-xs-15 col-sm-15 form-control  input-md trans_input" ng-model="Dest" placeholder="Type a Destination" id="to_complete" name="des">
+                <span class="icon-get_map-pin ic_sm col-xs-3 nopadding"></span>
+            </div>
+        </div>
+        <div class="col-xs-9  col-sm-4">
+            <div class="col-xs-18"><label>From<input type="text" id="fromdate" class="datepicker_dummy" date-from /></label></div>
+
+            <div class="nopadding get_input col-sm-18  col-xs-11">
+                <input type="text" class="col-xs-4 form-control day_month get_pad input-md trans_input" ng-click="setfromdate(0)" ng-model="f_day"  id="h_from_date" placeholder="01" name="" >
+                <input type="text" class="col-xs-5 form-control day_month get_pad input-md trans_input" ng-click="setfromdate(0)" ng-model="f_month"  id="h_from_month" placeholder="July" name="">
+                <input type="text" class="col-xs-6 form-control day_month get_pad input-md trans_input" ng-click="setfromdate(0)" ng-model="f_year" id="h_from_year" placeholder="2015" name="">
+
+                <span ng-click="setfromdate(0)" class="icon-get_calendar nopadding ic_sm_s col-xs-3"></span>
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-4">
+            <div class="col-xs-18"><label>Until<input type="text" id="todate" class="datepicker_dummy" date-to /></label></div>
+            <div class="nopadding get_input col-sm-18  col-xs-11">
+                        <input type="text" class="col-xs-4 form-control day_month get_pad input-md trans_input" ng-click="settodate(0)" ng-model="t_day"  id="h_to_date" placeholder="01">
+                        <input type="text" class="col-xs-5 form-control day_month get_pad input-md trans_input" ng-click="settodate(0)" ng-model="t_month"  id="h_to_month" placeholder="Dec">
+                        <input type="text" class="col-xs-6 form-control day_month get_pad input-md trans_input" ng-click="settodate(0)" ng-model="t_year"  id="h_to_year" placeholder="2015">
+                        <span ng-click="settodate(0)" class="icon-get_calendar nopadding ic_sm_s col-xs-3"></span>
+                    </div>
+        </div>
+        <div class="col-xs-9 col-sm-4">
+            <label>&nbsp;</label>
+            <div class=" col-xs-offset-0 col-xs-9 col-sm-18 get_button_primary btn-lg"  ng-click="setSearch()">Update Search</div>
+        </div>
+        <div class="col-xs-18 change_occu"> <span class="cha_label">For :</span> {{search_c.Adult}} Adults <span ng-if="search_c.Child>0">{{search_c.Child}} Kids</span> From {{search_c.fDepDateLong}} - {{search_c.fDesDateLong}}<span class="cha_action"> (Change Passengers)</span></div>
+    </div>

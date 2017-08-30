@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<response>
+  <booking_number>LLUMVX</booking_number>
+  <booking_errors></booking_errors>
+  <booking_info>
+    <supplier_ref_number>ET: ARTNNA</supplier_ref_number>
+  </booking_info>
+  <offerstatus optionpossible="" messagecode="201"/>
+  <agency_messages>
+    <agency_message type="booking" status="OK"><![CDATA[Thank you for confirmation of the booking.]]></agency_message>
+  </agency_messages>
+  <pricetotal price="473663.00" curr="NGN"/>
+<request>
+    <type>book</type>
+    <conditions>
+      <language>EN</language>
+      <ofr_id>95a09381596c41a139270bfa580ecd185f1639dcc7055ac7a26beb2e1faf3864</ofr_id>
+      <ofr_tourOp>XSAB</ofr_tourOp>
+      <par_adt>1</par_adt>
+	  <par_chd>0</par_chd>
+	  <par_inf/>
+      <number_reference/>
+      <birthdates/>
+    <flightAdvancedSearch>1</flightAdvancedSearch><extraData>adtFlightInfo</extraData></conditions>
+    <forminfo>
+      <Person type="adult"> <gender required="1">H</gender>  <lastname required="1">Olushola</lastname>
+        <name required="1">Adedokun</name>
+        <birthdate>06.11.1986</birthdate>
+        <additional>
+          <contact>
+            <phone required="1">08056666969</phone>
+            <email required="1">sholadedokun@yahoo.com</email>
+          </contact><flight>
+            <seat/>
+            <meal/>
+            <ssr/>
+            <frequentflyerlist1/>
+            <frequentflyer1/>
+          </flight>
+          <document>
+            <doctype/>
+            <country>NGN</country>
+            <number/>
+            <nationality>NGN</nationality>
+            <expiry/>
+          </document>
+          <address>
+            <country>NGN</country>
+            <street/>
+            <streetNr/>
+            <city/>
+            <zipcode/>
+          </address>
+        </additional>
+		</Person>
+
+      <Client>
+        <gender required="1">H</gender>
+        <lastname required="1">Olushola</lastname>
+        <name required="1">Adedokun</name>
+        <street required="1">test</street>
+        <streetNr required="1">123</streetNr>
+        <zipcode required="1">12-345</zipcode>
+        <city required="1">testtt</city>
+        <state required="1">test</state>
+        <country required="1">NG</country>
+        <email required="1">sholadedokun@yahoo.com</email>
+        <phone required="1">08056666969</phone>
+      </Client>
+      <BankTransfer>
+        <transfer required="1"/>
+      </BankTransfer>
+      <LastTicketDate>
+        <date required="1"/>
+        <value>The ticket has to be issued by 18.12.2016 19:00. The deadline can be changed by the carrier.</value>
+      </LastTicketDate>
+      <CreditCard>
+        <type required="1">MasterCard</type>
+        <holderName required="1">Maciej</holderName>
+        <holderSurname required="1">Domachowski</holderSurname>
+        <number required="1">XXXX XXXX XXXX 4444</number>
+        <code required="1">XXX</code>
+        <exp_month required="1">06</exp_month>
+        <exp_year required="1">2017</exp_year>
+      </CreditCard>
+      <Markdown>
+        <amount required="1">
+          <type>float</type>
+          <value>0.00</value>
+        </amount>
+        <currency>
+          <type>text</type>
+          <value>NGN</value>
+        </currency>
+      </Markdown>
+      <Commision>
+        <amount required="1">
+          <type>float</type>
+          <value>0.00</value>
+        </amount>
+        <currency>
+          <type>text</type>
+          <value>PERCENT</value>
+        </currency>
+      </Commision>
+      <Margin>
+        <amount required="1">0.00</amount>
+        <currency>NGN</currency>
+        <marginType required="1">
+          <type>text</type>
+          <value>perPerson</value>
+        </marginType>
+        <type required="1">amount</type>
+      </Margin>
+      <Expected_price>
+        <amount required="1"/>
+        <currency>NGN</currency>
+      </Expected_price>
+    </forminfo>
+  </request>  <offer>
+    <type>NF</type>
+    <outbound>
+      <leg0 depCode="LOS" desCode="ADD" depDate="2016-12-22" depTime="13:35" desDate="2016-12-22" desTime="20:50" durationTime="5:15" equipmentType="77W" flightClass="H" flightClassDesc="Economy" flightNumber="900" carrierCode="ET" operatedBy="ET" marketingAirline="ET" validatingCarrierCode="ET" depDesc="Lagos" desDesc="Addis Ababa" carrierCodeDesc="Ethiopian Airlines" operatedByDesc="Ethiopian Airlines" marketingAirlineDesc="Ethiopian Airlines" validatingCarrierCodeDesc="Ethiopian Airlines" marriageGrpInd="O" fareBasisCode="HNG1 / QPRNG" seatsAvail="" mealsIncl="" mealsInclDesc="" luggageIncl="" luggageInclDesc=""/>
+      <leg1 depCode="ADD" desCode="DXB" depDate="2016-12-22" depTime="23:20" desDate="2016-12-23" desTime="04:25" durationTime="4:05" equipmentType="738" flightClass="H" flightClassDesc="Economy" flightNumber="612" carrierCode="ET" operatedBy="ET" marketingAirline="ET" validatingCarrierCode="ET" depDesc="Addis Ababa" desDesc="Dubai" carrierCodeDesc="Ethiopian Airlines" operatedByDesc="Ethiopian Airlines" marketingAirlineDesc="Ethiopian Airlines" validatingCarrierCodeDesc="Ethiopian Airlines" marriageGrpInd="I" fareBasisCode="HNG1 / QPRNG" seatsAvail="" mealsIncl="" mealsInclDesc="" luggageIncl="" luggageInclDesc=""/>
+    </outbound>
+    <outboundTotalTime minutes="710" FlightTime="560"/>
+    <outboundGaps>
+      <gap0 between="leg0/leg1" minutes="150" duration="2:30"/>
+    </outboundGaps>
+    <inbound>
+      <leg0 depCode="DXB" desCode="ADD" depDate="2017-01-06" depTime="17:10" desDate="2017-01-06" desTime="20:35" durationTime="4:25" equipmentType="350" flightClass="Q" flightClassDesc="Economy" flightNumber="603" carrierCode="ET" operatedBy="ET" marketingAirline="ET" validatingCarrierCode="ET" depDesc="Dubai" desDesc="Addis Ababa" carrierCodeDesc="Ethiopian Airlines" operatedByDesc="Ethiopian Airlines" marketingAirlineDesc="Ethiopian Airlines" validatingCarrierCodeDesc="Ethiopian Airlines" marriageGrpInd="O" fareBasisCode="HNG1 / QPRNG" seatsAvail="" mealsIncl="" mealsInclDesc="" luggageIncl="" luggageInclDesc=""/>
+      <leg1 depCode="ADD" desCode="LOS" depDate="2017-01-07" depTime="09:00" desDate="2017-01-07" desTime="12:25" durationTime="5:25" equipmentType="77W" flightClass="Q" flightClassDesc="Economy" flightNumber="901" carrierCode="ET" operatedBy="ET" marketingAirline="ET" validatingCarrierCode="ET" depDesc="Addis Ababa" desDesc="Lagos" carrierCodeDesc="Ethiopian Airlines" operatedByDesc="Ethiopian Airlines" marketingAirlineDesc="Ethiopian Airlines" validatingCarrierCodeDesc="Ethiopian Airlines" marriageGrpInd="I" fareBasisCode="HNG1 / QPRNG" seatsAvail="" mealsIncl="" mealsInclDesc="" luggageIncl="" luggageInclDesc=""/>
+    </inbound>
+    <inboundTotalTime minutes="1335" FlightTime="590"/>
+    <inboundGaps>
+      <gap0 between="leg0/leg1" minutes="745" duration="12:25" nightStay="1"/>
+    </inboundGaps>
+    <persons>
+      <pers0 curr="NGN" price="473663" type="ADT">
+        <tax0 curr="NGN" price="23601" name="YR"/>
+        <tax1 curr="NGN" price="23601" name="YR"/>
+        <tax2 curr="NGN" price="23601" name="YR"/>
+        <tax3 curr="NGN" price="23601" name="YR"/>
+        <tax4 curr="NGN" price="21057" name="NG"/>
+        <tax5 curr="NGN" price="15325" name="QT"/>
+        <tax6 curr="NGN" price="6130" name="TE"/>
+        <tax7 curr="NGN" price="6260" name="AE"/>
+        <tax8 curr="NGN" price="418" name="TP"/>
+        <tax9 curr="NGN" price="418" name="ZR"/>
+        <tax10 curr="NGN" price="2922" name="F6"/>
+      </pers0>
+    </persons>
+    <inboundflightGaps>
+      <gap0 between="leg0/leg1" duration="12:24" nightStay="1"/>
+    </inboundflightGaps>
+    <outboundflightGaps>
+      <gap0 between="leg0/leg1" duration="2:30"/>
+    </outboundflightGaps>
+    <luggageIncluded></luggageIncluded>
+  </offer>
+  <dictionary>
+    <ssr/>
+    <meal/>
+    <seat/>
+    <doctype/>
+    <country NG="Nigeria"/>
+  </dictionary>
+  <autoticketing>false</autoticketing>
+</response>

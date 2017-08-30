@@ -1,0 +1,107 @@
+<div class="container searchPage">
+    <div class="col-xs-18 search_result partial_view">
+        <div class="col-xs-18 search_bar">
+            <div class="col-xs-18 col-md-14">Search Result for Hotels in {{search_c.hdesdesc}} <input type="hidden" id="new_list" ng-model="new_list" value="{{hotels | orderBy:sortHotel}}" /></div>
+            <div class="col-xs-18 col-md-4 nopadding">
+    			<label class="col-xs-6" style="padding:0.4em 0 0 0" for="sorting">Sort By</label>
+                <div class="col-xs-12 nopadding">
+                    <select class="col-xs-18 nopadding input-sm" ng-model="sort" ng-options="option.value as option.name for option in sorting"></select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-18 col-md-5 filter_s">
+            <div class="col-xs-18 s_info">
+                <p>Your Search returned <span>{{hotels_total}} hotels</span> From</p>
+                <p class="sf_price"> <sup class="curr" ng-bind-html="convS"></sup><span>{{lowest_price | currencyConvert | number:2}}</span></p>
+                <span>Use the field below to refine your search</span>
+
+            </div>
+            <ul class="col-md-18 s_filter nopadding hidden-xs">
+                <li class="col-md-18 pr_item">
+                    <div class="col-md-18"><label>Price</label></div>
+                    <div class=" col-md-6 col-xs-9 s_fil_pad">
+                        <div class="col-md-18 get_input">
+                            <input type="text" class="col-md-18 form-control input-md trans_input_sm" ng-model="minP" placeholder="From" name="">
+                        </div>
+                    </div>
+                    <div class=" col-md-6 col-xs-9 s_fill_pad">
+                        <div class="col-md-18 get_input">
+                            <input type="text" class="col-md-18 form-control input-md trans_input_sm" ng-model="maxP" placeholder="To" name="">
+                        </div>
+                    </div>
+                    <div class="col-xs-18 col-md-6 s_fil_pad">
+                        <div class="col-md-18 get_button_primary btn" ng-click="applyfilter()">Apply</div>
+                    </div>
+                </li>
+                <li class="col-md-18 sf_item">
+                	<div class="col-md-18 service_list">
+                        <div class="col-md-15">Hotel Name</div>
+                        <div class="col-md-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-md-18 s_input">
+                        <input type="text" class="col-md-18 form-control input-sm  get_input trans_input_sm" ng-model="hotel_name" placeholder="Type Hotel Name" name="">
+                    </div>
+                </li>
+                <li class="col-md-18 sf_item">
+                	<div class="col-md-18 service_list">
+                        <div class="col-md-15">Nearest Tourist Attraction</div>
+                        <div class="col-md-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-md-18 s_input">
+                    	<select class="col-sm-18 nopadding get_input input-sm" ng-model="pInt" ng-options="option.pofinterest as option.pofinterest for option in hprox | unique: 'pofinterest' | lowercase"></select>
+                    </div>
+                </li>
+                <li class="col-md-18 sf_item">
+                	<div class="col-md-18 service_list">
+                        <div class="col-md-15">Hotel Chain</div>
+                        <div class="col-md-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
+                    </div>
+                    <div class="col-md-18 s_input">
+                    	<select class="col-sm-18 nopadding get_input input-sm"  ng-model="pChain" ng-options="option.hchainname as option.hchainname for option in hchain | unique: 'hchainname' | lowercase"></select>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-18 col-md-13 list_holder">
+        	<div class="col-xs-18 main_list" ng-repeat="hotel in hotels | orderBy:sortHotel| filter:priceMin| filter:priceMax | filter:pOfInt | filter:pChainName | filter:hotelName">
+            <div class="col-xs-18 col-md-4 img_holder nopadding">
+            	<img src="{{hotel.hotelImages[0] | imglarge}}" class="link" name="{{hotel.hotelCode}}" hname="{{hotel.hotelName}}" ng-click="sethotels_details($event, $index)" width="100%" height="100%" />
+            </div>
+            <div class="col-xs-18 col-md-10 hdetails">
+                <div class="col-xs-18 col-md-12 link h_title nopadding" name="{{hotel.hotelCode}}" hname="{{hotel.hotelName}}" ng-click="sethotels_details($event, $index)">{{hotel.hotelName}}</div>
+                <div class="col-xs-18 col-md-6 h_rate"  ng-if="hotel.tag=='Juniper'" hotel-star rate="{{hotel.hotelCat['@attributes']}}"></div>
+                <div class="col-xs-18 col-md-6 h_rate"  ng-if="hotel.tag=='HotelBed'" hotel-star rateex="{{hotel.hotelCat.$}}"></div>
+                <div class="col-xs-18 map_shdetails" ng-if="hotel.tag=='Juniper'">{{hotel.destination[0]}} <span><a href="#">Show Map</a></span></div>
+                <div class="col-xs-18 map_shdetails" ng-if="hotel.tag=='HotelBed'">{{hotel.destination.Name}},  {{hotel.destination.ZoneList.Zone['$']}} <span><a href="#">Show Map</a></span></div>
+                <div class="col-xs-18 h_details" ng-if="hotel.tag=='HotelBed'" hotel-detail hotelcode="{{hotel.hotelCode}}" hotelcat="{{hotel.hotelCat['@code']}}" >Loading Hotel Details...</div>
+                <div class="col-xs-18 h_details"  ng-if="hotel.tag=='Juniper'" ng-bind="hotel.description[0] | limitTo:190"></div>
+                <div class="col-xs-18 r_v_c">
+                    <div class="col-xs-18 col-md-4 nopadding">Rate:4.1/5</div>
+                    <div class="col-xs-18 col-md-5 nopadding">5 Guest Reviews</div>
+                    <div class="col-xs-18 col-md-5 nopadding">Compare</div>
+                </div>
+            </div>
+            <div class="col-xs-18 col-md-4 price_action">
+                <div class="m_price"> <sup class="curr_book" ng-bind-html="convS"></sup><span>{{hotel.availRoom | lower_price | currencyConvert | number:2}}</span></div>
+                <div class="p_det">Avg/Room</div>
+                <div class="v_details link" name="{{hotel.hotelCode}}" hname="{{hotel.hotelName}}" ng-click="sethotels_details($event, $index)">View Details</div>
+                <div class="book_but col-xs-18 get_button_primary btn-lg"  id="{{hotel.availToken}}" name="{{hotel.hotelCode}}"  ng-click="book_room($event, $index, 0)">Book</div>
+            </div>
+            <div class="col-xs-18 room_spec">
+                <div class="col-xs-18 col-md-5 nopadding">{{hotel.availRoom | first_r}}</div>
+                <div class="col-xs-18 col-md-5 nopadding">{{hotel.availRoom | first_b}}</div>
+                <div class="col-xs-18 col-md-2 nopadding"><span ng-bind-html="convS"></span>{{hotel.availRoom | pernight:search_c.htotalnight | currencyConvert | number:2}}/night</div>
+                <div class="col-xs-18 col-md-6 board_types">
+                	<div class="col-xs-18" hotelspecroom roomz="{{hotel.availRoom}}" name="{{$index}}">
+                        <span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span>
+                        <a class="special_link plus_ic ">View Other Room Options</a>
+                        <a class="special_link minus_ic hideme">Hide Other Room Options</a>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-md-18 nopadding hideme"></div>-->
+        </div>
+        </div>
+        <div class="loading_note" ng-if="load_note" loading></div>
+    </div>
+</div>

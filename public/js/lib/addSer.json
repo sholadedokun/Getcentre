@@ -1,0 +1,11 @@
+[ 
+{"code":"", "name":"Select Special Service"},
+{"code":"WCHR", "name":"wheelchair / passenger can walk up stairs"},
+{"code":"WCHS", "name":"wheelchair / passenger can walk to seat"},
+{"code":"WCHC", "name":"wheelchair / passenger must be carried"},
+{"code":"WCBD", "name":"wheelchair with dry cell battery"},
+{"code":"WCBW", "name":"wheelchair with wet cell battery"},
+{"code":"WCMP", "name":"wheelchair, manual power"},
+{"code":"WCOB", "name":"wheelchair, on-board"},
+{"code":"WCLB", "name":"wheelchair with lithium battery"}
+]

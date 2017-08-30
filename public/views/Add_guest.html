@@ -1,0 +1,796 @@
+ <div class="container searchPage">
+    <div class="col-xs-18 travel_bag  partial_view">
+        <div class="col-xs-18 nopadding" >
+            <div class="col-md-6 col-xs-18 tra_nav hidden-xs">Your Trip Bag</div>
+            <div class="col-md-6 col-xs-18 tra_nav curhead">Guest | Passenger and Payment Details</div>
+            <div class="col-md-6 col-xs-18 tra_nav hidden-xs">Voucher</div>
+        </div>
+        <div class="col-xs-18 headers acct_det">Account Details</div>
+        <div class="col-xs-18 acct" ng-controller="mainController" ng-switch on="user[0].status">
+        	<div class="col-xs-18" name="login_register" ng-switch-when="Register">
+            	<div class="col-xs-18 col-md-14">
+                    <div class="col-xs-18 nopadding ">
+                    	<label><h3>To easily manage your bookings, Please login or Register an account with us.</h3></label>
+                    </div>
+                    <div class="col-xs-18 nopadding"><label  class="col-xs-18">Benefits: </label>
+                    	<span class="nopadding col-xs-18 col-md-9">Amazing discounts on your bookings and reservations.</span>
+                        <span class="nopadding col-xs-18 col-md-9">Easily track and manage your bookings and reservations.</span>
+                        <span class="nopadding col-xs-18 col-md-9">Enjoy free packaged vactaion for our faithful customers.</span>
+                        <span class="nopadding col-xs-18 col-md-9">Become our agent and enjoy even more benefits.</span>
+                    </div>
+                    <div class="col-xs-18 acct_note"><label>Note : </label>You don't have to Register to finish your booking.</div>
+                </div>
+    	        <div class="col-xs-18 col-md-4">
+                	<button type="submit" ng-click="openRegister('login')"  class="col-xs-offset-1 col-xs-16 btn btn-default btn-sm get_pad get_button_primary">Login</button>
+                        <div class="col-xs-offset-1 col-xs-16 voucher_email_sent s_label">OR</div>
+                        <button type="submit" ng-click="openRegister('register')" class="col-xs-offset-1 col-xs-16 btn btn-default btn-sm get_pad get_button_primary">Register</button>
+                </div>
+            </div>
+            <div class="col-xs-18 complete_book" name="login_register" ng-switch-when="Logged_in">
+                <div class="col-xs-18 s_label">This Booking Will be Added to the User Account below:</div>
+                <div class="col-xs-18 col-md-12 ">
+                    <span class="col-xs-18"><span class="s_label">Full Name: </span>{{user[1].fname}} {{user[1].lname}}</span>
+                    <span class="col-xs-18"><span class="s_label">Email Address: </span>{{user[1].email}}</span>
+                    <span class="col-xs-18"><span class="s_label">Phone Number: </span>{{user[1].phone}}</span>
+                </div>
+                <div class="col-xs-18 col-md-6 nopadding">
+                    <a style="margin-bottom:10px;" ng-click="openRegister('register')" class="col-xs-16 btn btn-default btn-sm get_pad get_button_primary">Register New Account</a>
+                    <a style="margin-bottom:10px;" ng-click="openRegister('login')"  class="col-xs-16 btn btn-default btn-sm get_pad get_button_primary">Change User </a>
+                </div>
+            </div>
+        </div>
+        <form ng-submit="bookings()" name="guestSUb">
+
+        	<div class="col-xs-18 col-md-13 travel_list nopadding">
+        	<div class="col-xs-18 headers ">Add Lead Guest</div>
+            <div class="col-xs-18 lead_guest">
+            	<div class="col-xs-18 col-sm-4  each_form">
+                    <label class="col-xs-7 col-md-6 get_pad hidden-sm">Title</label>
+                    <div class="nopadding bookingFormInput col-sm-18  col-xs-11 col-md-12">
+                        <select class=" nopadding col-xs-18 col-sm-18 form-control trans_input_sm input-md" ng-model="def.title" id="title">
+                          <option>Mr.</option>
+                          <option>Mrs.</option>
+                          <option>Miss.</option>
+                          <option>Dr.</option>
+                          <option>Prof.</option>
+                          <option>Engr.</option>
+                        </select>
+                    </div>
+                </div>
+            	<div class="col-xs-18 col-sm-7  each_form">
+                    <label class="col-xs-7 col-md-6 get_pad hidden-sm">First Name</label>
+                    <div class="nopadding bookingFormInput col-sm-18  col-xs-11 col-md-12">
+                        <input type="text" class="col-xs-18 col-sm-18 form-control trans_input_sm input-md " ng-model="def.fname" placeholder="Lead Guest's First Name" required="required">
+
+                    </div>
+                </div>
+                <div class="col-xs-18 col-sm-7 each_form">
+                    <label class="col-xs-7 col-md-6 get_pad hidden-sm">Surname</label>
+                    <div class="nopadding bookingFormInput col-sm-18  col-xs-11 col-md-12">
+                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="def.lname" placeholder="Lead Guest's Surname" required="required">
+
+                    </div>
+                </div>
+                <div class="col-xs-18 col-sm-offset-4 col-sm-7  each_form">
+                    <label class="col-xs-7 col-md-6 get_pad hidden-sm">Email</label>
+                    <div class="nopadding bookingFormInput col-sm-18  col-xs-11 col-md-12">
+                        <input type="text" class="col-xs-18 col-sm-18 form-control trans_input_sm input-md " ng-model="def.email" placeholder=" Lead Guest's Email Address" required="required">
+
+                    </div>
+                </div>
+                <div class="col-xs-18 col-sm-7 each_form">
+                    <label class="col-xs-7 col-md-6 get_pad hidden-sm">Phone</label>
+                    <div class="nopadding bookingFormInput col-sm-18  col-xs-11 col-md-12">
+                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="def.phone" placeholder=" Lead Guest's Phone Number" required="required">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-18 headers ">Services</div>
+
+            <div class="col-xs-18 service_list"  ng-repeat="service in travelPD">
+            	<div class="col-xs-18" ng-if="service.productType=='Hotel'">
+                    <div class="col-xs-5 service_name">Hotel</div>
+                    <div class="col-xs-13 headers">{{service.Name}}</div>
+                    <div class="col-xs-18 col-md-13 pull-right service_date date_guest">
+                        <div class="col-xs-18  nopadding"><span class="s_label">From: </span>{{service.hcheckinL}} -> <span class="s_label">To: </span> {{service.hcheckoutL}}</div>
+                        <div class="col-xs-18 nopadding"><span class="s_label">Total Number of Days: </span> {{service.total_nights}}</div>
+                    </div>
+                    <div class="col-xs-18 col-md-13 nopadding pull-right view_all_boards">
+
+                        <div class="col-xs-18 nopadding other_room_spec" ng-repeat="room in service.guestBreak">
+                            <div class="col-xs-18 s_label room_num" ng-show="service.guestBreak.length>1">Room {{$index+1}} <span>of {{service.guestBreak.length}}</span></div>
+                            <div class="col-xs-18 col-md-13 room_spec">{{room.roomtype}} ({{room.board}}) | {{service.hroomdist[$index][0].value}} Adult, {{service.hroomdist[$index][1].value}} Kids</div>
+                            <div class="col-xs-18 col-md-5 t_price">
+                                <div class="col-xs-18 col-md-12"><sup class="curr_book"  ng-bind-html="convS"></sup><span>{{room.price   | currencyConvert | number:2}}</span></div>
+                            </div>
+                            <!--<div class="col-xs-18 add_det_guest" revealer>
+                                <span class="add_icon plus_ic">+</span><span class="add_icon minus_ic hideme">-</span><a class="special_link">Add Other Guest Details (Optional)</a>
+                            </div>-->
+                            <!--hideme-->
+                            <div class="service_guest_details no-padding col-xs-18">
+                                    <div class="col-xs-18 no-padding" ng-repeat="guest in room.guest_details.guest">
+                                        <div class="col-xs-18 no-padding">
+                                            <div class="col-xs-4 no-padding each_form" ng-if="guest.title!='Child'">
+                                                <div class="nopadding bookingFormInput col-xs-18  col-xs-11">
+                                                    <select class=" nopadding col-xs-18 form-control trans_input_sm input-md" ng-model="guest.title" id="title">
+                                                      <option>Mr.</option>
+                                                      <option>Mrs.</option>
+                                                      <option>Miss.</option>
+                                                      <option>Dr.</option>
+                                                      <option>Prof.</option>
+                                                      <option>Engr.</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 get_pad each_form" ng-if="guest.title=='Child'">
+                                                <label class="col-xs-18 col-md-6 get_pad hidden-sm">Child</label>
+                                            </div>
+                                            <div class="col-xs-14 col-sm-7 get_pad  each_form">
+                                                <div class="nopadding bookingFormInput col-xs-18">
+                                                    <input type="text" ng-if="$index==0" class="col-xs-18 form-control trans_input_sm input-md" ng-model="guest.fname" placeholder="Guest's First Name" required="required">
+                                                    <input type="text" ng-if="$index!=0" class="col-xs-18 form-control trans_input_sm input-md" ng-model="guest.fname" placeholder="Guest's First Name">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-18 col-sm-7 no-padding each_form">
+                                                <div class="nopadding bookingFormInput col-xs-18 ">
+                                                    <input type="text" ng-if="$index==0" class=" col-xs-18 form-control trans_input_sm input-md" ng-model="guest.lname" placeholder="Guest's Surname" required="required">
+                                                    <input type="text" ng-if="$index!=0" class=" col-xs-18 form-control trans_input_sm input-md" ng-model="guest.lname" placeholder="Guest's Surname">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="col-xs-18 no-padding">
+                                <div class="col-xs-18 no-padding each_form">
+                                    <label class="col-xs-18 no-padding hidden-sm">Add Special Room Request</label>
+                                    <div class=" bookingFormInput no-padding col-xs-18">
+                                        <textarea type="text" class="col-xs-18 form-control textarea_input input-md" ng-model="room.guest_details.comment" placeholder="special request for this Room (E.g Non-smoking Room)"></textarea>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-18 no-padding contact_cancel">
+                                <span  class="col-xs-18">Cancellation Policy</span>
+
+                                <div ng-if="service.product=='HotelBed'" ng-bind-html="room.cancel | hotel_room_policy"></div>
+                                 <div ng-if="service.product=='Juniper'" ng-bind="room.cancel.booking_rule"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-18 remove_book"><div class="col-md-offset-13 get_button_reset col-md-5 btn-lg">Delete Booking</div></div>
+                </div>
+                <div class="col-xs-18" ng-if="service.productType=='Tour'">
+                    <div class="col-xs-5 service_name">Tour</div>
+                    <div class="col-xs-13 headers">{{service.Name}}</div>
+                    <div class="col-md-13 col-xs-18 pull-right service_date date_guest">
+                        <div class="col-xs-18 nopadding"><span class="s_label">{{service.categoryName}} On: </span>{{service.ticketDate | hdate}}</span></div>
+                    </div>
+                    <div class="col-xs-18 col-md-13 pull-right view_all_boards">
+                        <div class="col-xs-18 nopadding other_room_spec" >
+                            <div class="col-md-14 room_spec">{{service.Adult}} Adult, {{service.Child}} Kids</div>
+                            <div class="col-md-4 t_price">
+                                <div class="col-md-12"><sup class="curr_book"  ng-bind-html="convS"></sup><span>{{service.Price  | currencyConvert | number:2}}</span></div>
+                            </div>
+                            <div class="col-xs-18 add_det_guest" revealer>
+                                <span class="add_icon plus_ic">+</span><span class="add_icon minus_ic hideme">-</span><a class="special_link">Add Other Guest Details (Optional)</a>
+                            </div>
+                            <div class="service_guest_details hideme col-xs-18">
+                                    <div class="col-xs-18" ng-repeat="guest in service.guestBreak[0].guest_details.guest">
+                                        <div class="col-xs-18">
+                                            <div class="col-sm-4 get_pad each_form" ng-if="guest.title!='Child'">
+                                                <div class="nopadding bookingFormInput col-xs-18  col-xs-11 col-xs-18">
+                                                    <select class=" nopadding col-xs-18 form-control trans_input_sm input-md" ng-model="guest.title" id="title">
+                                                      <option>Mr.</option>
+                                                      <option>Mrs.</option>
+                                                      <option>Miss.</option>
+                                                      <option>Dr.</option>
+                                                      <option>Prof.</option>
+                                                      <option>Engr.</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 get_pad each_form" ng-if="guest.title=='Child'">
+                                                <label class="col-xs-18 col-md-6 get_pad hidden-sm">Child</label>
+                                            </div>
+                                            <div class="col-xs-14 col-sm-7 get_pad each_form">
+                                                <div class="nopadding bookingFormInput col-xs-18">
+                                                    <input type="text" class="col-xs-18 form-control trans_input_sm input-md " ng-model="guest.fname" placeholder="Guest's First Name">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-18 col-sm-7 get_pad each_form">
+                                                <div class="nopadding bookingFormInput col-xs-18">
+                                                    <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="guest.lname" placeholder="Guest's Surname">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="col-xs-18">
+                                <div class="col-xs-18  each_form">
+                                    <label class="col-xs-7 col-md-6 get_pad hidden-sm">Add Special Tour Request</label>
+                                    <div class="nopadding bookingFormInput col-sm-18  col-xs-11 col-md-12">
+                                        <textarea type="text" class="col-xs-18 form-control textarea_input input-md" ng-model="service.guest_details.comment" placeholder="special request for this tour "></textarea>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-18 contact_cancel">
+                                <span class="col-xs-18">Contract Remarks</span>
+                               {{service.comment}}
+                            </div>
+                            <div class="col-xs-18 contact_cancel">
+                                <span  class="col-xs-18">Cancellation Policy</span>
+                                <div ng-bind-html="service.cancel | tour_cancel_policy"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-12 contact_cancel">
+                        <span class="col-xs-18">Contract Remarks</span>
+                        I have been motivated by my first degree in one of the Financial Capitals of the world, by reading books like ‘Combating  Financial  Crime’ (The  Chartered  Institute  for  Securities  & Investment) and by watching webinars on topics such as fraud, bribery, money laundry and terrorist financing.  These have made me inquisitive and aspire to serve in the Financial Industry as a Compliance specialist.
+                    </div>-->
+                    <div class="col-xs-18 remove_book"><div class="col-md-offset-13 get_button_reset col-md-5 btn-lg">Delete Booking</div></div>
+                </div>
+                <div class="col-xs-18" ng-if="service.productType=='Transfer'">
+                    <div class="col-md-5 service_name">Transfer</div>
+                    <div class="col-md-13 headers">{{service.Name}}</div>
+                    <div class="col-md-13 pull-right service_date date_guest">
+                        <div class="col-xs-18 nopadding">
+                    	<span class="s_label">Pickup From ({{service.pickType}}) {{service.pickup.Name}}</span>
+                        <span ng-if="service.pickType=='Hotel'"> {{service.pickup.LocationInformation.Address}},{{service.pickup.serviceZone.Code}}  {{service.pickup.LocationInformation.Town}} {{service.pickup.LocationInformation.Zip}} </span>
+                        <span ng-if="service.pickType!='Hotel'" class="s_label">, {{service.pickup.Country['@code']}}</span>
+                        <span class="col-xs-18" ng-if="service.pickType!='Hotel'"> <span class="s_label"> On: </span>({{service.pickup.DateTime['@time'] | htime}}){{service.pickup.DateTime['@date'] | hdate}}
+                        </span>
+                    </div>
+                    	<div class="col-xs-18 nopadding">
+                    	<span class="s_label">Dropoff at ({{service.dropType}}) {{service.dropOff.Name}}</span>
+                         <span ng-if="service.dropType=='Hotel'"> {{service.dropOff.LocationInformation.Address}}, {{service.dropOff.serviceZone.Code}} {{service.dropOff.LocationInformation.Town}} {{service.dropOff.LocationInformation.Zip}} </span>
+                        <span ng-if="service.dropType!='Hotel'" class="s_label">, {{service.dropOff.Country['@code']}}</span>
+                        <span class="col-xs-18" ng-if="service.dropType!='Hotel'"> <span class="s_label"> On: </span>({{service.dropOff.DateTime['@time'] | htime}}){{service.dropOff.DateTime['@date'] | hdate}}  </span>
+                    </div>
+                    </div>
+                    <div class="col-md-13 pull-right view_all_boards">
+                        <div class="col-xs-18 nopadding other_room_spec" >
+                            <div class="col-md-14 room_spec">{{service.Adult}} Adult, {{service.Child}} Kids</div>
+                            <div class="col-md-4 t_price">
+                                <div class="col-md-12"><sup class="curr_book" ng-bind-html="convS"></sup><span>{{service.Price  | currencyConvert | number:2}}</span></div>
+                            </div>
+                            <div class="col-xs-18 add_det_guest" revealer>
+                                <span class="add_icon plus_ic">+</span><span class="add_icon minus_ic hideme">-</span><a class="special_link">Add Other Guest Details (Optional)</a>
+                            </div>
+                            <div class="service_guest_details hideme col-xs-18">
+                                    <div class="col-xs-18" ng-repeat="guest in service.guest_details.guest">
+                                        <div class="col-xs-18">
+                                            <div class="col-sm-4 get_pad each_form" ng-if="guest.title!='Child'">
+                                                <div class="nopadding bookingFormInput col-sm-18  col-xs-11 col-xs-18">
+                                                    <select class=" nopadding col-xs-18 col-sm-18 form-control trans_input_sm input-md" ng-model="guest.title" id="title">
+                                                      <option>Mr.</option>
+                                                      <option>Mrs.</option>
+                                                      <option>Miss.</option>
+                                                      <option>Dr.</option>
+                                                      <option>Prof.</option>
+                                                      <option>Engr.</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 get_pad each_form" ng-if="guest.title=='Child'">
+                                                <label class="col-xs-7 col-md-6 get_pad hidden-sm">Child</label>
+                                            </div>
+                                            <div class="col-sm-7 get_pad each_form">
+                                                <div class="nopadding bookingFormInput col-xs-18">
+                                                    <input type="text" class="col-xs-18 col-sm-18 form-control trans_input_sm input-md " ng-model="guest.fname" placeholder="Guest's First Name">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-7 get_pad each_form">
+                                                <div class="nopadding bookingFormInput col-xs-18">
+                                                    <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="guest.lname" placeholder="Guest's Surname">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="col-xs-18">
+                                <div class="col-sm-18  each_form">
+                                    <label class="col-xs-7 col-md-6 get_pad hidden-sm">Add Special Transfer Request</label>
+                                    <div class="nopadding bookingFormInput col-sm-18  col-xs-11 col-md-12">
+                                        <textarea type="text" class="col-xs-18 form-control textarea_input input-md" ng-model="service.guest_details.comment" placeholder="special request for this Transfer "></textarea>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 contact_cancel">
+                                <span class="col-xs-18">Pick Up Information</span>
+                               {{service.transpickupInfo.Description}}
+                            </div>
+                            <div class="col-xs-18 contact_cancel">
+                                <span class="col-xs-18">Contract Remarks</span>
+                                <div class="col-xs-18" ng-repeat="policy in service.transferInfo">
+                                    <span class="s_label col-xs-18">{{policy.Description}}</span>
+                                    {{policy.DetailedDescription}}
+                                </div>
+                            </div>
+                            <div class="col-xs-18 contact_cancel">
+                                <span  class="col-xs-18">Cancellation Policy</span>
+                                <div ng-bind-html="service.cancel | hotel_room_policy"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-12 contact_cancel">
+                        <span class="col-xs-18">Contract Remarks</span>
+                        I have been motivated by my first degree in one of the Financial Capitals of the world, by reading books like ‘Combating  Financial  Crime’ (The  Chartered  Institute  for  Securities  & Investment) and by watching webinars on topics such as fraud, bribery, money laundry and terrorist financing.  These have made me inquisitive and aspire to serve in the Financial Industry as a Compliance specialist.
+                    </div>-->
+                    <div class="col-xs-18 remove_book"><div class="col-md-offset-13 get_button_reset col-md-5 btn-lg">Delete Booking</div></div>
+                </div>
+                <div class="col-xs-18" ng-if="service.productType=='Flight'">
+                    <div class="col-xs-5 service_name">Flight</div>
+                    <div class="col-xs-13 headers" ng-bind="service.flightTypeName"></div>
+                    <div class="col-xs-18 col-md-13 service_date pull-right date_guest">
+                        <div class="col-xs-18 nopadding" ng-repeat="serv in service.flightDetails">
+                            <span class="s_label">{{serv.fname}}</span>
+                            {{serv.depDate | shortdate}} ({{serv.depDate+' '+serv.depTime | time_am_pm }}) ->
+                            {{serv.desDate | shortdate}} ({{serv.desDate+' '+serv.desTime | time_am_pm }})
+                        </div>
+
+                    </div>
+                    <div class="col-xs-18 col-md-13 pull-right view_all_boards">
+                        <div class="col-xs-18 nopadding s_label" style="font-size:24px">Passenger Details</div>
+                        <span><label>Please, input your details as it appears on your travel document.</label></span>
+                        <div class="col-xs-18 other_room_spec pass_box" ng-repeat="adult in service.guest_details.adult track by $index">
+                            <div class="col-xs-18 s_label">Adult {{$index+1}} <span>of {{service.guest_details.adult.length}}</span></div>
+                            <div class="service_guest_details col-xs-18">
+                                <div class="col-xs-4 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class=" nopadding col-xs-18 col-sm-18 form-control trans_input_sm input-md" ng-model="adult.title" required="required">
+                                          <option value="H">Mr.</option>
+                                          <option value="F">Mrs.</option>
+                                          <option value="MS">Miss.</option>
+                                          <option value="DR">Dr.</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-18 col-sm-7 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18 ">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="adult.fname" placeholder="First name" required="required">
+                                    </div>
+                                </div>
+                                <div class="col-xs-14 col-sm-7 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md " ng-model="adult.lname" placeholder="Surname" required="required">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-18 col-sm-9 get_pad each_form" ng-if="$index==0">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="email" class="col-xs-18 form-control trans_input_sm input-md" ng-model="adult.email" placeholder="Email Address" required="required" >
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-18 col-sm-9 get_pad each_form" ng-if="$index==0">
+                                    <div class="nopadding bookingFormInput col-xs-18 ">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="adult.phone" placeholder="Phone Number" required="required">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-18 col-sm-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input required="required" type="text" class="col-xs-18 form-control trans_input_sm input-md " ng-model="adult.dbirth " placeholder="Date Of Birth" birth-date >
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-18"><span class="sub_title">Travel Document </span>(* only required if passenger is traveling to USA OR CANADA)</div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="adult.docuType"  ng-options="options.code as options.name for options in docuType" ng-init="adult.docuType = docuType[0].code">
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="adult.docuIssuCoun"  ng-options="options.code as options.name for options in docuIssuCoun" ng-init="adult.docuIssuCoun = docuIssuCoun[0].code">
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="adult.docuNumber" placeholder="Travel Document Number">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="adult.docuExp" placeholder="Travel Document Expiry Date">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-18 add_det_guest" revealer>
+                                <span class="add_icon plus_ic">+</span><span class="add_icon minus_ic hideme">-</span><a class="special_link">Add Other Passenger Details (Optional)</a>
+                            </div>
+                            <div class="service_guest_details hideme col-xs-18">
+                            	<div class="col-xs-18 sub_title">Contact Details</div>
+                            	<div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="adult.caddress" placeholder="Current Address">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="adult.city" placeholder="Current City">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="adult.state" placeholder="Current State">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="adult.pcode" placeholder="Post Code">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="adult.country"  ng-options="options.code as options.name for options in country   " ng-init="adult.country = country[0].code"    >
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="adult.nationality"  ng-options="options  as options for options in nationality   " ng-init="adult.nationality = nationality[0]">
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-18 sub_title">Special Needs</div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="adult.Pmeal"  ng-options="options.code as options.name for options in Pmeal   " ng-init="adult.Pmeal = Pmeal[0].code"    >
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="adult.SeatinP"  ng-options="options.code as options.name for options in SeatinP   " ng-init="adult.SeatinP = SeatinP[0].code"    >
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="adult.AddService"  ng-options="options.code as options.name for options in AddService   " ng-init="adult.AddService = AddService[0].code"    >
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                 <!--<div class="col-md-9 get_pad each_form">
+                                    <div class="col-xs-18 get_pad  bookingFormInput room_type">
+                                            <select class="input_xs col-xs-18" ng-model="adult.country"  ng-options="options.code as options.name for options in country   " ng-init="adult.country = country[0].name"    >
+                                            </select>
+                                        </div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <div class="col-xs-18 other_room_spec pass_box" ng-repeat="child in service.guest_details.child track by $index">
+                            <div class="col-xs-18 s_label">Child {{$index+1}} <span>of {{service.guest_details.child.length}}</span></div>
+                            <div class="service_guest_details col-xs-18">
+                                <span class="col-xs-18"><label>Date of Birth:</label> {{child.dbirth}}</span>
+                                <div class="col-sm-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md " ng-model="child.fname" placeholder="Child's First Name" required="required">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="child.lname" placeholder="Child's Surname" required="required">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-18"><span class="sub_title">Travel Document </span>(* only required if passenger is traveling to USA OR CANADA)</div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="child.docuType"  ng-options="options.code as options.name for options in docuType" ng-init="child.docuType = docuType[0].code">
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="child.docuIssuCoun"  ng-options="options.code as options.name for options in docuIssuCoun" ng-init="child.docuIssuCoun = docuIssuCoun[0].code">
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="child.docuNumber" placeholder="Travel Document Number">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="child.docuExp" placeholder="Travel Document Expiry Date">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-18 add_det_guest" revealer>
+                                <span class="add_icon plus_ic">+</span><span class="add_icon minus_ic hideme">-</span><a class="special_link">Add Other Passenger Details (Optional)</a>
+                            </div>
+                            <div class="service_guest_details hideme col-xs-18">
+                            	<div class="col-xs-18 sub_title">Contact Details</div>
+                            	<div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="child.caddress" placeholder="Current Address">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="child.city" placeholder="Current City">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="child.state" placeholder="Current State">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="child.pcode" placeholder="Post Code">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="child.country"  ng-options="options.code as options.name for options in country   " ng-init="child.country = country[0].code"    >
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="child.nationality"  ng-options="options  as options for options in nationality   " ng-init="child.nationality = nationality[0]">
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-18 sub_title">Special Needs</div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="child.Pmeal"  ng-options="options.code as options.name for options in Pmeal   " ng-init="child.Pmeal = Pmeal[0].code"    >
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="child.SeatinP"  ng-options="options.code as options.name for options in SeatinP   " ng-init="child.SeatinP = SeatinP[0].code"    >
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="child.AddService"  ng-options="options.code as options.name for options in AddService   " ng-init="child.AddService = AddService[0].code"    >
+                                        </select>
+
+                                    </div>
+                                </div>
+                                 <!--<div class="col-md-9 get_pad each_form">
+                                    <div class="col-xs-18 get_pad  bookingFormInput room_type">
+                                            <select class="input_xs col-xs-18" ng-model="child.country"  ng-options="options.code as options.name for options in country   " ng-init="child.country = country[0].name"    >
+                                            </select>
+                                        </div>
+                                </div>-->
+                            </div>
+
+                        </div>
+                        <div class="col-xs-18 other_room_spec pass_box" ng-repeat="infant in service.guest_details.infant track by $index">
+                            <div class="col-xs-18 s_label">Infant {{$index+1}} <span>of {{service.guest_details.infant.length}}</span></div>
+                            <div class="service_guest_details col-xs-18">
+                                <span class="col-xs-18"><label>Date of Birth:</label> {{infant.dbirth}}</span>
+                                <div class="col-sm-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md " ng-model="infant.fname" placeholder="Infant's First Name" required="required">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="infant.lname" placeholder="Infant's Surname" required="required">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-18 add_det_guest" revealer>
+                                <span class="add_icon plus_ic">+</span><span class="add_icon minus_ic hideme">-</span><a class="special_link">Add Other Passenger Details (Optional)</a>
+                            </div>
+                            <div class="service_guest_details hideme col-xs-18">
+                            	<div class="col-xs-18 sub_title">Contact Details</div>
+                            	<div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="infant.caddress" placeholder="Current Address">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="infant.city" placeholder="Current City">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="infant.state" placeholder="Current State">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="infant.pcode" placeholder="Post Code">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="infant.country"  ng-options="options.code as options.name for options in country   " ng-init="infant.country = country[0].code"    >
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="infant.nationality"  ng-options="options  as options for options in nationality   " ng-init="infant.nationality = nationality[0]">
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-18 sub_title">Travel Document</div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="infant.docuType"  ng-options="options.code as options.name for options in docuType" ng-init="infant.docuType = docuType[0].code">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="infant.docuIssuCoun"  ng-options="options.code as options.name for options in docuIssuCoun" ng-init="infant.docuIssuCoun = docuIssuCoun[0].code">
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="infant.docuNumber" placeholder="Travel Document Number">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="infant.docuExp" placeholder="Travel Document Expiry Date">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-18 sub_title">Special Needs</div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="infant.Pmeal"  ng-options="options.code as options.name for options in Pmeal   " ng-init="infant.Pmeal = Pmeal[0].code"    >
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="infant.SeatinP"  ng-options="options.code as options.name for options in SeatinP   " ng-init="infant.SeatinP = SeatinP[0].code"    >
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-9 get_pad each_form">
+                                    <div class="nopadding bookingFormInput col-xs-18">
+                                        <select class="input_xs col-xs-18" ng-model="infant.AddService"  ng-options="options.code as options.name for options in AddService   " ng-init="infant.AddService = AddService[0].code"    >
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                 <!--<div class="col-md-9 get_pad each_form">
+                                    <div class="col-xs-18 get_pad  bookingFormInput room_type">
+                                            <select class="input_xs col-xs-18" ng-model="infant.country"  ng-options="options.code as options.name for options in country   " ng-init="infant.country = country[0].name"    >
+                                            </select>
+                                        </div>
+                                </div>-->
+                            </div>
+
+                        </div>
+                        <div class="col-xs-18 nopadding contact_cancel">
+                            <span  class="col-xs-18">Reservation Policy</span>
+                            <div>{{service.lastTicketDate}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-18 headers ">Comfirmation &amp; Payment</div>
+            <div class="col-xs-18 pay_confirm">
+                <div ng-show=" user[1].utype=='Agent'" class="col-xs-18">
+                    <h4>Agent Price Discount</h4>
+                    <div class="col-xs-18 no-padding agentTableHead">
+                        <span class="col-xs-9">Name</span>
+                        <span class="col-xs-3">Rate</span>
+                        <span class="col-xs-3">Discount</span>
+                        <span class="col-xs-3">Price</span>
+                    </div>
+                    <div class="col-xs-18 no-padding"  ng-repeat="service in travelPD"  run-after-repeat>
+
+                        <div ng-if="service.productType=='Hotel'" ng-init="processAgentDiscountFlight(service)">
+                            <div class="col-xs-18"> <label>Hotel</label><span ng-bind="service.name"></span></div>
+                            <span>Current Discount Rate  :</span><span ng-bind="service.hotelDiscount"></span>
+                        </div>
+                        <div ng-if="service.productType=='Flight'" ng-init="processAgentDiscountFlight(service)">
+                            <div class="col-xs-18 no-padding serviceDiscount" >
+                                <div class="col-xs-9">
+                                    <label><span ng-bind="service.flightTypeName"></span> Flight</label>:
+                                    <span ng-repeat="flight in service.flightDetails">
+                                        <span ng-if="$index>0"> | </span>
+                                        <span ng-bind="flight.fname"></span>
+                                    </span>
+                                </div>
+                                <div class="col-xs-3" ><span ng-bind-html="convS"></span><span ng-bind="service.Price | number:2"></span></div>
+                                <div class="col-xs-3" ><span ng-bind-html="convS"></span><span ng-bind="service.discount | number:2"></span></div>
+                                <div class="col-xs-3" ><span ng-bind-html="convS"></span> <span ng-bind="service.soldPrice | number:2"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-18 col-md-12 nopadding">
+                    <span class="col-xs-18">
+                    	<span class="sub_title">You are making a total booking of the sum of </span><br />
+                    	All Payment are being made to GETCentre
+                    </span>
+                </div>
+
+                <div ng-show="user[0].status=='Register' || user[1].utype=='Regular'" class="col-xs-18 col-md-6 m_price"> <sup class="curr_book" ng-bind-html="convS"></sup><span>{{totalPrice  | number:2}}</span></div>
+                <div ng-show=" user[1].utype=='Agent'" class="col-xs-18 col-md-6 m_price"><del> <sup class="curr_book" ng-bind-html="convS"></sup><span>{{totalPrice  | number:2}}</span></del></div>
+                <div ng-if="user[1].totalAgentPrice" ng-show=" user[1].utype=='Agent'"  class="col-xs-18 col-md-6 m_price">
+                    <sup class="curr_book" ng-bind-html="convS"></sup>
+                    <span ng-bind="user[1].totalAgentPrice | number:2" ></span>
+                </div>
+
+            </div>
+            <div class="col-xs-18 payment_section">
+
+                <label class="col-xs-18 get_pad"><input type="checkbox" required="required"/> &nbsp;&nbsp;&nbsp;I have read and accepted the General Terms</label>
+            	<div class="col-xs-18 col-md-6">
+                	<div class=" get_button_reset col-xs-18 btn-lg" ng-click="cancel_all()">Cancel &amp; Start Over</div>
+                </div>
+                <input type="button" class=" get_button_primary col-xs-18 col-md-7 btn-lg" ng-click="pay('Paylater')" value="Book Now &amp; Pay Later " />
+                <div class="col-xs-18 col-md-5"><div class=" get_button_primary col-xs-18 btn-lg" ng-click="pay('paynow')">Pay Now</div></div>
+                <input type="submit" ng-show="false" id="validSUb" />
+            </div>
+        </div>
+        </form>
+        <trip-bag class='hidden-xs col-md-5'></trip-bag>
+        <div class="loading_note" ng-if="load_note" loading></div>
+    </div>
+</div>

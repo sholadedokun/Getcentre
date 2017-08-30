@@ -1,14 +1,17 @@
-<div class="alert-deals">
+<div class="alert-deals" >
 			<div class="container">
-				<div class="col-md-9">
+				<div class="col-md-9 col-xs-18">
 					<p>subscribe to our newsletter</p>
 					<h2>Get alerts on our best deals</h2>
 				</div>
-				<div class="col-md-9">
-					<div class="main-textbox">
-						<input type="text" placeholder="enter email" />
-						<div class="btn newsletter-submit">subscribe</div>
+				<div class="col-md-9 col-xs-18">
+					<div class="main-textbox col-xs-18">
+						<form ng-submit="subscribe(subEmail)">
+							<input type="email" placeholder="enter email" required ng-model="subEmail" />
+							<input type="submit" class="btn newsletter-submit" value="subscribe" ng-disabled="subSubmit" />
+						</form>
 					</div>
+					<div class="col-md-18" ng-bind="sub_message"></div>
 				</div>
 			</div>
 		</div>
@@ -18,26 +21,27 @@
 				<div class="container">
 					<div class="">
 						<div class="col-md-4 foot-one">
-							<img src="img/logo.png" />
-							<p>GETCentre</br> 12B Allen Avenue, </br>Ikeja, Lagos,</br>Nigeria.</p>
+							<img src="img/Logo.png" />
+							<p>GETCentre</br>4, Salvation Road, </br>Off Opebi, Road,</br>Ikeja, Lagos,</br>Nigeria.</p>
+
 						</div>
 						<div class="col-md-3 foot-two">
 							<h2>about</h2>
 							<ul>
-								<li>the company</li>
-								<li>our vision</li>
-								<li>value proposition</li>
+								<li><a href="#/about#our_company">the company</a></li>
+								<li><a href="#/about#our_vision">our vision</a></li>
+								<li><a href="#/about#our_value">value proposition</a></li>
 							</ul>
 						</div>
 						<div class="col-md-3 foot-three">
 							<h2>support</h2>
 							<ul>
-								<li>privacy policy</li>
-								<li>terms & conditions</li>
-								<li>pricing</li>
-								<li>3rd party discloure</li>
-								<li>cookies usage</li>
-								<li>information protection</li>
+								<li><a href="#/support#privateP">privacy policy</a></li>
+								<li><a href="#/support#paymentT">terms & conditions</a></li>
+								<li><a href="#/support#payment_and_pricing">pricing</a></li>
+								<li><a href="#/support#partyD">3rd party discloure</a></li>
+								<li><a href="#/support#cookieU">cookies usage</a></li>
+								<li><a href="#/support#informationP">information protection</a></li>
 							</ul>
 						</div>
 						<div class="col-md-3 foot-four">
@@ -61,13 +65,13 @@
 				<div class="container">
 					<div class="payment-logo">
 						<div class="col-md-5">
-							<h2>payment Options</h2>
+							<h2>Payment Options</h2>
 						</div>
 						<div class="col-md-3">
 							<img src="img/interswitch.png" class="inters" />
 						</div>
 						<div class="col-md-3">
-							<img src="img/mastercard-logo.png" />
+							<img src="img/Mastercard-logo.png" />
 						</div>
 						<div class="col-md-3">
 							<img src="img/verve.png" class="verve-others" />
@@ -82,7 +86,7 @@
 			<div class="footer-copyright">
 				<div class="container">
 					<div class="">
-						<div class="col-md-9"><p>copyright &copy; 2016 getcentre<p></div>
+						<div class="col-md-9"><p>copyright &copy; 2017 getcentre<p></div>
 						<div class="col-md-9">
 							<div class="socials">
 								<span><i class="fa fa-facebook"></i></span>

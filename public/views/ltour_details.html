@@ -1,0 +1,99 @@
+<div class="container searchPage">
+    <div class="col-xs-18 search_result partial_view">
+        <div class="col-xs-18 search_bar">
+            <div class="col-xs-18 col-md-14"><h3>{{eachtour.pname}}</h3></div>
+            <div class="col-xs-18 col-md-4">
+            	 <label class="col-xs-18" style="padding:0.4em 0 0 0" for="sorting">Return to Search List</label>
+            </div>
+        </div>
+        <div class="col-xs-18 col-md-11 nopadding">
+        	<div class="col-xs-18 img_slide nopadding">
+            	<div class="col-xs-18 img_holder_lg nopadding">
+                	<img src="admin/pv_images/{{mainImageUrl | imglarge}}" width="100%" height="100%" />
+                </div>
+                <div class="col-xs-18 nopadding thumb_hold">
+                    <div id="thumb_load">
+                        <div class="hthumb" name="{{$index}}" ng-repeat="thumb in allpict">
+                            <img ng-src="admin/p_images/{{thumb}}" ng-click="setImage(thumb, $index)" width="90" height="60" />
+                        </div>
+                    </div>
+                    <div class="col-xs-18">
+                    	<span class="col-xs-3 col-md-1 get_pad slide_arrow" id="left_th"><</span>
+                        <span class="col-xs-12 col-md-16 get_pad slide_num">{{curr_pic}} <span class="s_label">of</span> {{allpict.length}}</span>
+                        <span class="col-xs-3 col-md-1 get_pad slide_arrow" id="right_th">></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-18 hdetails nopadding">
+            	<div class="col-xs-18 col-md-14 search_result">
+                    <div class="col-xs-18 col-md-12 h_title nopadding"><h3>{{eachtour.pname}}</h3></div>
+                    <div class="col-xs-18 col-md-6 h_rate">
+                        <span class="icon-star"></span>
+                        <span class="icon-star"></span>
+                        <span class="icon-star"></span>
+                        <span class="icon-star"></span>
+                    </div>
+                    <div class="col-xs-18 nopadding map_shdetails">{{eachtour.city}},  {{eachtour.country}} <span><a href="#">Show Map</a></span></div>
+                    <div class="col-xs-18 nopadding h_details">{{eachtour.brief}}</div>
+                </div>
+                <div class="col-xs-18 col-md-4 nopadding">
+                    <div class="col-xs-18 h_details_rate nopadding ">
+                        <div class="col-xs-18 rate_title u_price"><h3>User Rating</h3></div>
+                        <div class="col-xs-18 rating_num">4.4</div>
+                        <div class="col-xs-18 rate_title">Based On 20 Opinions</div>
+                    </div>
+
+                    <div class="col-xs-18 trip_advisor">
+
+                    </div>
+                </div>
+                <div class="col-xs-18 search_result">
+                    <b><h3>HOTEL / LODGING</h3></b>
+                    <b ng-hide="eachtour.lname==''">Name :</b> {{eachtour.lname}}<br />
+                    <b ng-hide="eachtour.ltype==''">Type :</b> {{eachtour.ltype}}<br />
+                    <b ng-hide="eachtour.rate==''">Rate :</b> {{eachtour.rate}} Star(s)<br />
+                    <b ng-hide="eachtour.lrtype==''">Room Type :</b> {{eachtour.lrtype}}<br />
+                    {{eachtour.lbrief}}
+                </div>
+                <div class="col-xs-18 tours_list_s t_bl">
+                	<b>This Package includes <span ng-bind="alltour.length"></span> tours. Click on each Tours to view details.</b>
+                </div>
+                <div class="col-xs-18 nopadding" ng-if="alltour.length >0" ng-init="getalltour()">
+
+                    <div class="col-xs-18 nopadding"  ng-repeat="etour in all_l_tours">
+
+                        <div class="col-xs-18 travel_list f_pad3"  ng-class-odd="'travel_listOdd'">
+                        	<div class="col-xs-18 col-sm-5 f_pad" >
+                            	<img ng-src="admin/p_images/{{etour.pict}}"  width="100%" height="100%">
+                            </div>
+                            <div class="col-xs-18 col-sm-13 f_pad">
+                            	<div class="col-sm-18 tour-title" ng-bind="etour.tname">Loading</div>
+                                <div class="col-sm-18 nopadding tour-category">{{etour.city}}, {{etour.country}}</div>
+                                <div class="col-sm-18 nopadding tour-category">{{etour.duration}}</div>
+                                <div class="col-sm-18 nopadding tour-brief">{{etour.brief | limitTo:300}}</div>
+                                <div class="col-xs-6 col-xs-offset-12" ng-if="etour.cost > 0">
+                                	<sup class="curr_book">&#8358;</sup>
+                                    <span ng-bind="etour.cost | number:2"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-18 nopadding">
+                    	<div class="col-xs-18 pTab">
+                            <div class="col-xs-18 col-md-14 f_price tA_C_xs">
+                                <div class="col-xs-18 ">
+                                   <h4 class="col-xs-9">Total Package Cost</h4>
+                                   <sup class="curr_book">&#8358;</sup>
+                                   <span>{{eachtour.cost | number:2 }}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-18 col-md-4 btn-sm btn get_button_primary flight_sel_butt" style="padding:1.23em 1em" ng-click="openReserve()">Reserve Package</div>
+                        </div>
+                        <div class="col-xs-18" ng-show="eachtour.info" ng-bind="eachtour.info"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="loading_note" ng-if="load_note" loading></div>
+    </div>
+</div>

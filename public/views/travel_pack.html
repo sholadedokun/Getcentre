@@ -1,0 +1,333 @@
+<div class="container searchPage">
+    <div class="col-xs-18 travel_bag partial_view" ng-init="stripTravelPD(travelPD)">
+        <div class="col-xs-18 nopadding">
+            <div class="col-xs-18 col-md-6 tra_nav curhead">Your Trip Bag</div>
+            <div class="col-xs-18 col-md-6 tra_nav hidden-xs">Guest | Passenger and Payment Details</div>
+            <div class="col-xs-18 col-md-6 tra_nav hidden-xs">Voucher</div>
+        </div>
+        <div class="col-xs-18 col-md-13 travel_list nopadding" ng-show="travelPD.length!=0">
+            <div class="col-xs-18 headers ">Services</div>
+            <div class="col-xs-18 service_list" ng-repeat="flight in flightD track by $index">
+                <div class="col-xs-5 service_name">Flight Summary</div>
+                <div class="col-xs-13 headers" ng-bind="flight.flightTypeName"></div>
+                <div class="col-xs-18" ng-repeat="flightDetails in flight.flightDetails track by $index">
+                    <div class="col-xs-18 service_date">
+                        <div class="col-xs-18 nopadding">
+                            <div class="col-xs-18 fHeader">
+                                <span ng-if="flight.flightType=='RT'">
+                                    <span ng-if="$index ==0 "> Leaving/Going : </span>
+                                    <span ng-if="$index == 1 "> Coming Back /Returning : </span>
+                                </span>
+                                <span ng-if="flight.flightType=='MT'">Trip {{$index+1}} : </span>
+
+                                <span ng-bind="flightDetails.fname"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-18 nopadding">
+                            <span class=" col-xs-18 col-md-8 org_p nopadding">
+                                <span class="col-xs-18 s_label nopadding">{{flightDetails.depAirport}}</span>
+                                <span class="col-xs-18">{{flightDetails.depDate | shortdate}} - {{flightDetails.depDate+' '+flightDetails.depTime | time_am_pm }}</span>
+                            </span>
+                        	<span class="col-xs-18 col-md-2 t_90_xs icon-Arrow38 tA_c" style="padding:0.6em 0; font-size:16px"></span>
+                            <span class="col-xs-18 col-md-8 nopadding">
+                                <span class="col-xs-18 s_label nopadding">{{flightDetails.desAirport}}</span>
+                                <span class="col-xs-18">{{flightDetails.desDate | shortdate}} - {{flightDetails.desDate+' '+flightDetails.desTime | time_am_pm }}</span>
+                            </span>
+                        </div>
+                        <div class="col-xs-14 col-xs-offset-2 fStopOver" ng-if="flightDetails.fstop.length>0">
+                            <div class="col-xs-18 stopHeader hidden-xs">
+                                <div class="col-xs-18 col-md-6 nopadding">Stopover</div>
+                                <div class="col-xs-18 col-md-4 nopadding">Flight Class</div>
+                                <div class="col-xs-18 col-md-4 nopadding">Flight Duration</div>
+                                <div class="col-xs-18 col-md-4 nopadding">Stopover Duration</div>
+                            </div>
+                            <div class="col-xs-18 nopadding">
+                                <div class="col-xs-18 stopItem" ng-repeat="stop in flightDetails.fstop track by $index">
+                                    <div class="col-xs-18 col-md-6 nopadding">
+                                    	<span class="visible-xs"><b>StopOver: </b><br /></span>
+                                        {{stop.airport}}
+                                    </div>
+                                    <div class="col-xs-18 col-md-4 nopadding">
+                                    	<span class="visible-xs"><b>Flight : </b><br /></span>
+                                        Class {{stop.fclass}}
+                                    </div>
+                                    <div class="col-xs-18 col-md-4 nopadding">
+                                    	<span class="visible-xs"><b>Flight Duration: </b><br /></span>
+                                        {{stop.flighttime | fltime}}
+                                    </div>
+                                    <div class="col-xs-18 col-md-4 nopadding">
+                                    	<span class="visible-xs"><b>StopOver Duration: </b><br /></span>
+                                   		{{stop.totaltime | fltime}}
+                                	</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-18 miniSummary">
+                            <span class="col-xs-6">
+                                <strong>Total Trip Time :</strong> <span ng-bind="flightDetails.ftotaltime |hrtomin"></span>
+                            </span>
+                            <span class="col-xs-6">
+                                <strong>Total stopovers : </strong><span ng-bind="flightDetails.fstop.length"></span>
+                            </span>
+                            <span class="">
+                                <strong>Flight Number : </strong><span ng-bind="flightDetails.fnumber"></span>
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-xs-18 topBorder">
+                    <div class="col-xs-18 col-md-7 get_pad"><a class="get_pad fcond" ng-click="getCond(flight.fOfferCode, $index)">View Flight Rules and Penalties</a></div>
+                    <div class="col-xs-18 col-md-11 pTab">
+                        <div class="col-xs-18 f_price tA_C_xs">
+                        	<div class="col-xs-18 col-md-6">
+                            	<label>
+                                	<sup>{{flight.Adult}}</sup>
+                                    <span class="icon-get_man ic_sm f_ic_guest sf_price "></span>
+                                </label>
+                                <label ng-if="flight.Child">
+                                    <sup>{{flight.Child}}</sup>
+                                    <span class="icon-get_boy ic_sm_c"></span>
+                                 </label>
+                                 <label ng-if="flight.Infant">
+                                    <sup>{{flight.Infant}}</sup>
+                                    <span class="icon-Baby ic_sm_c" style="font-size:18px;"></span>
+                                 </label>
+                            </div>
+                            <div class="col-xs-18 col-md-7 nopadding">
+                            	<sup class="curr_book">&#8358;</sup><span>{{ flight.Price  | number:2 }}</span>
+                            </div>
+                            <div class="col-xs-18 col-md-5 nopadding" ng-if="flight.Adult>1 || flight.Child>0">
+                            	<span ng-click="flight.priceBr='Y'" style="font-size:12px">Price Breakdown</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-18 col-md-10 col-md-offset-8" ng-show="flight.priceBr=='Y'">
+                	<div class="col-xs-18 col-md-9" ng-repeat="per in flight.priceB track by $index">
+                    	<div class="col-xs-5">
+                            <span class="col-xs-18 icon-get_man ic_sm_xx f_ic_guest " ng-if="per['@type']=='ADT'"></span>
+                            <span class="col-xs-18 icon-get_boy ic_sm_xx f_ic_guest " ng-if="per['@type']!='ADT' && per['@type']!='INF'"></span>
+                            <span style="font-size:18px" class="col-xs-18 icon-Baby ic_sm_xx f_ic_guest " ng-if="per['@type']=='INF'"></span>
+                        </div>
+                        <span class="col-xs-13 get_pad"><span class="curr_book">&#8358;</span><span>{{per['@price']|number:2}}</span></span>
+                    </div>
+
+                </div>
+                <div class="col-xs-18 col-md-12 contact_cancel">
+                    <span  class="col-xs-18">Last Ticketing Date</span>
+                    <div>{{flight.lastTicketDate}}</div>
+                </div>
+                <div class="col-xs-18 remove_book">
+                    <div class="error col-md-13 col-xs-18">
+                        <span class="error col-xs-18" ng-if="flight.errorMessage" ng-bind="flight.errorMessage"></span>
+                    </div>
+                    <div class=" get_button_reset col-md-5 btn-lg col-xs-18"  ng-click="remFlight($index)">Delete Booking</div>
+                </div>
+            </div>
+            <div class="col-xs-18 service_list"  ng-repeat="hotel in hotelD track by $index">
+                <div class="col-xs-5 service_name">Hotel</div>
+                <div class="col-xs-13 headers">{{hotel.Name}}</div>
+                <div class="col-xs-18 service_date">
+                    <div class="col-xs-18 nopadding">
+                        <div class="col-xs-18 col-md-5 nopadding">
+                            <span class="s_label">From: </span>{{hotel.hcheckinL}}
+                        </div>
+                        <div class="col-xs-18 col-md-2 t_90_xs icon-Arrow38 tA_c" style="padding:0.3em 0; font-size:16px"></div>
+                        <div class="col-xs-18 col-md-5">
+                            <span class="s_label">To: </span> {{hotel.hcheckoutL}}
+                        </div>
+                    </div>
+                    <div class="col-xs-18 nopadding"><span class="s_label">Total Number of Days: </span> {{hotel.total_nights}} Days</div>
+                </div>
+                <div class="col-xs-18 view_all_boards">
+                    <div class="col-xs-18 all_boards hidden-xs">
+                        <div class="col-md-2 nopadding">Guest</div>
+                        <div class="col-md-6 nopadding">Room Type</div>
+                        <div class="col-md-6 nopadding">Boarding Type</div>
+                        <div class="col-md-4 nopadding">Room Rate</div>
+                    </div>
+                    <div class="col-xs-18 nopadding other_room_spec" ng-repeat="room in hotel.guestBreak track by $index">
+                        <div class="col-xs-18 room_spec">
+                        	<label class="col-xs-18" ng-if="hotel.guestBreak >1">Room {{$index+1}}</label>
+                            <!--<div class="col-xs-18" ng-if="room.roomCount > 1" ><span ng-bind="room.roomCount"></span> of this room as been booked. The price displayed is for the <span ng-bind="room.roomCount"></span> booked room</div>-->
+                            <div class="col-xs-18 col-md-2 trbl room_type">
+                            	<span class="visible-xs"><b>Guest : </b><br /></span>
+                            	<label><sup>{{room.adultCount}}</sup> <span class="icon-get_man ic_sm f_ic_guest "></span> <sup>{{room.childCount}}</sup> <span class="icon-get_boy ic_sm_c"></span></label>
+                            </div>
+                            <div class="col-xs-18 col-md-6 trbl"><span class="visible-xs"><b>Room Type: </b><br /></span>{{room.roomtype}}</div>
+                            <div class="col-xs-18 col-md-6 trbl"><span class="visible-xs"><b>Boarding Type: </b><br /></span>{{room.board}}</div>
+                            <div class="col-xs-18 col-md-4 trbl">
+                            	<span class="visible-xs"><b>Room Rate : </b><br /></span>
+                            	<span class="col-xs-18">
+                                    <span class="curr_book" ng-bind-html="convS"></span>
+                                    <span>{{room.price  | currencyConvert | number:2}}<b>*</b></span>
+                                </span>
+                            </div>
+                            <span class="col-xs-18 trbl nopadding">
+                            	<span class="col-xs-18 col-md-14 org_p">
+                                   <b>Payable in Hotel's Currency ({{hotel.currency}})</b>&nbsp;&nbsp;of&nbsp;&nbsp;
+                                </span>
+                                <b class="col-xs-18 col-md-4  tA_R_xs"> <span class="curr_book nopadding" ng-bind-html="rate[1].currencyList[hotel.currency_sy].symbol"></span>{{room.price}}</b>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-18">(*) You will be paying {{hotel.Name}} in the property's currency (exchange rate may vary): <span class="curr_book" ng-bind-html="convS"></span> <span>{{hotel.Price  | currencyConvert | number:2}}</span> = <span class="curr_book" ng-bind-html="rate[1].currencyList[hotel.currency_sy].symbol"></span>{{hotel.Price}} </div>
+                <div class="col-xs-18 col-md-12 contact_cancel"  ng-if="hotel.contractComment">
+                    <span  class="col-xs-18">Contract Comment</span>
+                    <div ng-bind-html="hotel.contractComment | hotel_contract_comment"></div>
+                </div>
+                <div class="col-xs-18 col-md-12 contact_cancel"  ng-repeat="room in hotel.guestBreak track by $index">
+                    <span  class="col-xs-18">Cancellation Policy</span>
+                    <div class="col-xs-18 s_label">Room {{$index+1}}</div>
+                    <div ng-if="hotel.product=='HotelBed'" ng-bind-html="room.cancel | hotel_room_policy"></div>
+                     <div ng-if="hotel.product=='Juniper'">
+                     	<span ng-bind="room.cancel.booking_rule"></span>
+                     </div>
+                </div>
+                <div class="col-xs-18 remove_book">
+                	<div class="col-md-offset-13 get_button_reset col-md-5 btn-lg" ng-click="serRemove(hotel.Spui, hotel.purchaseToken, $index)">Delete Booking</div>
+                </div>
+            </div>
+            <div class="col-xs-18 service_list"  ng-repeat="tour in tourD track by $index">
+                <div class="col-md-5 service_name">Tour</div>
+                <div class="col-md-13 headers">{{tour.Name}}</div>
+                <div class="col-xs-18 service_date date_guest">
+                    <div class="col-md-10 nopadding"><span class="s_label">{{tour.categoryName}} On: </span>{{tour.ticketDate | hdate}}  </span></div>
+                </div>
+                <div class="col-md-14 room_spec">{{tour.Adult}} Adult, {{tour.Child}} Kids</div>
+                <div class="col-md-4 t_price"><div class="col-md-12"><sup class="curr_book"  ng-bind-html="convS"></sup><span>{{tour.Price | currencyConvert | number:2}}</span></div></div>
+                <div class="col-md-12 contact_cancel">
+                    <span class="col-xs-18">Contract Remarks</span>
+                   {{tour.comment}}
+                </div>
+                <div class="col-md-12 contact_cancel">
+                    <span  class="col-xs-18">Cancellation Policy</span>
+                    <div ng-bind-html="tour.cancel | tour_cancel_policy"></div>
+                </div>
+                <div class="col-xs-18 remove_book"><div class="col-md-offset-13 get_button_reset col-md-5 btn-lg">Delete Booking</div></div>
+            </div>
+            <div class="col-xs-18 service_list"  ng-repeat="insure in insuranceD track by $index">
+                <div class="col-md-5 service_name">Insurance</div>
+                <div class="col-md-13 headers">{{insure.days}} Health Insurance from {{insure.insuranceDetails.cFrom}} to </span>{{insure.insuranceDetails.cTo}} </div>
+
+                <div class="col-md-13 col-md-offset-5 insureD">
+                    For {{insure.insuranceDetails.title}} {{insure.insuranceDetails.fname}} {{insure.insuranceDetails.lname}} ({{insure.insuranceDetails.age}} years old) at
+                    <span ng-bind-html="convS"></span><span ng-bind="insure.Price | number:2"></span>
+                </div>
+                <!-- <div class="col-md-4 t_price"><div class="col-md-12"><sup class="curr_book"  ng-bind-html="convS"></sup><span>{{insure.Price | currencyConvert | number:2}}</span></div></div> -->
+                <div class="col-md-12 contact_cancel">
+                    <span class="col-xs-18">Contract Remarks</span>
+                    Please Note that the price quoted is an estimate and is subjected to change.
+                </div>
+                <!-- <div class="col-md-12 contact_cancel">
+                    <span  class="col-xs-18">Cancellation Policy</span>
+                    <div ng-bind-html="insure.cancel"></div>
+                </div> -->
+                <div class="col-xs-18 remove_book"><div class="col-md-offset-13 get_button_reset col-md-5 btn-lg">Delete Booking</div></div>
+            </div>
+            <div class="col-xs-18 service_list"  ng-repeat="transfer in transferD track by $index">
+                <div class="col-md-5 service_name">Airport Transfer</div>
+                <div class="col-md-13 headers">{{transfer.Name}}</div>
+                <div class="col-xs-18 service_date date_guest">
+                    <div class="col-md-9 nopadding">
+                    	<span class="s_label">Pickup From ({{transfer.pickType}}) {{transfer.pickup.Name}}</span>
+                        <span ng-if="transfer.pickType=='Hotel'"> {{transfer.pickup.LocationInformation.Address}},{{transfer.pickup.TransferZone.Code}}  {{transfer.pickup.LocationInformation.Town}} {{transfer.pickup.LocationInformation.Zip}} </span>
+                        <span ng-if="transfer.pickType!='Hotel'" class="s_label">, {{transfer.pickup.Country['@code']}}</span>
+                        <span class="col-xs-18" ng-if="transfer.pickType!='Hotel'"> <span class="s_label"> On: </span>({{transfer.pickup.DateTime['@time'] | htime}}){{transfer.pickup.DateTime['@date'] | hdate}}
+                        </span>
+                    </div>
+                    <div class="col-md-9 nopadding">
+                    	<span class="s_label">Dropoff at ({{transfer.dropType}}) {{transfer.dropOff.Name}}</span>
+                         <span ng-if="transfer.dropType=='Hotel'"> {{transfer.dropOff.LocationInformation.Address}}, {{transfer.dropOff.TransferZone.Code}} {{transfer.dropOff.LocationInformation.Town}} {{transfer.dropOff.LocationInformation.Zip}} </span>
+                        <span ng-if="transfer.dropType!='Hotel'" class="s_label">, {{transfer.dropOff.Country['@code']}}</span>
+                        <span class="col-xs-18" ng-if="transfer.dropType!='Hotel'"> <span class="s_label"> On: </span>({{transfer.dropOff.DateTime['@time'] | htime}}){{transfer.dropOff.DateTime['@date'] | hdate}}  </span>
+                    </div>
+                </div>
+                <div class="col-md-14 room_spec">{{transfer.Adult}} Adult, {{transfer.Child}} Kids</div>
+                <div class="col-md-4 t_price"><div class="col-md-12"> <span ng-bind-html="convS"></span><span>{{transfer.Price | currencyConvert | number:2}}</span></div></div>
+                <div class="col-xs-18 contact_cancel">
+                    <span class="col-xs-18">Pick Up Information</span>
+                   {{transfer.transpickupInfo.Description}}
+                </div>
+                <div class="col-xs-18 contact_cancel">
+                    <span class="col-xs-18">Contract Remarks</span>
+                    <div class="col-xs-18" ng-repeat="policy in transfer.transferInfo track by $index">
+                        <span class="s_label col-xs-18">{{policy.Description}}</span>
+                        {{policy.DetailedDescription}}
+                    </div>
+                </div>
+                <div class="col-xs-18 contact_cancel">
+                    <span  class="col-xs-18">Cancellation Policy</span>
+                    <div ng-bind-html="transfer.cancel | hotel_room_policy"></div>
+                </div>
+                <div class="col-xs-18 remove_book"><div class="col-md-offset-12 get_button_reset col-md-5 btn-lg">Delete Booking</div></div>
+            </div>
+            <div class="col-xs-18 headers ">Complete Booking &amp; Make Payment</div>
+            <div class="col-xs-18 complete_book ">
+                <div class="col-xs-18 col-md-11 comp_info">
+                    <span class="col-xs-18 comp_info_s">
+                        <span class="s_label">You are making payment of the sum of </span>
+                        <span ng-bind-html="convS"></span>{{totalPrice | number:2}}
+                    </span>
+                    <div class="col-xs-18" ng-repeat="service in travelPD track by $index">
+                        <div ng-show="service.productType=='Hotel'">
+                            <div class="comp_info_s">For  <b>{{service.hRoom}}</b> rooms at <b>{{service.Name}}</b>, to <b>ACCOMODATE</b> </div>
+                            <div class="comp_info_s"> <b>{{parseInt(service.Adult)+parseInt(service.Child)}} </b> Guests, ( <b>{{service.Adult}} </b> Adults,  <b>{{service.Child}} </b> Child) For   <b>{{service.total_nights}} </b> Nights.</div>
+                        <br></div>
+                        <div ng-show="service.productType=='Tour'">
+                            <div class="comp_info_s">For {{service.Name}} Tickets for </div><br/>
+                            <div class="comp_info_s">{{parseInt(service.Adult) + parseInt(service.Child)}} Guests({{service.Adult}} Adults, {{service.Child}} Child)</div>
+                        <br></div>
+                        <div ng-show="service.productType=='Transfer'">
+                            <div class="comp_info_s">For A {{service.Name}} Airport Transfer <b>FOR</b> </div>
+                            <div class="comp_info_s">{{parseInt(service.Adult)+parseInt(service.Child)}} Guests({{service.Adult}} Adults, {{service.Child}} Child)</div>
+                        <br></div>
+                        <div ng-show="service.productType=='Insurance'">
+                            <div class="comp_info_s">For A Health {{service.Name}} <b>FOR</b> </div>
+                            <div class="comp_info_s">{{parseInt(service.Adult)+parseInt(service.Child)}} Guests({{service.Adult}} Adults, {{service.Child}} Child)</div>
+                        <br></div>
+                        <div ng-show="service.productType=='Flight'">
+                            <div class="col-xs-18 s_label get_pad" ng-show="$index > 1"></div>
+                            <div class="col-xs-18" >
+                                <strong class="complete_title">For A {{service.flightTypeName}} Flight </strong>
+                                <div class="col-xs-16 col-xs-offset-2" ng-repeat="flight in service.flightDetails track by $index">
+                                    <strong>FROM</strong> {{flight.depAirport}} <strong>TO</strong> {{flight.desAirport}}
+                                    <strong>ON</strong> {{flight.carrier}}.<br/>
+                                </div>
+                                <div class=""><strong>For</strong> {{service.Adult}} Adults, {{service.Child}} Children</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-18">
+
+                        <div class="s_label">All Payments are being made to <b>GETCentre</b></div>
+                    </div>
+                </div>
+                <div class="col-xs-18 col-md-6 ">
+                    <div class="s_label serv_tprice">Total Bill<br/>
+                        <sup class="curr_book " ng-bind-html="convS"></sup>{{totalPrice | number:2}}
+                    </div>
+                    <br/>
+
+                    <a href="#/Addguest" class="col-xs-18 get_button_primary btn-lg">Complete Booking</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-18  col-md-13 travel_list nopadding" ng-show="travelPD.length==0">
+            <div class="col-xs-18 headers ">Your Travel Pack is empty</div>
+            <div class="col-xs-18 get_pad "><a href="#/" class="blog-post-title">Click here to start searching</a></div>
+        </div>
+        <trip-bag class='col-md-5 hidden-xs hidden-sm'></trip-bag>
+    	<div class="loading_note" ng-if="load_note" loading></div>
+    <div class="col-xs-18 t-pack">
+        <div class="col-xs-18 t-pack-hotel"></div>
+        <div class="col-xs-18 t-pack-tour"></div>
+        <div class="col-xs-18 t-pack-transfer"></div>
+        <div class="col-xs-18 suggestions"></div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="col-md-18 view_all_boards">
+    <div class="col-md-18 all_boards">
+        <div class="col-md-12 nopadding">
+            <div class="col-md-8 nopadding">Category</div>
+            <div class="col-md-6 nopadding">Available dates</div>
+            <div class="col-md-4 nopadding">Price/Adult</div>
+        </div>
+        <div class="col-md-6 nopadding">Total Price</div>
+    </div>
+    <div class="col-md-18" ng-show="isArray(tour_category)">
+    	<div class="col-md-18 nopadding" ng-repeat="thetour in  tour_category" >
+        <form>
+        <div class="col-md-12 room_spec">
+            <div class="col-md-8 room_type">{{thetour.Name}}</div>
+            <div class="col-md-6 get_pad" ng-show="isArray(thetour.OperationDateList.OperationDate)">
+                <div class="col-md-18 get_pad  get_input room_type"> 
+                    <select class="input_xs col-md-18" ng-model="Selecteddate" ng-change="tour_date(Selecteddate)" ng-options="datety['@date'] as (datety['@date'] | hdate) for datety in thetour.OperationDateList.OperationDate " ng-init="Selecteddate = thetour.OperationDateList.OperationDate[0]['@date']"    >
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6 get_pad" ng-show="!isArray(thetour.OperationDateList.OperationDate)">
+                <div class="col-md-18 get_pad  get_input room_type"> 
+                	<div ng-model="Selecteddate">{{thetour.OperationDateList.OperationDate['@date'] | hdate}}</div>
+                    
+                </div>
+            </div>
+            <div class="col-md-4 get_pad"> <span class="curr_book" ng-bind-html="convS"></span> {{thetour.PriceList.Price[0].Amount  | currencyConvert | number:2}}</div>
+        </div>
+        <div class="col-md-6 t_price">
+            <div class="col-md-18"><sup class="curr_book" ng-bind-html="convS"></sup><span>{{thetour.PriceList.Price[3].Amount  | currencyConvert | number:2}}</span></div>
+            <div class="book_but pull-right col-md-6 get_button_primary btn-sm"  ng-click="book_tour(tour, thetour, Selecteddate)">Book</div>
+        </div>
+        </form>
+    </div>
+    </div>
+    <div class="col-md-18" ng-show="!isArray(tour_category)">
+    	<div class="col-md-18 nopadding">
+        <div class="col-md-12 room_spec">
+            <div class="col-md-8 room_type">{{tour_category.Name}}</div>
+            <div class="col-md-6 get_pad" ng-show="isArray(tour_category.OperationDateList.OperationDate)">
+                <div class="col-md-18 get_pad  get_input room_type"> 
+                    <select class="input_xs col-md-18" ng-model="Selecteddate" ng-change="tour_date(Selecteddate)" ng-options="datety['@date'] as (datety['@date'] | hdate) for datety in tour_category.OperationDateList.OperationDate " ng-init="Selecteddate = tour_category.OperationDateList.OperationDate[0]['@date']"    >
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6 get_pad" ng-show="!isArray(tour_category.OperationDateList.OperationDate)">
+                <div class="col-md-18 get_pad  get_input room_type"> 
+                	<div ng-model="Selecteddate">{{tour_category.OperationDateList.OperationDate['@date'] | hdate}}</div>
+                    
+                </div>
+            </div>
+            <div class="col-md-4 get_pad"><span class="curr_book" ng-bind-html="convS"></span>{{tour_category.PriceList.Price[0].Amount  | currencyConvert | number:2}}</div>
+        </div>
+        <div class="col-md-6 t_price">
+            <div class="col-md-18"><sup class="curr_book" ng-bind-html="convS"></sup><span>{{tour_category.PriceList.Price[3].Amount | currencyConvert | number:2}}</span></div>
+            <div class="book_but pull-right col-md-6 get_button_primary btn-sm"  ng-click="book_tour(tour, tour_category, Selecteddate)">Book</div>
+        </div>
+    </div>
+    </div>
+    
+</div>

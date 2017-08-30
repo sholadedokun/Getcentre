@@ -1,0 +1,154 @@
+
+<div class="col-xs-18 modal-bd nopadding">
+	<div class="col-xs-18 nopadding" >
+        <div class="col-xs-18 no-padding">
+            <div class="col-md-10 col-md-offset-4" >
+				<div class="col-md-18 head-mate no-top-margin">
+					<div class="about-divide"></div>
+					<p>Quality Insurance</p>
+					<h2>Insurance</h2>
+				</div>
+                <div class="col-xs-18 tab-below no-padding modal_frame">
+                    <div class="col-xs-18 nopadding reg">
+						<div class="col-xs-4 booking-form ">
+							<!-- <label>Email</label> -->
+                            <div class="col-xs-18 inputWrapper">
+								<select class="col-xs-18 nopadding placeSearch" ng-model="insurance.title" id="title">
+									<option>Mr.</option>
+									<option>Mrs.</option>
+									<option>Miss.</option>
+									<option>Dr.</option>
+									<option>Prof.</option>
+									<option>Engr.</option>
+							   </select>
+                            </div>
+						</div>
+
+						<div class="col-xs-18 col-md-7 booking-form ">
+                            <div class="col-xs-18 inputWrapper">
+                                <input type="text" class="col-xs-18 placeSearch" ng-model="insurance.fname" placeholder="First Name" name="">
+                            </div>
+						</div>
+
+						<div class="col-xs-18 col-md-7 booking-form ">
+                            <div class="col-xs-18 inputWrapper">
+                                <input type="text" class="col-xs-18 placeSearch" ng-model="insurance.lname" placeholder="Surname" name="">
+                            </div>
+						</div>
+						<div class="col-xs-18 col-md-9 booking-form ">
+                            <div class="col-xs-18 inputWrapper">
+                                <select type="text" class="col-xs-18 placeSearch" ng-model="insurance.gender"  ng-options="option.value as option.name for option in Gender" ></select>
+                            </div>
+						</div>
+						<div class="col-xs-18 col-md-9 booking-form ">
+                            <div class="col-xs-18 inputWrapper">
+                                <select type="text" class="col-xs-18 placeSearch" ng-model="insurance.status"  ng-options="option.value as option.name for option in Status" ></select>
+                            </div>
+						</div>
+						<div class="clear col-xs-18 col-md-9 booking-form ">
+                            <div class="col-xs-18 inputWrapper">
+                                <input type="text" class="col-xs-18 clear placeSearch" ng-model="insurance.email"  placeholder="Email Address" name="">
+                            </div>
+						</div>
+						<div class="col-xs-18 col-md-9 booking-form ">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch"  ng-model="insurance.phone" placeholder="Phone Number" name="">
+	                        </div>
+						</div>
+						<div class="col-xs-18 col-md-9 booking-form ">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch" ng-change="getEstimate()"  ng-model="insurance.dbirth" placeholder="Date Of Birth"  birth-date >
+	                        </div>
+						</div>
+						<div class="col-xs-18 col-md-9 booking-form ">
+                            <div class="col-xs-18 inputWrapper">
+                                <select type="text" class="col-xs-18 placeSearch" ng-model="insurance.group"  ng-options="option.value as option.name for option in travelGroup" ></select>
+                            </div>
+						</div>
+						<div class="clear col-xs-18 col-md-9 booking-form ">
+                            <div class="col-xs-18 inputWrapper">
+                                <select type="text" class="col-xs-18 placeSearch" ng-model="insurance.purpose"  ng-options="option.value as option.name for option in tPurpose" ></select>
+                            </div>
+						</div>
+
+
+						<div class="col-xs-18 booking-form ">
+                            <div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch" ng-model="insurance.caddress" placeholder="Contact Address" name="">
+	                        </div>
+						</div>
+                        <div class="col-xs-18 col-md-6 booking-form ">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch" ng-model="insurance.city"  placeholder="City" name="">
+	                        </div>
+						</div>
+                        <div class="col-xs-18 col-md-6 booking-form ">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch" ng-model="insurance.state" placeholder="State" name="">
+	                        </div>
+						</div>
+                        <div class="col-xs-18 col-md-6 booking-form ">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch" ng-model="insurance.country" placeholder="Country" name="">
+	                        </div>
+						</div>
+                        <div class="col-xs-18 col-md-9 booking-form">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch" ng-model="insurance.passport" placeholder="Passport Number" name="">
+	                        </div>
+						</div>
+						<div class="col-xs-18 col-md-9 booking-form">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch" ng-model="insurance.nextKin" placeholder="Name of next of Kin" name="">
+	                        </div>
+						</div>
+						<div class="col-xs-18 col-md-9 booking-form">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch" ng-model="insurance.kinAddress" placeholder="Address of next of Kin" name="">
+	                        </div>
+						</div>
+						<div class="col-xs-18 col-md-9 booking-form">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch" ng-model="insurance.relKin" placeholder="Relationship with Next of Kin" name="">
+	                        </div>
+						</div>
+						<div class="col-xs-18 col-md-9 booking-form ">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch fromdate" name="4|"  ng-model="insurance.cFrom" placeholder="Coverage Begins"  date-from >
+	                        </div>
+						</div>
+						<div class="col-xs-18 col-md-9 booking-form ">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch todate" name="5|"  ng-model="insurance.cTo" placeholder="Coverage Ends"  date-to>
+	                        </div>
+						</div>
+						<div class="col-xs-18 col-md-9 booking-form">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch" ng-model="insurance.destination" placeholder="Destination" name="">
+	                        </div>
+						</div>
+                        <div class="col-xs-18 agentAccess">
+                            <label><input type="checkbox" ng-model="insurance.medicalCondition">&nbsp; &nbsp;Do you have any Pre-existing Medical Conditions</label>
+                        </div>
+
+
+                        <div class="col-xs-18  booking-form" ng-if="insurance.medicalCondition">
+    						<div class="col-xs-18 inputWrapper">
+	                            <input type="text" class="col-xs-18 placeSearch" ng-model="insurance.Mcondition"  placeholder="Please Indicate Medical Condition">
+	                        </div>
+						</div>
+						<div class="col-md-18" ng-if="defaultSearch.moduleCurrType[5].value.fTravelDays">
+							<div>Estimated cost of insurance for <span ng-bind="defaultSearch.moduleCurrType[5].value.fTravelDays"></span> Days</div>
+							<div><span class="curr_book">&#8358;</span> <span ng-bind="insurance.cost | number:2"></div>
+						</div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer col-md-10 col-md-offset-4">
+                <button class="btn-sm search-btn" ng-click="sendInsurance()" >Continue</button>
+            </div>
+        </div>
+    </div>
+</div>

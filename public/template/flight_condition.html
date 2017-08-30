@@ -1,0 +1,30 @@
+
+<div class="col-md-18 modal-bd">
+	<div class="col-md-18 nopadding" >
+        <div class="col-xs-18 headers modal-hd"> Flight Condition</div>
+        <div class="col-xs-18 modal_frame nopadding">
+        	<div class="col-xs-18 modal_head ">
+            	<ul class="col-xs-18 nopadding">
+                	<li class="modal_h_list" ng-repeat="seg in condition" ng-click="change_flight(seg)" >
+                    	Flight {{$index+1}}
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-6 modal_l cat_frame" >
+            	<div class="col-xs-18 nopadding scroller_container">
+                    <div class="col-xs-18 rule_title"  ng-repeat="rule in conditionz.paragraphs.paragraph" ng-click="change_rule(rule)" on-finish-render="ngRepeatFinished">
+                        {{rule.title}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 modal_r">
+            	<b>{{paragraph.title}}</b><br /><br />
+            	{{paragraph.text}}
+            </div>
+        </div>
+    </div>
+<div class="modal-footer">
+    <button class="btn-sm btn get_button_reset" ng-click="cancel()" style="margin:15px 0 0">Close</button>
+</div>
+<div class="loading_note modal_load" ng-if="load_note" loading></div>
+</div>

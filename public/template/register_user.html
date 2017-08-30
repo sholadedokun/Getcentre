@@ -1,0 +1,228 @@
+
+<div class="col-xs-18 modal-bd nopadding">
+	<div class="col-xs-18 nopadding"  ng-switch on="account.action">
+        <div class="col-xs-18 nopadding" ng-switch-when="log_reg">
+            <div class="col-xs-18 nopadding" >
+                <div class="col-xs-18 headers modal-hd"> <span class="icon-user-plus"></span>&nbsp; Login OR Register</div>
+                    <div class="col-xs-18 modal_frame">
+                        <div class="col-xs-18 nopadding">
+                            <button class="col-xs-18 btn-sm btn get_button_primary" ng-click="account.action='register'" style="margin:15px 0 0">Register</button>
+                            <button class="col-xs-18 btn-sm btn get_button_primary" ng-click="account.action='login'" style="margin:15px 0 0">Login</button>
+                            <facebook-login-button></facebook-login-button>
+                            <div ng-app="directive.g+signin">
+                              <google-plus-signin clientid="837743153813-aj4ij3ecdvv33g62nlp5nhc8lj9f8r5p"></google-plus-signin>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+        </div>
+        <div class="col-xs-18 no-padding" ng-switch-when="register">
+			<form ng-submit="register(user)">
+	            <div class="col-xs-18 nopadding" >
+					<div class="col-md-18 head-mate no-top-margin">
+						<div class="about-divide"></div>
+						<p>welcome onboard</p>
+						<h2>Register</h2>
+					</div>
+	                <div class="col-xs-18 tab-below no-padding modal_frame">
+						   <div class="col-xs-18 nopadding reg">
+								<div class="col-xs-4 booking-form ">
+									<!-- <label>Email</label> -->
+		                            <div class="col-xs-18 inputWrapper">
+										<select class="col-xs-18 nopadding placeSearch" ng-model="user.title" id="title">
+											<option>Mr.</option>
+											<option>Mrs.</option>
+											<option>Miss.</option>
+											<option>Dr.</option>
+											<option>Prof.</option>
+											<option>Engr.</option>
+									   </select>
+		                            </div>
+								</div>
+
+								<div class="col-xs-18 col-md-7 booking-form ">
+		                            <div class="col-xs-18 inputWrapper">
+		                                <input type="text" class="col-xs-18 placeSearch" required ng-model="user.fname" placeholder="First Name" name="">
+		                            </div>
+								</div>
+
+								<div class="col-xs-18 col-md-7 booking-form ">
+		                            <div class="col-xs-18 inputWrapper">
+		                                <input type="text" class="col-xs-18 placeSearch" required ng-model="user.lname" placeholder="Surname" name="">
+		                            </div>
+								</div>
+								<div class="col-xs-18 booking-form ">
+		                            <div class="col-xs-18 inputWrapper">
+		                                <input type="text" class="col-xs-18 placeSearch" required ng-model="user.email"  placeholder="Email Address" name="">
+		                            </div>
+								</div>
+		                        <div class="col-xs-18 col-md-9 booking-form ">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="password" class="col-xs-18 placeSearch" required ng-model="user.password" placeholder="Type Password" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 col-md-9 booking-form ">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="password" class="col-xs-18 placeSearch" required  ng-model="user.rpassword" placeholder="Re-type Password" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 col-md-9 booking-form ">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required  ng-model="user.phone" placeholder="Phone Number" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 col-md-9 booking-form ">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required ng-model="user.dbirth" placeholder="Date Of Birth"  birth-date >
+			                        </div>
+								</div>
+								<div class="col-xs-18 booking-form ">
+		                            <div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required ng-model="user.caddress" placeholder="Contact Address" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 col-md-6 booking-form ">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required ng-model="user.city"  placeholder="City" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 col-md-6 booking-form ">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required ng-model="user.state" placeholder="State" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 col-md-6 booking-form ">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required ng-model="user.pcode" placeholder="Postal Code" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 col-md-9 booking-form ">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required ng-model="user.country" placeholder="Country" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 col-md-9 booking-form ">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" ng-model="user.nationality" placeholder="Nationality" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 agentAccess ">
+		                            <label><input type="checkbox" ng-model="user.agent" >&nbsp;&nbsp;I WANT TO REGISTER AS TRAVEL AGENT (B2B ONLY)</label>
+		                        </div>
+
+		                        <div class="col-xs-18  col-md-9 booking-form" ng-if="user.agent">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required ng-model="user.companyname"  placeholder="Company Name" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 col-md-9 booking-form" ng-if="user.agent">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required  placeholder="Company Email Address" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 booking-form " ng-if="user.agent">
+									<div class="col-xs-18 inputWrapper">
+		                            	<input type="text" class="col-xs-18 placeSearch" required placeholder="Company Address" name="">
+									</div>
+		                        </div>
+		                        <!-- <div class="col-xs-18 col-md-9 booking-form" ng-if="user.agent">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch"  placeholder="Company Postal Code" name="">
+			                        </div>
+								</div> -->
+		                        <div class="col-xs-18 col-md-9 booking-form" ng-if="user.agent">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required  placeholder="Company City" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 col-md-9 booking-form" ng-if="user.agent">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required placeholder="Company State" name="">
+			                        </div>
+								</div>
+		                        <div class="col-xs-18 col-md-9 booking-form" ng-if="user.agent">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required  placeholder="Company Country" name="">
+			                        </div>
+								</div>
+								<div class="col-xs-18 col-md-9 booking-form" ng-if="user.agent">
+		    						<div class="col-xs-18 inputWrapper">
+			                            <input type="text" class="col-xs-18 placeSearch" required  placeholder="Company Phone Number" name="">
+			                        </div>
+								</div>
+		                        <div class="clear-fix col-xs-18 col-md-9 booking-form" ng-if="user.agent">
+		    						<div class="col-xs-18 inputWrapper">
+		                             <select class="col-sm-18 nopadding" id="title">
+		                              <option>--Select Total Staff Strength--</option>
+		                              <option>1 - 5</option>
+		                              <option>6 - 20</option>
+		                              <option>21 - 50</option>
+		                              <option>51 - 200</option>
+		                              <option>201 - 500</option>
+		                              <option>Above 500</option>
+		                            </select>
+		                            </div>
+		                        </div>
+		                        <div class="col-xs-18 col-md-9 booking-form" ng-if="user.agent">
+		    						<div class="col-xs-18 inputWrapper">
+
+		                             <select class="col-sm-18 nopadding" id="title">
+		                              <option>--Select Estimated Yearly Turnover--</option>
+		                              <option>$0 - $2,000</option>
+		                              <option>$2,001 - $10,000</option>
+		                              <option>$10,001 - $50,000</option>
+		                              <option>$50,001 - $200,000</option>
+		                              <option>$200,001 - $500,000</option>
+		                              <option>Above $500,000</option>
+		                            </select>
+		                            </div>
+		                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="modal-footer">
+	                <input type="submit" class="btn-sm col-xs-18 search-btn" style="margin:15px 0 0" value="Register" />
+	                <div class="col-xs-18 requestInfo" ng-bind="info"></div>
+					<div class="reg_note col-xs-18">
+						<p>I already have an account <br/><a ng-click="account.action='login'">Login here</a></p>
+					</div>
+	            </div>
+				</form>
+        </div>
+        <div class="col-xs-18 nopadding" ng-switch-when="login">
+			<form ng-submit="login(log)">
+                <div class="col-xs-18 nopadding" >
+					<div class="col-md-18 head-mate no-top-margin">
+						<div class="about-divide"></div>
+						<p>welcome back</p>
+						<h2>Login</h2>
+					</div>
+                    <div class="col-xs-18 tab-below modal_frame">
+	                        <div class="col-xs-18 booking-form ">
+								<label>Email</label>
+	                            <div class="col-xs-18 inputWrapper">
+	                                <input type="text" class="col-xs-18 placeSearch" ng-model="log.email" required  placeholder="Your Email Address" name="">
+	                            </div>
+							</div>
+							<div class="col-xs-18 booking-form ">
+								<label>Passowrd</label>
+	                            <div class="col-xs-18 inputWrapper">
+	                                <input type="password" class="col-xs-18 placeSearch" ng-model="log.password" required placeholder="Your Password" name="">
+	                            </div>
+	                        </div>
+							<div class="col-xs-18 app_info">{{login_error}}</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+					<div class="col-xs-18">
+                    	<input type="submit" class="btn-sm col-xs-18 btn search-btn" style="margin:15px 0 0" value="Login" />
+					</div>
+                    <!-- <button class="btn-sm btn explore-small" ng-click="cancel()" style="margin:15px 0 0">Close</button> -->
+					<div class="col-xs-18 reg_note">
+						<p>I Don't have an account <br/><a ng-click="account.action='register'">Register here</a></p>
+					</div>
+                </div>
+			</form>
+        </div>
+    </div>
+</div>

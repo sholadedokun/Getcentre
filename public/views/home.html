@@ -1,16 +1,35 @@
-<div class="">
-		<div class="">
-
+<div class="container-fluid no-padding topview">
+	<div class="topShadow"></div>
+		<div class="col-xs-18 nopadding">
 			<div class="banner">
-				<img src="img/banna.png" />
+				<img src="img/dubai.jpg" width="100%" />
+				<div class="slideContent">
+					<div class="col-md-18 slideCategory">
+						Valentine Vacation
+						<hr style="width:40px; margin:10px 0 0"/>
+					</div>
+					<div class="col-md-18">
+						<div class="col-md-3 slideMover" >
+							<div class="arrow_border">
+								<span class="arrow_right"></span>
+							</div>
+							<div class="arrow_border" >
+								<span  class="arrow_left"></span>
+							</div>
+						</div>
+						<div class="col-md-15 slideDetails">
+							<h1>Atlantis</h1>
+							<span class="vacationPlace" >Dubai UAE</span>
+							<span class="booking-form">
+								<div class="btn explore"><a href="#">explore</a> <span>&rarr;</span></div>
+							</span>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-
-
-
 		<div class="all-bg">
-
-			<div class="top-tours">
+			<div class="top-tours"  ng-init="localTours()">
 			<div class="container">
 				<div class="col-md-18 head-mate">
 					<p>come explore the world</p>
@@ -18,56 +37,18 @@
 				</div>
 				<div class="col-md-18 no-padding">
 					<div class="col-md-9 no-padding first-left">
-						<div class="col-md-18 big">
+						<div  ng-repeat="tour in localTs | limitTo:3" ng-class="tourClass(1, $index)" ng-mouseover="mouseTB('in')" ng-mouseleave="mouseTB('out')">
 							<div class="black-out"></div>
-							<img src="img/bigone.jpg" />
-							<div class="informate selected">
-								<h2 class="places">Mount Kilomanjaro</h2>
-								<p class="country">kenya</p>
+							<img ng-src="http://www.getcentre.com/admin/packageimages/{{tour.pict}}"  />
+							<div class="informate informate-small selected">
+								<h2 class="places" ng-bind="tour.pname"></h2>
+								<p class="country" ng-bind="tour.country"></p>
 								<div class="infomate-divide"></div>
-								<div ng-hide="up = 0">
-									<p class="price">now from <strong>N235,999</strong></p>
+								<div class="col-md-18 no-padding" ng-show="hoverState">
+									<p class="price col-md-18">now from &#8358;<strong  ng-bind="tour.cost | number:2"></strong></p>
 									<div class="">
-										<div class="btn explore">explore <span>&rarr;</span></div>
+										<a href="#/tour/ltour/{{tour.id}}" class="btn explore">explore <span>&rarr;</span></a>
 										<div class="share-btns">
-											<span><i class="fa fa-facebook"></i></span>
-											<span><i class="fa fa-twitter"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-9 small">
-							<img src="img/bigtwo.jpg" />
-							<div class="black-out"></div>
-							<div class="informate informate-small">
-								<h2 class="places">Mount Kilomanjaro</h2>
-								<p class="country">kenya</p>
-								<div class="infomate-divide infomate-divide-small"></div>
-								<div ng-hide="up = 1">
-									<p class="price">now from <strong>N235,999</strong></p>
-									<div class="">
-										<div class="btn explore explore-small">explore <span>&rarr;</span></div>
-										<div class="share-btns share-btns-small">
-											<span><i class="fa fa-facebook"></i></span>
-											<span><i class="fa fa-twitter"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-9 small">
-							<img src="img/bigthree.jpg" />
-							<div class="black-out"></div>
-							<div class="informate informate-small">
-								<h2 class="places">Mount Kilomanjaro</h2>
-								<p class="country">kenya</p>
-								<div class="infomate-divide infomate-divide-small"></div>
-								<div ng-hide="up = 1">
-									<p class="price">now from <strong>N235,999</strong></p>
-									<div class="">
-										<div class="btn explore explore-small">explore <span>&rarr;</span></div>
-										<div class="share-btns share-btns-small">
 											<span><i class="fa fa-facebook"></i></span>
 											<span><i class="fa fa-twitter"></i></span>
 										</div>
@@ -77,55 +58,18 @@
 						</div>
 					</div>
 					<div class="col-md-9 second-right no-padding">
-						<div class="col-md-9">
-							<img src="img/bigtwo.jpg" />
+						<div ng-repeat="tour in localTs.slice(3, 6)"  ng-class="tourClass(2, $index)"  ng-mouseover="mouseTB('in')" ng-mouseleave="mouseTB('out')">
 							<div class="black-out"></div>
+							<img ng-src="http://www.getcentre.com/admin/packageimages/{{tour.pict}}"  />
+
 							<div class="informate informate-small">
-								<h2 class="places">Mount Kilomanjaro</h2>
-								<p class="country">kenya</p>
+								<h2 class="places" ng-bind="tour.pname"></h2>
+								<p class="country"  ng-bind="tour.country"></p>
 								<div class="infomate-divide infomate-divide-small"></div>
-								<div ng-hide="up = 1">
-									<p class="price">now from <strong>N235,999</strong></p>
+								<div class="col-md-18 no-padding" ng-show="hoverState">
+									<p class="price col-md-18">now from &#8358;<strong  ng-bind="tour.cost | number:2"></strong></p>
 									<div class="">
-										<div class="btn explore explore-small">explore <span>&rarr;</span></div>
-										<div class="share-btns share-btns-small">
-											<span><i class="fa fa-facebook"></i></span>
-											<span><i class="fa fa-twitter"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-9">
-							<img src="img/bigone.jpg" />
-							<div class="black-out"></div>
-							<div class="informate informate-small">
-								<h2 class="places">Mount Kilomanjaro</h2>
-								<p class="country">kenya</p>
-								<div class="infomate-divide infomate-divide-small"></div>
-								<div ng-hide="up = 1">
-									<p class="price">now from <strong>N235,999</strong></p>
-									<div class="">
-										<div class="btn explore explore-small">explore <span>&rarr;</span></div>
-										<div class="share-btns share-btns-small">
-											<span><i class="fa fa-facebook"></i></span>
-											<span><i class="fa fa-twitter"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-18 big">
-							<img src="img/bigthree.jpg" />
-							<div class="black-out"></div>
-							<div class="informate selected">
-								<h2 class="places">Mount Kilomanjaro</h2>
-								<p class="country">kenya</p>
-								<div class="infomate-divide"></div>
-								<div ng-hide="up = 1">
-									<p class="price">now from <strong>N235,999</strong></p>
-									<div class="">
-										<div class="btn explore">explore <span>&rarr;</span></div>
+										<a href="#/tour/ltour/{{tour.id}}" class="btn explore">explore <span>&rarr;</span></a>
 										<div class="share-btns">
 											<span><i class="fa fa-facebook"></i></span>
 											<span><i class="fa fa-twitter"></i></span>
@@ -136,8 +80,7 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="col-md-18 head-mate hm-below">
+				<div class="col-md-18 head-mate wBg hm-below">
 					<p>you don't run these circle?</p>
 					<h2>explore more tours</h2>
 					<div class="btn">see more <span>&rarr;</span></div>
@@ -152,55 +95,57 @@
 				</div>
 				<div class="col-md-18 no-padding">
 					<div class="col-md-18 no-padding first-left">
-						<div class="col-md-11">
-							<img src="img/postbig.jpg" />
+						<div class="" ng-repeat="blog in blogs | limitTo:3" ng-class="blogClass(1, $index)" ng-mouseover="mouseTB('in')" ng-mouseleave="mouseTB('out')">
+							<div class="black-out"></div>
+							<div class="blogImg"><img src="img/postbig.jpg" blog-img blogcode="{{blog.id}}" class="blgimg" /></div>
 							<div class="informate selected">
-								<h2 class="places">Visiting Dubia? Top tips on what to do before you travel</h2>
-								<p class="post-date">10 october 2016</p>
-								<p>Planning a trip to Dubai? We’ve welcomed scores of visitors to stay since we moved to the U.A.E. in 2000 and here’s the</p>
-								<div class="">
-									<div class="infomate-divide"></div>
-										<div class="btn explore more-words">read more <span>&rarr;</span></div>
+								<h2 class="places" ng-bind="blog.title"></h2>
+								<p class="post-date" ng-bind="blog.date"></p>
+								<div class="infomate-divide"></div>
+								<div class=""  ng-show="hoverState">
+									<p ng-bind="blog.excerpt"></p>
+									<a ng-href="{{blog.permalink}}" target="_blank" class="btn explore more-words">read more <span>&rarr;</span></a>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-7">
+						<!-- <div class="col-md-7">
 							<div class="col-md-18 post-small">
 								<img src="img/postbig.jpg" />
 							</div>
 							<div class="col-md-18 post-small">
 								<img src="img/postbig.jpg" />
 							</div>
-						</div>
+						</div> -->
 					</div>
-
 				</div>
-
 				<div class="col-md-18 no-padding post-below">
 					<div class="col-md-18 no-padding first-left">
-						<div class="col-md-7">
-							<div class="col-md-18 post-small">
-								<img src="img/postbig.jpg" />
-							</div>
-							<div class="col-md-18 post-small">
-								<img src="img/postbig.jpg" />
+						<div class="" ng-repeat="blog in blogs.slice(3,6)" ng-class="blogClass(2, $index)" ng-mouseover="mouseTB('in')" ng-mouseleave="mouseTB('out')">
+							<div class="black-out"></div>
+							<div class="blogImg"><img src="img/postbig.jpg" blog-img blogcode="{{blog.id}}" class="blgimg" /></div>
+							<div class="informate selected">
+								<h2 class="places" ng-bind="blog.title"></h2>
+								<p class="post-date" ng-bind="blog.date"></p>
+								<div class="infomate-divide"></div>
+								<div class=""  ng-show="hoverState">
+									<p ng-bind="blog.excerpt"></p>
+									<a ng-href="{{blog.permalink}}" target="_blank" class="btn explore more-words">read more <span>&rarr;</span></a>
+								</div>
 							</div>
 						</div>
-						<div class="col-md-11">
+
+						<!-- <div class="col-md-11">
 							<img src="img/postbig.jpg" />
-						</div>
+						</div> -->
 					</div>
-
 				</div>
-
 				<div class="col-md-18 blog-extra-btn hm-below">
-						<div class="btn">see more <span>&rarr;</span></div>
-					</div>
-
+					<a href="https://blog.getcentre.com" class="btn">see more <span>&rarr;</span></a>
+				</div>
 				<div class="col-md-18 head-mate hm-below">
 					<p>need support or clarifications?</p>
 					<h2>Talk to our Travel & Tour experts</h2>
-					<div class="btn leave-msg">leave a message <span>&rarr;</span></div>
+					<a href="#/contact" class="btn leave-msg">leave a message <span>&rarr;</span></a>
 				</div>
 			</div>
 		</div>

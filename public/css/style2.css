@@ -1,0 +1,338 @@
+@charset "utf-8";
+/* CSS Document */
+.tour-brief{font-size:12px; height:60px; margin:10px 0;}
+.tour-category{ font-weight:bold; font-size:14px; line-height:12px;}
+.tours-pac{margin: 0 15px; padding:0px;}
+.social_media a: hover{color:#eee !important;}
+.pay_img{background:#7ccb25}
+.tours-pac {
+    margin: 15px 30px 15px 0;
+    padding: 0px;}
+.tours_list_s{
+	padding: 1em;
+    font-size: 15px;
+}
+.error{color:#b22; font-weight: bold; padding:10px;}
+.search-header{z-index:10}
+.viewanimate{min-height:10px !important}
+.flightt{
+    border-radius:15px;
+    font-size:12px;
+    margin-bottom:20px;
+    background:transparent;
+    border:solid 1px #014b4e;
+    padding:0px;
+    cursor: pointer;
+}
+.ftactive{
+    padding:5px 20px;
+    background:#014b4e;
+    color:#fff !important;
+}
+.ftinact{
+    padding:5px 20px;
+    color:#014b4e;
+}
+.fonw{
+    text-align: right;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+.fret{
+
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.visa_info{
+    padding:60px 20px 0;;
+
+}
+.visa_info_container{
+    border: 15px solid #fafafa;
+    border-radius: 15px;
+    background:#fff;
+    padding:20px
+}
+.visa_info_container p{
+    margin: 20px 0;
+    color:#999;
+    font-size: 14px
+}
+.v_head_container{
+    font-size: 24px;
+    color: #555;
+    font-weight: bold;
+}
+.v_mainpoints{
+    font-size: 18px;
+    color:#999;
+    font-weight: bold;
+}
+.comp_info{
+    border: 3px solid #77a630;
+    margin: 0 20px 0 0;
+    border-radius: 5px;
+    padding: 10px;
+}
+.comp_info_s{
+    border-bottom: 1px solid #77a630;
+    padding-bottom: 5px;
+}
+.from-blog{
+    padding:0 36px 0 0;
+}
+
+.bel{
+
+	margin-top: 10px;
+}
+
+.tourPadRight{
+	    padding-right: 0;
+	    padding-left:  10px;
+}
+
+.tourPadLeft{
+	padding-left: 10px;
+	padding-right: 0;
+}
+
+.tour-posts .ftimg{
+	height: 530px;
+}
+
+.info-top{
+	color: #333333;
+	margin-top: 80px;
+	margin-bottom: 20px;
+}
+
+.top-header{
+
+
+    font-weight: normal;
+    font-size: 38px;
+    letter-spacing: -2px;
+    margin-bottom: 0;
+}
+
+.top-subheader{
+
+    font-size: 21px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: #666666;
+}
+
+.post, .lastblg{
+	padding-right: 0;
+	padding-left: 10px;
+}
+
+.other-post{
+	padding-right: 0;
+}
+
+.post-header{
+	min-height: 52px;
+    color:#000;
+    font-size:18px;
+    margin-top:10px
+}
+
+.post-header h2{
+	font-size: 19px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.post-content{
+	font-weight: 300;
+    font-size: 17px;
+    color: #666666;
+    margin-top: 20px;
+}
+
+.post-content a{
+	color:  #666666;
+	text-decoration: underline;
+}
+
+.post-content a:hover{
+
+}
+
+.inner-post{
+	padding-top: 90px;
+    padding-bottom: 90px;
+    display: flex;
+    padding-left: 20px;
+    flex-grow: 2;
+    padding-right: 20px;
+    font-weight: bold;
+    background-color: #096266;
+}
+
+.inner-post h1{
+	font-size: 60px;
+	border-bottom: 6px solid #c7e3e4;
+    padding-bottom: 10px;
+}
+
+.inner-post:hover{
+	background-color: #06494c;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+
+.leader-board{
+	padding-left: 10px;
+	margin-top: 120px;
+}
+
+.tag{
+	color: #232323;
+    font-size: 22px;
+    position: absolute;
+    top: 15px;
+    background-color: rgba(253, 110, 78, 0.92);
+    padding-top: 3px;
+    padding-left: 15px;
+    padding-right: 25px;
+    text-align: center;
+}
+
+.tag-color{
+	background-color: rgba(163, 213, 95, 0.92);
+}
+
+.headline{
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	text-align: center;
+	margin: auto;
+	z-index:  999;
+	height: 20%;
+}
+
+.from-price{
+	position: absolute;
+	z-index: 999;
+	bottom: 50px;
+	font-size: 22px;
+    background-color: white;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.the-place{
+	font-size: 45px;
+    color: #fff;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+.the-package{
+	font-size: 20px;
+    color: #ffffff;
+    font-weight: 300;
+}
+
+.bx-wrapper .bx-viewport{
+
+	border:  0 !important;
+	box-shadow: none !important;
+	left:  0!important;
+}
+
+.over-cover{
+	position: absolute;
+    top: 0;
+    right: 0;
+    left: 10px;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+.over-cover:hover{
+	background-color: rgba(0, 0, 0, 0);
+	transition: all 0.5s;
+}
+
+.blgimg{
+	height: 220px;
+}
+.tourimgfill{
+    overflow-x:auto;
+    height:inherit;
+}
+.tourPflow{overflow: hidden; margin-top:10px}
+.blogImgContainer{
+    min-height:220px;
+}
+.bImgContent{
+    max-height: 220px;
+    overflow: hidden;
+}
+.paymentOptions{
+    background:#7ccb25;
+    padding:20px 0;
+}
+.paymentOptions span{
+    font-size:16px;
+    color:#eee;
+    font-weight: bold;
+    margin-bottom:5px;
+}
+
+.subscribe{
+    margin-top:30px;
+}
+
+.stopHeader{
+    border-bottom:2px solid #555;
+    font-weight: bold;
+    padding: 1em 1em 0.25em;
+    font-size:1.1em
+}
+.stopItem{
+    border-bottom:1px solid #555;
+    padding: 1em 1em 0.25em;
+    color: #035358;
+    font-size:0.85em;
+}
+.fHeader{
+    margin: 0.5em 0.5em 0.1em;
+    text-align: center;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.6em;
+}
+.fStopOver, .miniSummary{
+    font-style: normal;
+}
+.miniSummary{
+    text-align: center;
+}
+.topBorder{
+    border-top:1px solid #014b4e
+}
+.complete_book{
+    font-style: normal !important;
+}
+.complete_title{
+    font-size: 1.05em;
+    padding:0.5em 0;
+    display: block;
+}
+.service_date{
+    font-style: normal !important;
+}

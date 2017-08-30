@@ -1,0 +1,11 @@
+[
+{"code":"", "name":"Select Travel Document Type"},
+{"code":"P", "name":"Passport"},
+{"code":"A", "name":"Alien Resident Card"},
+{"code":"C", "name":"Permanent Resident Card"},
+{"code":"T", "name":"Refugee Travel Document and Re-entry Permit, Us travel document"},
+{"code":"F", "name":"Facilitation Document"},
+{"code":"M", "name":"Military"},
+{"code":"N", "name":"Naturalization Certificate"},
+{"code":"V", "name":"Border Crossing Card"}
+]
