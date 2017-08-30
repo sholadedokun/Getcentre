@@ -63,6 +63,20 @@
 				if($a){
 					 $a_json['status'] = "success";
 					 echo json_encode($a_json);
+					 if($user=='Agent'){
+						 $to="adewole@getcentre.com";
+						 $subject = "Getcentre Agent Registration Notification";
+			 			 $message="Dear Admin,<br><br>";
+						 $message.= "Please Find the Agent Details below<br><br>";
+						 $message.= '<strong>Full Name: </strong>'.$_GET['title']." ".$_GET['fname']." ".$_GET['lname']."<br>";
+						 $message.= '<strong>Email Address: </strong>'.$_GET['email'].",<br>";
+						 $message.= '<strong>Phone Number: </strong>'.$phone.",<br><br>";
+			 			 $message.= "Best Regards,<br> The GetCentre Team.<br>";
+			 			 $headers = "MIME-Version: 1.0" . "\r\n";
+			 			 $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
+			 			 $headers .= "From:Getcentre.com\r\n";
+						 $sendToAdmin = mail($to, $subject, $message, $headers);
+					 }
 				}
 		}
 		else{echo '1';}
