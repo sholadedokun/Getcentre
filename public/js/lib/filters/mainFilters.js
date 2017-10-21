@@ -150,9 +150,11 @@ getcentre.filter('currencyConvert', function (currencyData) {
         var convF=rate[0].baseCurrency.currFrom;
         var convL=rate[1].currencyList;
         var currR=1;
+        console.log(rate, price)
         for ($a=0; $a<4; $a++){
             if(convL[$a].curr==convF){
                 currR=convL[$a].rate;
+                console.log(currR, price)
                 return currR*price
             }
         }

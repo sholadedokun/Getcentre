@@ -69,7 +69,7 @@
             </div>
             <div class="col-xs-18 col-md-10 hdetails">
                 <div class="col-xs-18 col-md-12 link h_title nopadding" name="{{hotel.hotelCode}}" hname="{{hotel.hotelName}}" ng-click="sethotels_details($event, $index)">{{hotel.hotelName}}</div>
-                <div class="col-xs-18 col-md-6 h_rate"  ng-if="hotel.tag=='Juniper'" hotel-star rate="{{hotel.hotelCat['@attributes']}}"></div>
+                <div class="col-xs-18 col-md-6 h_rate"  ng-if="hotel.tag=='Juniper'" hotel-star-juniper rate="{{hotel.hotelCat['@attributes'].Code}}"></div>
                 <div class="col-xs-18 col-md-6 h_rate"  ng-if="hotel.tag=='HotelBed'" hotel-star rateex="{{hotel.hotelCat.$}}"></div>
                 <div class="col-xs-18 map_shdetails" ng-if="hotel.tag=='Juniper'">{{hotel.destination[0]}} <span><a href="#">Show Map</a></span></div>
                 <div class="col-xs-18 map_shdetails" ng-if="hotel.tag=='HotelBed'">{{hotel.destination.Name}},  {{hotel.destination.ZoneList.Zone['$']}} <span><a href="#">Show Map</a></span></div>

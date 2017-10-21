@@ -18,6 +18,16 @@ hotelList.directive('hotelDetail', function($compile){
 		scope.getHdetails(element, attrs.hotelcode, attrs.hotelcat)
 	}
 })
+hotelList.directive('hotelStarJuniper', function($compile){
+  return function(scope, element, attrs){
+    $stars = parseInt(attrs.rate) || 0;
+    $ratehtml='';
+		for($r=0;$r<$stars;$r++){
+      $ratehtml=$ratehtml+' <span class="icon-star"></span>';
+    }
+		element.context.innerHTML=$ratehtml;
+  }
+})
 hotelList.directive('hotelStar', function($compile){
 	return function (scope, element, attrs){
 		$rateExe='';
@@ -195,8 +205,8 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 	});
 
 	// $hotelSupplier=[{url:'server/hotelAvail_httpRQ.php?', suppler:'hotelbeds'}, {url:'server/hotelAvail_juniper_RQ.php?', supplier:'juniper'}];
-	$hotelSupplier=[{url:'server/hotelAvail_httpRQ.php?', suppler:'hotelbeds'}];
-    // $hotelSupplier=[{url:'server/hotelAvail_juniper_RQ.php?', supplier:'juniper'}];
+	// $hotelSupplier=[{url:'server/hotelAvail_httpRQ.php?', suppler:'hotelbeds'}];
+    $hotelSupplier=[{url:'server/hotelAvail_juniper_RQ.php?', supplier:'juniper'}];
 	for (x=0; x<$hotelSupplier.length; x++){
 		 $http({method:'GET',
 		 		url:$hotelSupplier[x].url+'hdescode='+$scope.search_c.moduleCurrType[0].value.code+'&hcheckin='+$scope.search_c.moduleCurrType[1].value.short+'&hcheckout='+$scope.search_c.moduleCurrType[2].value.short+'&hRoomBreak='+JSON.stringify($scope.search_c.moduleCurrType['occupancy'])

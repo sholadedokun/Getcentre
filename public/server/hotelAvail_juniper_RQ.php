@@ -72,7 +72,6 @@
 			}
 			function getCDATA($tag, $content){
 				$matchpat='/<'.$tag.'><!\-\-\[CDATA\[(.*)\]\]\-\-\>\<\/'.$tag.'>/';
-
 				try{preg_match($matchpat, $content, $matcher); return $matcher[1];} catch(Exception $e){ return;}
 			}
 			 $this->client = new SoapClient('http://xml2.bookingengine.es/webservice/OTA_HotelAvail.asmx?wsdl',
@@ -82,7 +81,7 @@
 			$this->client->OTA_HotelAvailService->sessionId = 'getcentretester';
 			$OTA_HotelAvailService = $this->client->OTA_HotelAvailService;
 			$OTA_HotelAvailService->OTA_HotelAvailRQ->PrimaryLangID = 'en';
-			$OTA_HotelAvailService->OTA_HotelAvailRQ->POS->Source->AgentDutyCode = 'XML_techtuners';
+			$OTA_HotelAvailService->OTA_HotelAvailRQ->POS->Source->AgentDutyCode = 'XML_GETCentre';
 			$OTA_HotelAvailService->OTA_HotelAvailRQ->POS->Source->RequestorID->Type = "1";
 			$OTA_HotelAvailService->OTA_HotelAvailRQ->POS->Source->RequestorID->MessagePassword = 'NdKT7Rs5t4';
 			$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->StayDateRange->Start =substr($_GET["hcheckin"],0,4).'-'.substr($_GET["hcheckin"],4,2).'-'.substr($_GET["hcheckin"],-2);
@@ -97,7 +96,6 @@
 					if($room_child!=0){
 						$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->RoomStayCandidates->RoomStayCandidate[$x]->GuestCounts->GuestCount[1]->Age = '11';
 						$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->RoomStayCandidates->RoomStayCandidate[$x]->GuestCounts->GuestCount[1]->Count = $room_child;
-
 					}
 				}
 			}
@@ -141,7 +139,6 @@
 							array_push($a_json['hotelList'],getHotel($hotel, $sequence, $room_adult, $room_child));
 						}
 					}
-
 				}
 				if (($a_json != null) && (sizeof($a_json) > 0)) {
 				//$json = new Services_JSON();
@@ -149,10 +146,7 @@
 				echo $jsonOutput;
 			}
 			catch (SoapFault $exception){ echo $exception; }
-
-
 		}
-
 	}
 	$obj = new OTA_HotelAvailService();
 	$obj->OTA_HotelAvailRQ();
