@@ -267,7 +267,7 @@
 				</div>
 			</div>
 		</div>
-		<div ng-view autoscroll="true"></div>
+		<div ng-view autoscroll="true" id="appLoader"></div>
 		<footer-below subscribe="subscribe(subEmail)"></footer-below>
 		<?php if(isset($_POST["txnref"])){ ?>
 			<input type="hidden" id="pref" value="<?php echo $_POST["txnref"];?>" payref="<?php echo $_POST["payRef"];?>" retref="<?php echo $_POST["retRef"];?>" />

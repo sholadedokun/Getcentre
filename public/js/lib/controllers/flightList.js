@@ -2,6 +2,9 @@
 // last edited 01/08/2015
 var flightList =  angular.module('flightList',  ['ui.bootstrap']);
 flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'searchDatas', 'flightListRs','flightListNextRs','$location', 'flightCheckRs', 'travelPackD','currencyData','$modal', '$route', '$filter', function($scope, $rootScope, fpriceFilter, searchDatas, flightListRs, flightListNextRs, $location, flightCheckRs, travelPackD, currencyData, $modal, $route, $filter) {
+
+
+
 	$scope.load_note=true;
 	$scope.disabled=false;
 	$rootScope.search=false;
@@ -247,6 +250,8 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 		$dt= $tday.split(' ');	$scope.t_day = $dt[0];    $scope.t_month = $dt[1];     $scope.t_year = $dt[2];
 	}
 	function getfirst(){
+		var top = $('#appLoader').position().top;
+		$(window).scrollTop( top );
 	//	flidetails=JSON.stringify($scope.search_c);
 		$scope.fList = flightListRs.save({f_det:$scope.search_c, c_dist:$scope.search_c.Child_ageDist, i_dist:$scope.search_c.Infant_ageDist},
 		function(fList) {

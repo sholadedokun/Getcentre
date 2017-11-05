@@ -10,23 +10,11 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
 	$scope.childAgeOptions=[
 		{ value:0, name:'0-11 Months'},
 		{ value:1, name:'1 Year'},
-		{ value:2, name:'2 Years'},
-		{ value:3, name:'3 Years'},
-		{ value:4, name:'4 Years'},
-		{ value:5, name:'5 Years'},
-		{ value:6, name:'6 Years'},
-		{ value:7, name:'7 Years'},
-		{ value:8, name:'8 Years'},
-		{ value:9, name:'9 Years'},
-		{ value:10, name:'10 Years'},
-		{ value:11, name:'11 Years'},
-		{ value:12, name:'12 Years'},
-		{ value:13, name:'13 Years'},
-		{ value:14, name:'14 Years'},
-		{ value:15, name:'15 Years'},
-		{ value:16, name:'16 Years'},
-		{ value:17, name:'17 Years'}
 	];
+	for(var i=2; i<=17; i++){
+		$options={value:i, name:i+' Years'}
+		$scope.childAgeOptions.push($options)
+	}
 	$scope.searchRevel= function(){$scope.searchInit=true;}
 	$scope.initSearch=function(){
 		searchMac=document.getElementById('searchMachine');
@@ -314,6 +302,7 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
 		   	$scope.getData[4].TdropTime= $scope.d_hr+$scope.d_min; //setting default departing date
 		   	$location.path('/tours/transfer_list');
 	   	}
+
    	}
    	$scope.getBimage=function(e, a){
    		$scope.hsdet= blogImageRs.get({blog_code:a}, function(hsdet){ e.context.src=hsdet.det})

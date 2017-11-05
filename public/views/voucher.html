@@ -1,6 +1,6 @@
 <div class="container searchPage">
 	<div class="col-xs-18 search_result partial_view">
-		<div class="col-xs-18 " ng-controller="GetCentre">
+		<div class="col-xs-18 ">
 	        <div class="col-md-6 col-xs-18 tra_nav hidden-xs">Your Trip Bag</div>
 	        <div class="col-md-6 col-xs-18 tra_nav hidden-xs">Guest | Passenger and Payment Details</div>
 	        <div class="col-md-6 col-xs-18 tra_nav curhead">Voucher</div>
@@ -22,9 +22,9 @@
 	        	<div class="col-xs-18 nopadding other_room_spec" ng-repeat="each_trip in tot_trip">
 	                <div class=" col-md-12 room_spec">
 	                    <div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Service Type : </b><br /></span>{{each_trip.productType}}</div>
-	                    <div class="col-xs-18 col-md-9 nopadding"><span class="visible-xs"><b>Service Name: </b><br /></span>{{each_trip.Name}}</div>
+	                    <div class="col-xs-18 col-md-9 nopadding"><span class="visible-xs"><b>Service Name: </b><br /></span>{{each_trip.Name || each_trip.flightTypeName}}</div>
 	                    <div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Tickets : </b><br /></span>{{each_trip.Adult}} Adults, {{each_trip.Child}} kid</div>
-	                    <div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Unit Price : </b><br /></span> &#8358; {{each_trip.Price |currencyConvert | number:2}}</div>
+	                    <div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Unit Price : </b><br /></span> &#8358; {{each_trip.Price  | number:2}}</div>
 	                </div>
 	                <!-- <div class="col-md-6 t_price">
 	                    <div class="col-md-12 s_label"><a href="#">Cancel Booking</a></div>

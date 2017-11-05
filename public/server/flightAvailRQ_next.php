@@ -86,7 +86,20 @@
                     }
                     $xml->endElement();
                 }
-				$xml->writeElement('extraData', 'adtFlightInfo');
+                //attempting to add grouping to the xml
+                $xml->writeElement('trp_depCodeIsGroup', 1);
+                $xml->writeElement('trp_desCodeIsGroup', 1);
+
+                //attempting to add other variables I don't know
+                $xml->writeElement('useMerlinMargin', 1);
+                $xml->writeElement('flightAdvancedSearch', 1);
+                $xml->writeElement('rule_checker', 1);
+                $xml->writeElement('calcPrecision', 2);
+                $xml->writeElement('flightmixed', 0);
+                $xml->writeElement('order_by', "ofr_price");
+
+                
+				$xml->writeElement('extraData', 'adtFlightInfo,extMarginFlights');
 				$xml->endElement();
 			$xml->endElement();
 		$xml->endElement();

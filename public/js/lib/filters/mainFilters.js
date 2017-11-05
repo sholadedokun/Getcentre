@@ -90,6 +90,23 @@ getcentre.filter('stopover', function () {
         return($total_channel)
     }
 })
+getcentre.filter('cabinClass', function () {
+    return function (cabin) {
+        $cabinLetter=cabin.split('|')[1];
+        switch($cabinLetter.toUpperCase()){
+            case 'Y':return 'Economy';
+            case 'S':return 'Economy Premim';
+            case 'C':return 'Business';
+            case 'J':return 'Business Premium';
+            case 'F':return 'First';
+            case 'P':return 'First Premium';
+            default: return 'Economy';
+        }
+
+        for (property in legobj){if(legobj.hasOwnProperty(property)){$total_channel++;}}
+        return($total_channel)
+    }
+})
 getcentre.filter('fprice', function () {
     return function (price) {
         $tot_price=0;
@@ -150,11 +167,9 @@ getcentre.filter('currencyConvert', function (currencyData) {
         var convF=rate[0].baseCurrency.currFrom;
         var convL=rate[1].currencyList;
         var currR=1;
-        console.log(rate, price)
         for ($a=0; $a<4; $a++){
             if(convL[$a].curr==convF){
                 currR=convL[$a].rate;
-                console.log(currR, price)
                 return currR*price
             }
         }

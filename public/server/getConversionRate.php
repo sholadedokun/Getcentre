@@ -5,6 +5,7 @@
 	$info=mysql_fetch_assoc($rs);
   if(isset($_GET['fetcher'])){
     $jsonOutput = json_encode($info);
+    echo $jsonOutput;
   }
-  echo $jsonOutput;
+
 ?>

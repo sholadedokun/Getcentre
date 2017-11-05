@@ -210,37 +210,56 @@ function getCookie(cname) {
 					$scope.flight_details= trans[t];
 					$scope.main=trans[t];
 					//book transaction with our supplier
-					$scope.fBook =flightBookRs.save({details:$scope.flight_details}, function(fCheck) {
-						$scope.f_booker=$scope.fBook.response;
-                        //check if there is error in booking.
-                        if($scope.f_booker.ERROR || $scope.f_booker.status=='ERROR' ){
-                            $scope.load_note=false;
-                            scope.disabled=false;
-                            console.log($scope.f_booker.ERRORMSG, $scope.f_booker.ERRORFIELDS.fields[0].msg.$ )
-                            var modalInstance = $modal.open({
-                			  templateUrl: 'template/booking_error.html',
-                			  controller: 'bookErrorModalInstanceCtrl',
-                			  //size: 'sm',
-                			  windowClass: 'register-modal-window',
-                			  resolve: {
-                				errorObject: function () {
-                				  return $scope.f_booker;
-                				}
-                			  }
-                			})
-                        }
-						//update transaction with the booking number
-						else{
-							$scope.sendbook=sendmailFlight.save({
-								flightDetails:$scope.flight_details,
-								userE:$scope.user[1],
-								bookingCode:$scope.f_booker.booking_number,
-								bookingRef:bookref[0].basketId},
-								function(sendbook){$scope.user=$scope.sendbook;
-                                $scope.afterBook($scope.f_booker);
-							})
-						}
-					})
+                    try{
+                        $scope.fBook =flightBookRs.save({details:$scope.flight_details}, function(fCheck) {
+                            fCheck.$promise.then(function(response){
+                                $scope.f_booker=$scope.fBook.response;
+                                console.log(fCheck, $scope.f_booker)
+                                //check if there is error in booking.
+                                if($scope.f_booker.ERROR || $scope.f_booker.status=='ERROR'  ){
+                                    $scope.load_note=false;
+                                    $scope.disabled=false;
+                                    console.log($scope.f_booker.ERRORMSG, $scope.f_booker.ERRORFIELDS.fields[0].msg.$ )
+                                    var modalInstance = $modal.open({
+                        			  templateUrl: 'template/booking_error.html',
+                        			  controller: 'bookErrorModalInstanceCtrl',
+                        			  //size: 'sm',
+                        			  windowClass: 'register-modal-window',
+                        			  resolve: {
+                        				errorObject: function () {
+                        				  return $scope.f_booker;
+                        				}
+                        			  }
+                        			})
+                                }
+        						//update transaction with the booking number
+        						else{
+        							$scope.sendbook=sendmailFlight.save({
+        								flightDetails:$scope.flight_details,
+        								userE:$scope.user[1],
+        								bookingCode:$scope.f_booker.booking_number,
+        								bookingRef:bookref[0].basketId},
+        								function(sendbook){
+                                            $scope.user=$scope.sendbook;
+                                            $scope.afterBook($scope.f_booker);
+            							})
+            						}
+
+                            })
+                            .catch(
+                                function(err){
+                                    console.log('Book failed please try again')
+                                    alert('Book failed please try again')
+                                }
+                            )
+
+    					})
+                    }
+                    catch(e){
+                        console.log('heresxxsd')
+                        console.log(e)
+                    }
+
 				}
 				if(trans[t].product=='HotelBed'){
 					console.log(trans[t])
@@ -419,7 +438,7 @@ function getCookie(cname) {
 AddGuest.controller('bookErrorModalInstanceCtrl', ['$scope', '$rootScope', 'userData', '$modalInstance', 'errorObject','travelPackD',  function ($scope, $rootScope, userData, $modalInstance, errorObject, travelPackD){
 	$scope.travelPD= travelPackD.data();
     $scope.errorOb=errorObject;
-    console.log($scope.errorOb);
+    console.log($scope.errorOb.request.forminfo.Expected_price.amount.$, $scope.errorOb.ERRORFIELDS.fields[0].msg.$  );
     $scope.ok = function (user) {
   };
 

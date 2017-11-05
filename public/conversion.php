@@ -25,19 +25,19 @@ error_reporting(E_ALL);
         	<div class="" style="padding:5px 15px; background:#ccc; color:#555"><h2>Update Exchange Rate</h2></div>
         	<div class="" style="padding:10px; background:#eee; color:#555">
             	<div><b>Dollar $ (USD)</b></div>
-                <span><input type="text" name="USD" value="<?php echo $info[1] ?>" /></span>
+                <span><input type="text" name="USD" value="<?php echo $info['USD'] ?>" /></span>
             </div>
             <div class="" style="padding:10px; background:#bbb; color:#555">
             	<div><b>Pounds &pound; (GBP)</b></div>
-                <span><input type="text" name="GBP" value="<?php echo $info[2] ?>" /></span>
+                <span><input type="text" name="GBP" value="<?php echo $info['GBP'] ?>" /></span>
             </div>
             <div class="" style="padding:10px; background:#eee; color:#555">
             	<div><b>Euro &euro; (EUR)</b></div>
-                <span><input type="text" name="EUR" value="<?php echo $info[3] ?>" /></span>
+                <span><input type="text" name="EUR" value="<?php echo $info['EUR'] ?>" /></span>
             </div>
             <div  style="padding:10px; " ><input type="submit" value="Update" name="UpdateB" /></div>
         </form>
-        <div  style="padding:10px;"><b>Last Updated :</b>  <?php echo gmdate("F j, Y, g:i a", $info[4]); ?></div>
+        <div  style="padding:10px;"><b>Last Updated :</b>  <?php echo gmdate("F j, Y, g:i a", $info['time_date']); ?></div>
     </div>
 </body>
 </html>

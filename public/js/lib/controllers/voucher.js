@@ -13,7 +13,7 @@ var voucher =  angular.module('voucher', ['angular.filter', 'ui.bootstrap']);
         }
     }
  })
-voucher.controller('voucher', ['$scope',  'tourData', 'hotelData', 'transferData', 'purchaseConfirmRs', 'purchaseData', 'sendmailRS', 'userData', '$http', 'flightBookRs', 'flightData', 'travelPackD', 'PayGatewayRQRS', 'sendmailFlight', function($scope, tourData, hotelData, transferData,  purchaseConfirmRs, purchaseData, sendmailRS, userData, $http, flightBookRs, flightData, travelPackD, PayGatewayRQRS, sendmailFlight) {
+voucher.controller('voucher', ['$scope',  'tourData', 'hotelData',  'purchaseConfirmRs', 'purchaseData', 'sendmailRS', 'userData', '$http', 'flightBookRs', 'travelPackD', function($scope, tourData, hotelData,  purchaseConfirmRs, purchaseData, sendmailRS, userData, $http, flightBookRs,  travelPackD) {
 	// $scope.pGate = PayGatewayRQRS.get($scope.search_c, function(pGate) {console.log($scope.pGate);});
 	 $scope.tot_trip= checkCookie('travelPD');
 	 $scope.lead_guest=checkCookie('lead_guest')
@@ -24,15 +24,14 @@ voucher.controller('voucher', ['$scope',  'tourData', 'hotelData', 'transferData
 	 console.log($scope.lead_guest)
 	 if($scope.user[0].status=='Register')	$scope.voucher_det.email=$scope.lead_guest.email;
 	 else{ $scope.voucher_det.email=$scope.user[1].email}
-	 function getCookie(cname) {
-		var name = cname + "=";
-		var ca = document.cookie.split(';');
-		for(var i=0; i<ca.length; i++) {
-			var c = ca[i].trim();
-		   if (c.indexOf(name)==0) {return c.substring(name.length,c.length);}
-		}
-		return "";
-	}
+     function getCookie(cname) {
+         var name = cname + "=";
+         var ca = document.cookie.split(';');
+     	for(var i=0; i<ca.length; i++) {
+             var c = ca[i].trim();
+                if (c.indexOf(name)==0) {return c.substring(name.length,c.length);}
+         }
+     }
 	function checkCookie(category) {
 		var lSsearch=getCookie(category);
 		if (lSsearch != "") {

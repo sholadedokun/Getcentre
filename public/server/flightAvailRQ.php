@@ -39,6 +39,7 @@ $xml->startElement('mds');
         $xml->writeElement('srcDomain', 'getcentre.com');
     $xml->endElement();
     $xml->startElement('request');
+        // $xml->writeElement('type', 'groups');
         $xml->writeElement('type', 'check_external_flight_wait');
         $xml->startElement('conditions');
             $xml->writeElement('par_adt',  $flight_details->Adult);
@@ -50,9 +51,14 @@ $xml->startElement('mds');
             if( $flight_details->Infant>0){
                 $xml->writeElement('par_infAge',  $infant_dist);
             }
-
-
             $xml->writeElement('ofr_tourOp', 'XTVF,XSAB');
+            $xml->writeElement('group_by', 'carrierCodeStopover');
+            $xml->writeElement('limit_from', '1');
+            $xml->writeElement('limit_count', '100');
+
+            // $xml->writeElement('trp_depDate', '20171101');
+            // $xml->writeElement('trp_retDate', '20180126');
+
             $xml->writeElement('ofr_type', $flight_details->moduleType);
             // $xml->writeElement('adtFlightMarginInfo', 1);
             // check if it's a not multi destination.
@@ -80,10 +86,22 @@ $xml->startElement('mds');
                 }
                 $xml->endElement();
             }
+            //attempting to add grouping to the xml
+            $xml->writeElement('trp_depCodeIsGroup', 0);
+            $xml->writeElement('trp_desCodeIsGroup', 1);
+
+            //attempting to add other variables I don't know
+            $xml->writeElement('useMerlinMargin', 1);
+            $xml->writeElement('adtFlightMarginInfo', 1);
+            $xml->writeElement('flightAdvancedSearch', 1);
+            $xml->writeElement('rule_checker', 1);
+            // $xml->writeElement('calcPrecision', 2);
+            $xml->writeElement('flightmixed', 0);
+            // $xml->writeElement('order_by', "ofr_price");
             if($flight_details->others[0]->value!='all'){
-                $xml->writeElement('trp_flightClass', $flight_details->others[0]->value);
+                $xml->writeElement('trp_flyClass', $flight_details->others[0]->value);
             }
-             $xml->writeElement('extraData', 'adtFlightInfo');
+             $xml->writeElement('extraData', 'adtFlightInfo,extMarginFlights');
         $xml->endElement();
     $xml->endElement();
 $xml->endElement();
@@ -94,6 +112,7 @@ $xml_response_string = post_xml('http://mdswsng.merlinx.pl/dataV3/', $xml->outpu
 if(!$xml_response_string) {   die('ERROR'); }
 else{
     $xml_response = simplexml_load_string($xml_response_string);
+
     $rester= $xml_response;
     fcontroller($xml_response);
 // $re=turntojson($xml_response);
@@ -101,6 +120,7 @@ else{
 
 }
 function fcontroller($xml_response){
+    // echo(print_r($xml_response));
     $status=checkstatus($xml_response);
     // echo('here '.$status);
 
@@ -139,6 +159,21 @@ function getF($search_id){
             $xml->startElement('conditions');
                 $xml->writeElement('limit_count', '10');
                 $xml->writeElement('calc_found', '1000');
+                $xml->writeElement('group_by', 'carrierCodeStopover');
+                //attempting to add grouping to the xml
+
+                $xml->writeElement('trp_depCodeIsGroup', 0);
+                $xml->writeElement('trp_desCodeIsGroup', 1);
+
+                //attempting to add other variables I don't know
+                $xml->writeElement('useMerlinMargin', 1);
+                $xml->writeElement('adtFlightMarginInfo', 1);
+                $xml->writeElement('flightAdvancedSearch', 1);
+                $xml->writeElement('rule_checker', 1);
+                $xml->writeElement('calcPrecision', 2);
+                $xml->writeElement('flightmixed', 0);
+                $xml->writeElement('order_by', "ofr_price");
+
                 $xml->writeElement('par_adt',  $flight_details->Adult);
                 $xml->writeElement('par_chd',  $flight_details->Child);
                 $xml->writeElement('par_inf',  $flight_details->Infant);
@@ -181,11 +216,14 @@ function getF($search_id){
                     }
                     $xml->endElement();
                 }
+
+                // <limit_count>10</limit_count>
+
                 $xml->writeElement('adtFlightMarginInfo', 1);
                 if($flight_details->others[0]->value!='all'){
                     $xml->writeElement('trp_flightClass', $flight_details->others[0]->value);
                 }
-                $xml->writeElement('extraData', 'adtFlightInfo');
+                $xml->writeElement('extraData', 'adtFlightInfo,extMarginFlights');
             $xml->endElement();
         $xml->endElement();
     $xml->endElement();
