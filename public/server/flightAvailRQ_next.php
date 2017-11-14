@@ -36,7 +36,7 @@
                 if($flight->moduleType !='MF'){
                     $xml->writeElement('ofr_tourOp', 'XTVF,XSAB');
                     if (isset( $flight->module)){
-                        $xml->writeElement('trp_depDate', $flight_details->{4}->value->short);
+                        $xml->writeElement('trp_depDate', $flight_details->{3}->value->short);
     					$xml->writeElement('limit_count', '10');
     					$xml->writeElement('limit_from', $flight->limit_count);
     					$xml->writeElement('trp_depCode', $flight_details->{0}->value->code);
@@ -50,7 +50,7 @@
                         if( $flight->Infant>0){
                             $xml->writeElement('par_infAge',  $flight->Infant_ageDist);
                         }
-    					$xml->writeElement('trp_durationM',   $flight_details->{5}->value->fTravelDays);
+    					$xml->writeElement('trp_durationM',   $flight_details->{4}->value->fTravelDays);
                         //$xml->writeElement('adtFlightMarginInfo', 1);
     					$xml->writeElement('ofr_type', $flight->moduleType);
     					if($flight->others[0]->value!='all'){
@@ -94,11 +94,12 @@
                 $xml->writeElement('useMerlinMargin', 1);
                 $xml->writeElement('flightAdvancedSearch', 1);
                 $xml->writeElement('rule_checker', 1);
-                $xml->writeElement('calcPrecision', 2);
+                $xml->writeElement('language', 'EN');
+                // $xml->writeElement('calcPrecision', 2);
                 $xml->writeElement('flightmixed', 0);
                 $xml->writeElement('order_by', "ofr_price");
 
-                
+
 				$xml->writeElement('extraData', 'adtFlightInfo,extMarginFlights');
 				$xml->endElement();
 			$xml->endElement();
@@ -106,7 +107,7 @@
 		$xml->endDocument();
         // echo "<pre>".var_dump($xml->outputMemory(true))."</pre>";
         // die;
-        $xml_response_string = post_xml('http://mdswsng.merlinx.pl/dataV3/', $xml->outputMemory(true));
+        $xml_response_string = post_xml('https://mws.merlinx.pl/dataV4/', $xml->outputMemory(true));
 		if(!$xml_response_string){   die('ERROR');   }
 		$xml_response = simplexml_load_string($xml_response_string);
 

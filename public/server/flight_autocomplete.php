@@ -86,14 +86,20 @@
         $a_json_row["wcode"] .= $airp['countryName'];
 		$a_json_row["value"] =$a_json_row["label"];
 
+        // always bring lagos up in the search...
+        if($airPrefix=='LOS' && count($a_json)>0){
+            array_unshift($a_json, $a_json_row);
+        }
+		else{
+            array_push($a_json, $a_json_row);
+        }
 
-		//$a_json_row["latt"] =  $airp['cityId'].'|'. $airp['lng'].', '. $airp['lat'];
-		array_push($a_json, $a_json_row);
 		$a_json_row["label"] ='';
 	}
 
 	// highlight search results
 	$a_json = apply_highlight($a_json, $parts);
+
 
 	$json = json_encode($a_json);
 	echo $json;

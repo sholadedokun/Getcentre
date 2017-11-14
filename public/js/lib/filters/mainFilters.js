@@ -60,8 +60,9 @@ getcentre.filter('lastlegDes', function () {
         for (property in legobj){if(legobj.hasOwnProperty(property)){$total_channel++;}}
         $arr_leg='leg'+$total_channel;//getting the last leg of this trip
         $des_desc=legobj[$arr_leg]['@desDesc'];//getting the destination date of the last leg
-        $des_ext='<label>'+$des_desc+'</label> '+legobj[$arr_leg]['@desDescExt'];//format the date to a better readable format
-        return($des_ext)
+        $des_ext = legobj[$arr_leg]['@desDescExt'] || '';
+        $des='<label>'+$des_desc+'</label> '+$des_ext;//format the date to a better readable format
+        return($des)
     }
 })
 getcentre.filter('lastlegDate', function () {
@@ -90,23 +91,23 @@ getcentre.filter('stopover', function () {
         return($total_channel)
     }
 })
-getcentre.filter('cabinClass', function () {
-    return function (cabin) {
-        $cabinLetter=cabin.split('|')[1];
-        switch($cabinLetter.toUpperCase()){
-            case 'Y':return 'Economy';
-            case 'S':return 'Economy Premim';
-            case 'C':return 'Business';
-            case 'J':return 'Business Premium';
-            case 'F':return 'First';
-            case 'P':return 'First Premium';
-            default: return 'Economy';
-        }
-
-        for (property in legobj){if(legobj.hasOwnProperty(property)){$total_channel++;}}
-        return($total_channel)
-    }
-})
+// getcentre.filter('cabinClass', function () {
+//     return function (cabin) {
+//         $cabinLetter=cabin.split('|')[1];
+//         switch($cabinLetter.toUpperCase()){
+//             case 'Y':return 'Economy';
+//             case 'S':return 'Economy Premimum';
+//             case 'C':return 'Business';
+//             case 'J':return 'Business Premium';
+//             case 'F':return 'First';
+//             case 'P':return 'First Premium';
+//             default: return 'Economy';
+//         }
+//
+//         for (property in legobj){if(legobj.hasOwnProperty(property)){$total_channel++;}}
+//         return($total_channel)
+//     }
+// })
 getcentre.filter('fprice', function () {
     return function (price) {
         $tot_price=0;
@@ -114,10 +115,10 @@ getcentre.filter('fprice', function () {
             cprice=price[property]
             //check if this flight has been markup_down by checking the the margin object
             if(cprice['@margin']==0 || typeof cprice['@margin']=='undefined'){
-                $tot_price=$tot_price+parseInt(cprice['@price']);
+                $tot_price=$tot_price+parseFloat(cprice['@price']);
             }
             else{
-                $tot_price=$tot_price+parseInt(cprice['@margin']);
+                $tot_price=$tot_price+parseFloat(cprice['@margin']);
             }
         }
         return $tot_price;

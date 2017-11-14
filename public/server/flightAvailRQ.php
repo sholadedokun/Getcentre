@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 require_once 'JSON.php';
 require_once 'fun_connect2.php';
 require_once 'markup_down.php';
@@ -66,8 +66,8 @@ $xml->startElement('mds');
                 $xml->writeElement('trp_depCode',  $flight_details->moduleCurrType->{0}->value->code);
                 $xml->writeElement('trp_desCode',  $flight_details->moduleCurrType->{1}->value->code);
                 if($flight_details->moduleType =='NF'){
-                    $xml->writeElement('trp_depDate', $flight_details->moduleCurrType->{4}->value->short);
-                    $xml->writeElement('trp_durationM',  $flight_details->moduleCurrType->{5}->value->fTravelDays);
+                    $xml->writeElement('trp_depDate', $flight_details->moduleCurrType->{3}->value->short);
+                    $xml->writeElement('trp_durationM',  $flight_details->moduleCurrType->{4}->value->fTravelDays);
                 }
                 else{
                     $xml->writeElement('trp_depDate', $flight_details->moduleCurrType->{2}->value->short);
@@ -95,9 +95,10 @@ $xml->startElement('mds');
             $xml->writeElement('adtFlightMarginInfo', 1);
             $xml->writeElement('flightAdvancedSearch', 1);
             $xml->writeElement('rule_checker', 1);
+            $xml->writeElement('language', 'EN');
             // $xml->writeElement('calcPrecision', 2);
             $xml->writeElement('flightmixed', 0);
-            // $xml->writeElement('order_by', "ofr_price");
+            $xml->writeElement('order_by', "ofr_price");
             if($flight_details->others[0]->value!='all'){
                 $xml->writeElement('trp_flyClass', $flight_details->others[0]->value);
             }
@@ -108,7 +109,7 @@ $xml->endElement();
 $xml->endDocument();
 // echo "<pre>".var_dump($xml->outputMemory(true))."</pre>";
 // die;
-$xml_response_string = post_xml('http://mdswsng.merlinx.pl/dataV3/', $xml->outputMemory(true));
+$xml_response_string = post_xml('https://mws.merlinx.pl/dataV4/', $xml->outputMemory(true));
 if(!$xml_response_string) {   die('ERROR'); }
 else{
     $xml_response = simplexml_load_string($xml_response_string);
@@ -169,8 +170,9 @@ function getF($search_id){
                 $xml->writeElement('useMerlinMargin', 1);
                 $xml->writeElement('adtFlightMarginInfo', 1);
                 $xml->writeElement('flightAdvancedSearch', 1);
+                $xml->writeElement('language', 'EN');
                 $xml->writeElement('rule_checker', 1);
-                $xml->writeElement('calcPrecision', 2);
+                // $xml->writeElement('calcPrecision', 2);
                 $xml->writeElement('flightmixed', 0);
                 $xml->writeElement('order_by', "ofr_price");
 
@@ -193,8 +195,8 @@ function getF($search_id){
                 if($flight_details->moduleType !='MF'){
                     if($flight_details->moduleType =='NF'){
 
-                        $xml->writeElement('trp_depDate', $flight_details->moduleCurrType->{4}->value->short);
-                        $xml->writeElement('trp_durationM',  $flight_details->moduleCurrType->{5}->value->fTravelDays);
+                        $xml->writeElement('trp_depDate', $flight_details->moduleCurrType->{3}->value->short);
+                        $xml->writeElement('trp_durationM',  $flight_details->moduleCurrType->{4}->value->fTravelDays);
                     }
                     else{
                         $xml->writeElement('trp_depDate', $flight_details->moduleCurrType->{2}->value->short);
@@ -230,7 +232,7 @@ function getF($search_id){
     $xml->endDocument();
     //  echo "<pre>".var_dump($xml->outputMemory(true))."</pre>";
     //  die;
-    $xml_response_string = post_xml('http://mdswsng.merlinx.pl/dataV3/', $xml->outputMemory(true));
+    $xml_response_string = post_xml('https://mws.merlinx.pl/dataV4/', $xml->outputMemory(true));
     if(!$xml_response_string){   die('ERROR');   }
     $xml_response = simplexml_load_string($xml_response_string);
     // echo "<pre>".print_r($xml_response, true)."</pre>";

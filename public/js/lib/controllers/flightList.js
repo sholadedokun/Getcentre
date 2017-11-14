@@ -9,8 +9,8 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 	$scope.disabled=false;
 	$rootScope.search=false;
 	$scope.nullcounter=0;
-	$scope.more=false;// controlls the display while more flight are being fetched.
-	$scope.more_message="Loading more Flights... Please wait";
+	$scope.more=true;// controlls the display while more flight are being fetched.
+	$scope.more_message="Loading Flights... Please wait";
 	$scope.getData= searchDatas.data();
 	$scope.filter={lp:null, hp:null};
 	$scope.minP=null; $scope.maxP=null;
@@ -55,7 +55,7 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 	// 	if($scope.search_c.)
 	// }
 	function setPassengers(){
-		passDist=$scope.search_c.moduleCurrType[3];
+		passDist=$scope.search_c.moduleCurrType[5];
 		if($scope.search_c.moduleType=='MF'){
 			passDist=$scope.search_c.moduleCurrType.q1;
 		}
@@ -162,7 +162,7 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 			//now lets add other important details to our flight objects.
 			flightDetails.persons=flightInfo.persons;
 			flightDetails.id=list[flight]['@id'];
-			flightDetails.offerPrice=parseInt(list[flight]['@operPrice'])
+			flightDetails.offerPrice=parseInt(list[flight]['@price'])
 			flightDetails.tourOp=list[flight]['@tourOp']
 
 			//lets push all this flight into the main render scope.
@@ -175,7 +175,7 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 		return(processfilter('All Airlines', list.flightList[0][0].details.leg0['@carrierCodeDesc'], $scope.fairline ))
 	};
 	$scope.f_cabin= function (list) {
-		return(processfilter('All Cabin', list.flightList[0][0].details.leg0['@flightClass'], $scope.fcabin ));
+		return(processfilter('All Cabin', list.flightList[0][0].details.leg0['@flightClassDesc'], $scope.fcabin ));
 	};
 	$scope.f_stop= function (list) {
 		$stops=$filter('stopover')(list.flightList[0][0].details);
@@ -231,7 +231,7 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 		var lSsearch=getCookie("Last_Search");
 	    if (lSsearch!=""){
 	    	$scope.search_c = JSON.parse(lSsearch);
-			console.log($scope.search_c.moduleCurrType[3])
+			console.log($scope.search_c.moduleCurrType[5])
 			setPassengers();
 			getfirst($scope.search_c);
 	    }
@@ -251,6 +251,7 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 	}
 	function getfirst(){
 		var top = $('#appLoader').position().top;
+		console.log(top);
 		$(window).scrollTop( top );
 	//	flidetails=JSON.stringify($scope.search_c);
 		$scope.fList = flightListRs.save({f_det:$scope.search_c, c_dist:$scope.search_c.Child_ageDist, i_dist:$scope.search_c.Infant_ageDist},
@@ -304,7 +305,7 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 	function sidefilter(prop){
 		var stops= $filter('stopover')(prop[0][0].details)// uses filter to cal the total values of stops for departure.
 		var airname=prop[0][0].details.leg0['@carrierCodeDesc']
-		var cclass=prop[0][0].details.leg0['@flightClass']
+		var cclass=prop[0][0].details.leg0['@flightClassDesc']
 		var durat=$filter('hrtomin')(prop[0][1].details['@minutes'])
 		durat=durat.replace("hrs ", "."); durat=durat.replace("mins", "");
 		var hd='';
@@ -322,7 +323,7 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 			if(typeof(prop[1][0].details)=='object' && prop[1][0].type=='inbound'){
 				var stops=$filter('stopover')(prop[1][0].details)
 				var airname=prop[1][0].details.leg0['@carrierCodeDesc']
-				var cclass=prop[1][0].details.leg0['@flightClass']
+				var cclass=prop[1][0].details.leg0['@flightClassDesc']
 				var durat=$filter('hrtomin')(prop[1][1].details['@minutes'])
 				durat=durat.replace("hrs ", "."); durat=durat.replace("mins", "");
 				fiternotpresent($scope.sidefilt.stopover.return, stops)
@@ -339,40 +340,44 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 	function retrieveAll(){
 	//   flidetails=JSON.stringify($scope.search_c);
 		// $scope.search_c.searchId=$scope.search_id
-	  $scope.fnList = flightListNextRs.save({f_det:$scope.search_c}, function(fnList) {
-			$scope.more=true;
-			try{
-				$scope.total_flightn=$scope.fnList.response.ofr.length;
-				$scope.search_c.limit_count=$scope.search_c.limit_count+parseInt($scope.total_flightn);
+		if($scope.more){
+			$scope.fnList = flightListNextRs.save({f_det:$scope.search_c}, function(fnList) {
+	  			try{
+	  				$scope.total_flightn=$scope.fnList.response.ofr.length;
+	  				$scope.search_c.limit_count=$scope.search_c.limit_count+parseInt($scope.total_flightn);
 
-				$scope.list_next=$scope.fnList.response.ofr;
-
-				refineflight($scope.list_next)
-				for (property in $scope.allFlights){
-					properti=$scope.allFlights[property];
-					// send this particular flight for filtering.
-					sidefilter(properti.flightList);
-					var curr_price=fpriceFilter(properti.persons);
-					if(curr_price<$scope.lowest_price){
-						$scope.lowest_price=curr_price
+	  				$scope.list_next=$scope.fnList.response.ofr;
+					if($scope.more){
+						refineflight($scope.list_next)
+		  				for (property in $scope.allFlights){
+		  					properti=$scope.allFlights[property];
+		  					// send this particular flight for filtering.
+		  					sidefilter(properti.flightList);
+		  					var curr_price=fpriceFilter(properti.persons);
+		  					if(curr_price<$scope.lowest_price){
+		  						$scope.lowest_price=curr_price
+		  					}
+		  				}
+		  				console.log($scope.search_c.limit_count, $scope.total_flight)
+		  				if($scope.search_c.limit_count < parseInt($scope.total_flight)){retrieveAll()}
+		  				else{$scope.more=false;}
 					}
-				}
-				console.log($scope.search_c.limit_count, $scope.total_flight)
-				if($scope.search_c.limit_count < parseInt($scope.total_flight)){retrieveAll()}
-				else{$scope.more=false;}
-			}
-			catch(e){
-				$scope.nullcounter++;
-	            if($scope.nullcounter>6 ){
-	                $scope.nullcounter=0;
-	                $scope.more_message="Error fetching more flights...Please check your internet connection and try again.";
-	                if($scope.list.length==0){
-	                    getfirst();
-	                }
-	            }
-	            else{retrieveAll()}}
-			//$scope.height=$(document).find('.list_holder').innerHeight();
-		})
+
+	  			}
+	  			catch(e){
+	  				$scope.nullcounter++;
+	  	            if($scope.nullcounter>6 ){
+	  	                $scope.nullcounter=0;
+	  	                $scope.more_message="Error fetching more flights...Please check your internet connection and try again.";
+	  	                if($scope.list.length==0){
+	  	                    getfirst();
+	  	                }
+	  	            }
+	  	            else{retrieveAll()}}
+	  			//$scope.height=$(document).find('.list_holder').innerHeight();
+	  		})
+		}
+
 
 	}
   $scope.getCond=function(ofrcode, tourOp){
@@ -403,7 +408,7 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 			stops.airport=	'('+fleg[0].details[stp]['@desCode']+')'+fleg[0].details[stp]['@desDesc']+' '+fleg[0].details[stp]['@desDescExt'];
 			stops.desTime=fleg[0].details[stp]['@desTime'];
 			stops.desDate=fleg[0].details[stp]['@desDate'];
-			stops.fclass=fleg[0].details[stp]['@flightClass'];
+			stops.fclass=fleg[0].details[stp]['@flightClassDesc'];
 			stops.fnumb=fleg[0].details[stp]['@flightNumber'];
 			stops.fcarrier=fleg[0].details[stp]['@carrierCodeDesc'];
 			stops.totaltime=fleg[2].details[gap]['@duration'];
@@ -414,6 +419,7 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 		return stopovers;
 	}
   	$scope.setcode=function(ofrcode, ind){
+		$scope.more=false;
 		$scope.load_note=true;
 		var offercode= ofrcode.target.attributes.id.value;
 		var index= ofrcode.target.attributes.name.value;
@@ -432,11 +438,11 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 			fdetails.fstop=$scope.getStopovers(fleg, stopover);
 			fdetails.carrier=fleg[0].details.leg0['@carrierCodeDesc'];
 			fdetails.fnumber=fleg[0].details.leg0['@flightNumber']
-			fdetails.depAirport='('+fleg[0].details.leg0['@depCode']+')'+fleg[0].details.leg0['@depDesc']+' '+fleg[0].details.leg0['@depDescExt'];
-			fdetails.desAirport='('+fleg[0].details[outBg]['@desCode']+')'+fleg[0].details[outBg]['@desDesc']+' '+fleg[0].details[outBg]['@desDescExt'];
+			fdetails.depAirport='('+fleg[0].details.leg0['@depCode']+')'+fleg[0].details.leg0['@depDesc']+' '+(fleg[0].details.leg0['@depDescExt'] || '');
+			fdetails.desAirport='('+fleg[0].details[outBg]['@desCode']+')'+fleg[0].details[outBg]['@desDesc']+' '+(fleg[0].details[outBg]['@desDescExt'] || '');
 			fdetails.depTime=fleg[0].details.leg0['@depTime'];
 			fdetails.desTime=fleg[0].details[outBg]['@desTime'];
-			fdetails.fclass=fleg[0].details[outBg]['@flightClass'];
+			fdetails.fclass=fleg[0].details[outBg]['@flightClassDesc'];
 			fdetails.ftotaltime=fleg[1].details['@minutes'];
 			fdetails.flighttime=fleg[0].details[outBg]['@durationTime'];
 			fdetails.depDate=fleg[0].details.leg0['@depDate'];
@@ -456,11 +462,11 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 				flight.fstop=$scope.getStopovers(fleg, stopover);
 				flight.carrier=fleg[0].details.leg0['@carrierCodeDesc'];
 				flight.fnumber=fleg[0].details.leg0['@flightNumber']
-				flight.depAirport='('+fleg[0].details.leg0['@depCode']+')'+fleg[0].details.leg0['@depDesc']+' '+fleg[0].details.leg0['@depDescExt'];
-				flight.desAirport='('+fleg[0].details[outBg]['@desCode']+')'+fleg[0].details[outBg]['@desDesc']+' '+fleg[0].details[outBg]['@desDescExt'];
+				flight.depAirport='('+fleg[0].details.leg0['@depCode']+')'+fleg[0].details.leg0['@depDesc']+' '+(fleg[0].details.leg0['@depDescExt'] || '');
+				flight.desAirport='('+fleg[0].details[outBg]['@desCode']+')'+fleg[0].details[outBg]['@desDesc']+' '+(fleg[0].details[outBg]['@desDescExt'] || '');
 				flight.depTime=fleg[0].details.leg0['@depTime'];
 				flight.desTime=fleg[0].details[outBg]['@desTime'];
-				flight.fclass=fleg[0].details[outBg]['@flightClass'];
+				flight.fclass=fleg[0].details[outBg]['@flightClassDesc'];
 				flight.ftotaltime=fleg[1].details['@minutes'];
 				flight.flighttime=fleg[0].details[outBg]['@durationTime'];
 				flight.depDate=fleg[0].details.leg0['@depDate'];

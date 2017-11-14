@@ -49,7 +49,7 @@ getcentre.service('searchObject', function(){
 					0:{name:'From', value:{name:''}, type:'place'},
 					1:{name:'To', value:{name:''}, type:'place'},
 					2:{name:'Depture Date', value:{}, type:'date', subType:'fromdate'},
-                    3:{name:'guests', type:'occupancy', subtypes:
+                    5:{name:'guests', type:'occupancy', subtypes:
                                                     [
                                                         {name:'Adult', value:1},
                                                         {name:'Child', value:0, ages:[]}
@@ -60,14 +60,15 @@ getcentre.service('searchObject', function(){
 					0:{name:'From', value:{name:''}, type:'place'},
 					1:{name:'To', value:{name:''}, type:'place'},
                     '1a':'',
-                    3:{name:'guests', type:'occupancy', subtypes:
+                    3:{name:'Depture Date', value:{}, type:'date', subType:'fromdate'},
+					4:{name:'Return Date', value:{fTravelDays:7}, type:'date', subType:'todate'},
+                    5:{name:'guests', type:'occupancy', subtypes:
                                                     [
                                                         {name:'Adult', value:1},
                                                         {name:'Child', value:0, ages:[]}
                                                     ]
                     },
-					4:{name:'Depture Date', value:{}, type:'date', subType:'fromdate'},
-					5:{name:'Return Date', value:{fTravelDays:7}, type:'date', subType:'todate'}
+
 
 				},
 				mulTi:{
@@ -93,7 +94,7 @@ getcentre.service('searchObject', function(){
 					type:'select',
 					options:[
 						{name:'All Classes', value:'all'},
-						{name:'First Class Premium',value:'P'},
+						// {name:'First Class Premium',value:'P'},
 						{name:'First',value:'F'},
 						{name:'Business',value:'C'},
 						{name:'Economy Premium',value:'S'},

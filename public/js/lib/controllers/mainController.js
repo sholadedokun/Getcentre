@@ -47,7 +47,11 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
 		if(isArrayFilter(input)) type='array';
 		else type=input.type;
 		dclass='no-padding col-xs-18 col-md-6';
-		if(type==='date'){ dclass="no-padding col-xs-18 col-md-4"; }
+		if(!$scope.searchInit && input.name=="To"){
+			dclass='';
+		}
+
+		if(type==='date'){ dclass="no-padding col-xs-18 col-md-3 dateInput"; }
 		else if(type==='room'){ dclass="col-xs-18 no-padding col-md-5 clear"; }
 		else if(type==='guest'){
 			 dclass="col-xs-18 col-md-3 guestCla";
@@ -60,6 +64,7 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
 			}
 		}
 		else if(input.name==="Destination")dclass="col-xs-18 col-md-9 no-padding";
+
 		return dclass;
 	}
 	$scope.tourClass=function(row, index){
@@ -277,7 +282,7 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
 			 }
 	   }
 	   else if($scope.defaultSearch.module=='Flights'){
-		   	$scope.defaultSearch.guest=$scope.defaultSearch.moduleCurrType['3'];
+		   	$scope.defaultSearch.guest=$scope.defaultSearch.moduleCurrType['5'];
 			$scope.search.data.fsearch=true;
 		   	console.log($scope.defaultSearch);
 		   	console.log($route.current)

@@ -8,8 +8,8 @@
 	    <meta name="keywords" content="Book Flights, Book Hotels, Tickets, Book Tours, Visa, Reservations, Vacations, Nigeria, Lagos, Africa, London, Dubai, Transfers, Airport, Airline, Car Rental, Online, Website, Cheap, Getaways, Affordable, get, centre, grand, express, tours">
 	    <meta name="author" content="Olushola Adedokun">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/index.css">
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/index.min.css">
+		<link rel="stylesheet" type="text/css" href="css/style.min.css">
 		<link rel="stylesheet" type="text/css" href="css/style2.css">
 		<link rel="stylesheet" type="text/css" href="css/media_query.css">
 		<link rel="stylesheet" href="css/icon.css" type="text/css" />
@@ -137,6 +137,27 @@
 													<span ng-if="input.name=='To'" class="iconFlightTo"></span>
 												</div>
 											</div>
+											<div class="col-xs-18 booking-form bookingFormInput no-padding" ng-init="setDates(input)"  ng-if="input.type=='date' && !(input | isArray)">
+												<input type="text" ng-if="input.subType=='fromdate'" id="dateFrom" name="{{$index}}|" class="fromdate datePickerDummy" date-from />
+				                        		<input type="text" ng-if="input.subType=='todate'"  id="dateto" name="{{$index}}|" class="todate datePickerDummy" date-to />
+												<div class="dateContainer" ng-if="input.subType=='fromdate'" name="f"  >
+													<div class="dateBreaker rborder" ng-click="setFromDate(0)" >
+														<span ng-bind="input.value.day"></span>
+														<span ng-bind="input.value.month"></span>
+														<span ng-bind="input.value.year"></span>
+													</div>
+													<div class="iconContainer" ng-click="setFromDate(0)"><span  class="iconCalendar"></span></div>
+												</div>
+												<div class="dateContainer" ng-if="input.subType=='todate'"  name="f" >
+													<div class="dateBreaker rborder" ng-click="setToDate(0)" >
+														<span ng-bind="input.value.day"></span>
+														<span ng-bind="input.value.month"></span>
+														<span ng-bind="input.value.year"></span>
+													</div>
+
+													<div class="iconContainer" ng-click="setToDate(0)"><span  class="iconCalendar"></span></div>
+												</div>
+											</div>
 											<div class="col-xs-18  no-padding"  ng-if="input.type=='occupancy' && !(input | isArray) && searchInit">
 												<div class="col-xs-18 no-padding booking-form col-md-9" ng-repeat="guest in input.subtypes">
 													<div class="col-xs-18 people-side">
@@ -159,6 +180,7 @@
 													</div>
 												</div>
 											</div>
+
 											<div class="col-xs-18 booking-form no-padding"  ng-if="input.type=='room' && !(input | isArray) && searchInit">
 												<div class="col-xs-18 people-side">
 													<div class="col-xs-6 increaser">
@@ -171,22 +193,7 @@
 											</div>
 
 											<!-- <div class="col-md-2 arrow booking-form no-padding"  ng-if=" input.type=='date' && input.subType=='todate' && !(input | isArray)">&rarr;</div> -->
-											<div class="col-xs-18 booking-form bookingFormInput no-padding" ng-init="setDates(input)"  ng-if="input.type=='date' && !(input | isArray)">
-												<input type="text" ng-if="input.subType=='fromdate'" id="dateFrom" name="{{$index}}|" class="fromdate datePickerDummy" date-from />
-				                        		<input type="text" ng-if="input.subType=='todate'"  id="dateto" name="{{$index}}|" class="todate datePickerDummy" date-to />
-												<div class="dateContainer" ng-if="input.subType=='fromdate'" name="f"  >
-													<div class="dateBreaker rborder" ng-click="setFromDate(0)" ng-bind="input.value.day"></div>
-													<div class="dateBreaker rborder" ng-click="setFromDate(0)" ng-bind="input.value.month"></div>
-													<div class="dateBreaker rborder" ng-click="setFromDate(0)" ng-bind="input.value.year"></div>
-													<div class="iconContainer" ng-click="setFromDate(0)"><span  class="iconCalendar"></span></div>
-												</div>
-												<div class="dateContainer" ng-if="input.subType=='todate'"  name="f" >
-													<div class="dateBreaker rborder" ng-click="setToDate(0)" ng-bind="input.value.day"></div>
-													<div class="dateBreaker rborder" ng-click="setToDate(0)" ng-bind="input.value.month"></div>
-													<div class="dateBreaker rborder" ng-click="setToDate(0)" ng-bind="input.value.year"></div>
-													<div class="iconContainer" ng-click="setToDate(0)"><span  class="iconCalendar"></span></div>
-												</div>
-											</div>
+
 
 											<div ng-if="input | isArray" class="col-xs-18 no-padding">
 												<div ng-repeat="inp in input track by $index" class="col-xs-18 no-padding">
