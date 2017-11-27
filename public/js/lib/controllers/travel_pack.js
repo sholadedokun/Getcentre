@@ -31,7 +31,7 @@ TravelPack.controller('TravelPack', ['$scope', '$rootScope', 'searchDatas',  'tr
     //     setCookie("travelPD", $scope.travelPD, 30 );
     // }
     console.log($scope.travelPD);
-	$scope.getCond=function(ofrcode, ind){
+	$scope.getCond=function(ofrcode){
         var code=ofrcode;
     	var modalInstance = $modal.open({
             templateUrl: 'template/flight_condition.html',
@@ -56,7 +56,10 @@ TravelPack.controller('TravelPack', ['$scope', '$rootScope', 'searchDatas',  'tr
 		$scope.totalPrice=0;
 		console.log(data)
 		 for($i=0; $i<data.length; $i++){
-		 	if((data[$i].product=='Sabre')&&(data[$i].productType=='Flight')){
+
+		 	if((data[$i].product=='Sabre')&&(data[$i].productType=='Flight')&&(data[$i].status!='booked')){
+
+
 				// if(flightData.data()==''){
 					$scope.data=data[$i];
                 	$scope.fCheck = flightCheckRs.get({Adult:data[$i].Adult,Child:data[$i].Child,	Infant:data[$i].Infant, tourop:data[$i].tourOp, fOfferCode:data[$i].fOfferCode}, function(fCheck) {
@@ -87,7 +90,7 @@ TravelPack.controller('TravelPack', ['$scope', '$rootScope', 'searchDatas',  'tr
 				$scope.totalPrice=parseFloat($scope.totalPrice)+parseFloat(data[$i].convertedPrice);
                 console.log($scope.totalPrice);
 			}
-			if(data[$i].product=='HotelBed' || data[$i].product=='Juniper'){
+			if(data[$i].product=='HotelBed' || data[$i].product=='Juniper'&&(data[$i].status!='booked')){
 				for ($a=0; $a<4; $a++){
 					console.log($scope.rate[1].currencyList[$a].curr)
 					console.log($scope.rate[1].currencyList[$a].symbol)
@@ -103,7 +106,7 @@ TravelPack.controller('TravelPack', ['$scope', '$rootScope', 'searchDatas',  'tr
 				else{$scope.transferD.push(data[$i])}
 				$scope.totalPrice=parseFloat($scope.totalPrice)+parseFloat(data[$i].convertedPrice);
 			}
-            if(data[$i].product=='Aiico'){
+            if(data[$i].product=='Aiico' &&(data[$i].status!='booked')){
 				for ($a=0; $a<4; $a++){
 					console.log($scope.rate[1].currencyList[$a].curr)
 					console.log($scope.rate[1].currencyList[$a].symbol)

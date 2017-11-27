@@ -7,24 +7,26 @@
 	    </div>
 	    <div class="col-xs-18 voucher_Notification">
 
-	        <div class="voucher_success col-xs-18">Your Booking Was Successful</div>
+			<div class="voucher_success col-xs-18">Your Booking Was Successful, Your reference is {{{{basketId}}}}</div>
 	        <div class="voucher_email_sent col-xs-18">We have emailed a copy of your Booking Itinery / Ticket Itinery  to your email at <span class="email_add" ng-bind="voucher_det.email"></span></div>
 	        <div class="voucher_email_sent col-xs-18">Below are list of your reservations.</div>
 	    </div>
 	  	<div class="col-xs-18 view_all_boards">
 	        <div class="col-xs-18 payment_bh">
-	        	<div class="hidden-xs col-md-12 all_boards">
+	        	<div class="hidden-xs col-md-18 all_boards">
 	                <div class="col-md-3 nopadding">Service Type</div>
-	                <div class="col-md-9 nopadding">Service Name</div>
+	                <div class="col-md-6 nopadding">Service Name</div>
 	                <div class="col-md-3 nopadding">Tickets</div>
 	                <div class="col-md-3 nopadding">Unit Price</div>
+					<div class="col-md-3 nopadding">Reference</div>
 	            </div>
 	        	<div class="col-xs-18 nopadding other_room_spec" ng-repeat="each_trip in tot_trip">
-	                <div class=" col-md-12 room_spec">
+	                <div class=" col-md-18 room_spec">
 	                    <div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Service Type : </b><br /></span>{{each_trip.productType}}</div>
-	                    <div class="col-xs-18 col-md-9 nopadding"><span class="visible-xs"><b>Service Name: </b><br /></span>{{each_trip.Name || each_trip.flightTypeName}}</div>
+	                    <div class="col-xs-18 col-md-6 nopadding"><span class="visible-xs"><b>Service Name: </b><br /></span>{{each_trip.Name || each_trip.flightTypeName}}</div>
 	                    <div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Tickets : </b><br /></span>{{each_trip.Adult}} Adults, {{each_trip.Child}} kid</div>
 	                    <div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Unit Price : </b><br /></span> &#8358; {{each_trip.Price  | number:2}}</div>
+						<div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Reference : </b><br /></span> &#8358; {{each_trip.bookingCode}}</div>
 	                </div>
 	                <!-- <div class="col-md-6 t_price">
 	                    <div class="col-md-12 s_label"><a href="#">Cancel Booking</a></div>
@@ -37,46 +39,46 @@
 	                <div class="col-xs-18"><br /><br /><b>Bank :</b> use 'Grand Express Tour Centre LTD' as account name for all our accounts.</div>
 	                <div class="col-xs-18 hidden-xs all_boards">
 	                    <div class="col-md-4">Bank Name</div>
-	                    <div class="col-md-5">Account Type</div>
+	                    <div class="col-md-3">Account Type</div>
 	                    <div class="col-md-3">Account Number</div>
-	                    <div class="col-md-6">Depositor's Name</div>
+	                    <div class="col-md-8">Depositor's Name</div>
 	                </div>
 					<div class="col-xs-18 nopadding other_room_spec">
 	                    <div class="col-xs-18 col-md-4 room_spec">
 	                    	<span class="visible-xs"><b> Bank:</b><br /></span>Wema Bank PLC</div>
-	                    <div class="col-xs-18 col-md-5 room_spec">
+	                    <div class="col-xs-18 col-md-3 room_spec">
 	                    	<span class="visible-xs"><b>Account Type:</b><br /></span>Naira Account</div>
 	                    <div class="col-xs-18 col-md-3 room_spec">
 	                    	<span class="visible-xs"><b>Account Number:</b><br /></span>0122550919</div>
-	                    <div class="col-xs-18 col-md-6 t_price"><span class="visible-xs"><b>Depositor's Name</b><br /></span>{{voucher_det.email}}</div>
+	                    <div class="col-xs-18 col-md-8 t_price"><span class="visible-xs"><b>Depositor's Name</b><br /></span>{{voucher_det.email}}({{basketId}})</div>
 	                </div>
 	            	<div class="col-xs-18 nopadding other_room_spec">
 	                    <div class="col-xs-18 col-md-4 room_spec">
 	                    	<span class="visible-xs"><b> Bank:</b><br /></span>Guarantee Trust Bank PLC</div>
-	                    <div class="col-xs-18 col-md-5 room_spec">
+	                    <div class="col-xs-18 col-md-3 room_spec">
 	                    	<span class="visible-xs"><b>Account Type:</b><br /></span>Naira Account</div>
 	                    <div class="col-xs-18 col-md-3 room_spec">
 	                    	<span class="visible-xs"><b>Account Number:</b><br /></span>0163549553</div>
-	                    <div class="col-xs-18 col-md-6 t_price"><span class="visible-xs"><b>Depositor's Name</b><br /></span>{{voucher_det.email}}</div>
+	                    <div class="col-xs-18 col-md-8 t_price"><span class="visible-xs"><b>Depositor's Name</b><br /></span>{{voucher_det.email}}({{basketId}})</div>
 	                </div>
 
 	                <div class="col-xs-18 nopadding other_room_spec">
 	                    <div class="col-xs-18 col-md-4 room_spec">
 	                    	<span class="visible-xs"><b> Bank:</b><br /></span>Diamond Bank</div>
-	                    <div class="col-xs-18 col-md-5 room_spec">
+	                    <div class="col-xs-18 col-md-3 room_spec">
 	                    	<span class="visible-xs"><b>Account Type:</b><br /></span>Naira Account</div>
 	                    <div class="col-xs-18 col-md-3 room_spec">
 	                    	<span class="visible-xs"><b>Account Number:</b><br /></span>0057898295</div>
-	                    <div class="col-xs-18 col-md-6 t_price"><span class="visible-xs"><b>Depositor's Name</b><br /></span>{{voucher_det.email}}</div>
+	                    <div class="col-xs-18 col-md-8 t_price"><span class="visible-xs"><b>Depositor's Name</b><br /></span>{{voucher_det.email}}({{basketId}})</div>
 	                </div>
 	                <div class="col-xs-18 nopadding other_room_spec">
 	                    <div class="col-xs-18 col-md-4 room_spec">
 	                    	<span class="visible-xs"><b> Bank:</b><br /></span>Diamond Bank</div>
-	                    <div class="col-xs-18 col-md-5 room_spec">
+	                    <div class="col-xs-18 col-md-3 room_spec">
 	                    	<span class="visible-xs"><b>Account Type:</b><br /></span>Dollar </div>
 	                    <div class="col-xs-18 col-md-3 room_spec">
 	                    	<span class="visible-xs"><b>Account Number:</b><br /></span>0057900017</div>
-	                    <div class="col-xs-18 col-md-6 t_price"><span class="visible-xs"><b>Depositor's Name</b><br /></span> {{voucher_det.email}}</div>
+	                    <div class="col-xs-18 col-md-8 t_price"><span class="visible-xs"><b>Depositor's Name</b><br /></span>{{voucher_det.email}}({{basketId}})</div>
 	                </div>
 
 	                <div class="col-xs-18" style="text-align:right;">

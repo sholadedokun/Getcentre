@@ -95,7 +95,7 @@
                 $xml->writeElement('flightAdvancedSearch', 1);
                 $xml->writeElement('rule_checker', 1);
                 $xml->writeElement('language', 'EN');
-                // $xml->writeElement('calcPrecision', 2);
+                $xml->writeElement('calcPrecision', 2);
                 $xml->writeElement('flightmixed', 0);
                 $xml->writeElement('order_by', "ofr_price");
 

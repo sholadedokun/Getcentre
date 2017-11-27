@@ -727,6 +727,8 @@
                             <span  class="col-xs-18">Reservation Policy</span>
                             <div>{{service.lastTicketDate}}</div>
                         </div>
+                        <div> <a class="special_link" ng-click="getCond(service.fOfferCode, $index)">Read Flight Rules and Reservations</a></div>
+
                     </div>
                 </div>
             </div>
@@ -791,8 +793,7 @@
         </div>
         </form>
         <trip-bag class='hidden-xs col-md-5'></trip-bag>
-        <div class="loading_note" ng-if="load_note" loading>
-            <span class="fa fa-spinner"></span>
-        </div>
+
     </div>
+    <div class="loading_note" ng-if="load_note" loading></div>
 </div>

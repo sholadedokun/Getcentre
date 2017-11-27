@@ -43,6 +43,21 @@ function getCookie(cname) {
 		gService.phone=user.phone; gService.dbirth=user.dob;  gService.caddress=user.caddress; gService.city=user.city;
 		gService.state=user.state; gService.pcode=user.pcode; gService.country=user.country; gService.nationality=user.nationality
 	}
+    $scope.getCond=function(ofrcode, ind){
+        var code=ofrcode;
+    	var modalInstance = $modal.open({
+            templateUrl: 'template/flight_condition.html',
+            controller: 'conditionModalInstanceCtrl',
+            size: 'lg',
+            windowClass: 'condition-modal-window',
+            resolve: {
+                offer: function () {
+                    return code;
+                },
+                search_c:function () {return $scope.travelPD[ind]}
+            }
+    	})
+	}
 	function add_guest(data){
 		console.log(data)
 		$scope.user=userData.data();
@@ -194,6 +209,7 @@ function getCookie(cname) {
         }
     }
 	$scope.makeReserv=function(poption){
+        $scope.load_note=true;
         $scope.disabled=true;
 		var trans=$scope.travelPD;
 		console.log(trans);
@@ -205,7 +221,7 @@ function getCookie(cname) {
 			//$scope.paynow(bookref)
 			//trans={};
 			for(t=0; t<trans.length; t++){
-				if(trans[t].productType=='Flight'){
+				if(trans[t].productType=='Flight' && trans[t].status!='booked'){
 					//$scope.flight_guest= JSON.stringify($scope.all_guests[$i]);
 					$scope.flight_details= trans[t];
 					$scope.main=trans[t];
@@ -228,12 +244,21 @@ function getCookie(cname) {
                         			  resolve: {
                         				errorObject: function () {
                         				  return $scope.f_booker;
-                        				}
+                                      },
+                                        index: function(){
+                                            return t-1;
+                                        }
                         			  }
-                        			})
+                                  }).result.then(function(result) {
+                                        console.log(result.pIndex, $scope.travelPD)
+                                        $scope.travelPD[result.pIndex].soldPrice = result.newprice;
+                                        $scope.makeReserv(poption);
+                                    });
                                 }
         						//update transaction with the booking number
         						else{
+                                    $scope.travelPD[0].status= 'booked';
+                                    $scope.travelPD[0].bookingCode= $scope.f_booker.booking_number;
         							$scope.sendbook=sendmailFlight.save({
         								flightDetails:$scope.flight_details,
         								userE:$scope.user[1],
@@ -241,28 +266,27 @@ function getCookie(cname) {
         								bookingRef:bookref[0].basketId},
         								function(sendbook){
                                             $scope.user=$scope.sendbook;
-                                            $scope.afterBook($scope.f_booker);
+                                            $scope.afterBook($scope.f_booker, bookref[0].basketId);
             							})
             						}
-
                             })
                             .catch(
                                 function(err){
                                     console.log('Book failed please try again')
                                     alert('Book failed please try again')
+                                    $scope.load_note=false;
                                 }
                             )
 
     					})
                     }
                     catch(e){
-                        console.log('heresxxsd')
                         console.log(e)
                     }
 
 				}
-				if(trans[t].product=='HotelBed'){
-					console.log(trans[t])
+				if(trans[t].product=='HotelBed' && trans[t].booked!='booked'){
+
 					if(trans[t].productType=='Hotel'){$scope.all_guests= trans[t].guestBreak}
 					else{$scope.all_guests= trans[t].guestBreak}
 					$scope.hotel_guest= JSON.stringify( $scope.all_guests );
@@ -273,6 +297,8 @@ function getCookie(cname) {
 					hdata={lead:$scope.def, details:$scope.product_details}
 					$http({method:'Post', url:'server/PurchaseConfirmRQ.php', data:hdata}).then(function successCallback(response) {
 						console.log(response);
+                        $scope.travelPD[0].status= 'booked';
+                        $scope.travelPD[0].bookingCode= $scope.f_booker.Reference;
 						$scope.f_booker=response.data.PurchaseConfirmRS.Purchase;
 						$scope.p_token=$scope.f_booker['@purchaseToken'];
 						$scope.holder=$scope.f_booker.Holder
@@ -313,7 +339,7 @@ function getCookie(cname) {
 
 					})
 				}
-				if(trans[t].product=='Juniper'){
+				if(trans[t].product=='Juniper' && trans[t].status!='booked'){
 					console.log(trans[t])
 					if(trans[t].productType=='Hotel'){$scope.all_guests= trans[t].guestBreak}
 					else{$scope.all_guests= trans[t].guestBreak}
@@ -326,9 +352,12 @@ function getCookie(cname) {
 
 					$http({method:'Post', url:'server/hotel_book_juniper.php', data:hdata}).then(function successCallback(response) {
 						console.log(response.data)
+
 						$scope.book=response.data;
 						$scope.main.ref=$scope.book.UniqueId;
 						$scope.main_det=$scope.main;
+                        $scope.travelPD.status= 'booked';
+                        $scope.travelPD.bookingCode= $scope.book.UniqueId;
 
 						sendmailRS.sendmail($scope.user[1], $scope.def, $scope.main_det).then(function(response) {
 						$scope.user=response; $scope.afterBook();
@@ -341,11 +370,11 @@ function getCookie(cname) {
 
 		})
 	}
-	$scope.afterBook=function(bookref){
+	$scope.afterBook=function(bookref, basketId){
 		if($scope.payoption=='Paylater'){
-			setCookie('travelPD', $scope.travelPD, 30)
+            setCookie('basketId', basketId, 30)
+            setCookie('travelPD', $scope.travelPD, 30)
 			setCookie('lead_guest', $scope.def, 30)
-			console.log( $scope.travelPD)
 			$location.path('/voucher');
 		}
 		else{
@@ -355,9 +384,7 @@ function getCookie(cname) {
         }
 	}
 	$scope.bookings=function(){
-		$scope.load_note=true;
 		var bookrefs=$scope.makeReserv($scope.payoption);
-		//$scope.paynow('345354E234');
 	}
 	$scope.pay=function(pay){
 		$scope.payoption=pay;
@@ -435,11 +462,14 @@ function getCookie(cname) {
 		setCookie('webPay', web_auth, 30)
 	}
 }]);
-AddGuest.controller('bookErrorModalInstanceCtrl', ['$scope', '$rootScope', 'userData', '$modalInstance', 'errorObject','travelPackD',  function ($scope, $rootScope, userData, $modalInstance, errorObject, travelPackD){
+AddGuest.controller('bookErrorModalInstanceCtrl', ['$scope', '$rootScope','index', 'userData', '$modalInstance', 'errorObject','travelPackD',  function ($scope, $rootScope, index, userData, $modalInstance, errorObject, travelPackD){
 	$scope.travelPD= travelPackD.data();
+
     $scope.errorOb=errorObject;
     console.log($scope.errorOb.request.forminfo.Expected_price.amount.$, $scope.errorOb.ERRORFIELDS.fields[0].msg.$  );
-    $scope.ok = function (user) {
+    $scope.ok = function () {
+        console.log('sd'+index);
+        $modalInstance.close({newprice:$scope.errorOb.ERRORFIELDS.fields[0].msg.$, pIndex:index});
   };
 
   $scope.cancel = function () {
@@ -480,4 +510,23 @@ AddGuest.controller('paymentModalInstanceCtrl', ['$scope', '$rootScope', 'userDa
 	$scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+}]);
+
+TravelPack.controller('conditionModalInstanceCtrl', ['$scope', '$modalInstance', 'offer','search_c', 'flightCondRs', function ($scope,  $modalInstance, offer,search_c, flightCondRs) {
+search_c.fOfferCode=offer;
+$scope.load_note=true;
+$scope.fnCond=flightCondRs.get({f_det:JSON.stringify(search_c)}, function(fnCond){
+	$scope.load_note=false;
+	$scope.condition=$scope.fnCond.response;
+	$scope.conditionz=$scope.condition.segments1;
+	$scope.paragraph=$scope.conditionz.paragraphs.paragraph[0];
+});
+$scope.change_flight=function(flight){
+	$scope.conditionz=flight;
+	$scope.paragraph=$scope.conditionz.paragraphs.paragraph[0];
+}
+$scope.change_rule=function(rule){
+	$scope.paragraph=rule;
+}
+$scope.cancel = function () {  $modalInstance.dismiss('cancel');  };
 }]);

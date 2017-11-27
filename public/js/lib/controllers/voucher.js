@@ -19,9 +19,11 @@ voucher.controller('voucher', ['$scope',  'tourData', 'hotelData',  'purchaseCon
 	 $scope.lead_guest=checkCookie('lead_guest')
 	 $scope.user=userData.data();
      $scope.voucher_det={};
+     $scope.basketId= checkCookie('basketId');
 	 console.log($scope.user)
 	 console.log($scope.tot_trip)
 	 console.log($scope.lead_guest)
+      $scope.voucher_det.bookref=$scope.tot_trip.bookref
 	 if($scope.user[0].status=='Register')	$scope.voucher_det.email=$scope.lead_guest.email;
 	 else{ $scope.voucher_det.email=$scope.user[1].email}
      function getCookie(cname) {

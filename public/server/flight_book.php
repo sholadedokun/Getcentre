@@ -173,13 +173,13 @@ $xml='<?xml version="1.0" encoding="UTF-8"?>
         <type required="1">amount</type>
       </Margin>
       <Expected_price>
-
+		  <amount required="0">'.$f_details->soldPrice.'</amount>
+		  <currency>NGN</currency>
       </Expected_price>
     </forminfo>
   </request>
 </mds>';
-// <amount required="0">'.$f_details->soldPrice.'</amount>
-// <currency>NGN</currency>
+
 // echo ($xml);
 $xml_response_string = post_xml('http://mdswsng.merlinx.eu/onlineflightexternalV1/',  $xml);
     if(!$xml_response_string)

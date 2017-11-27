@@ -40,7 +40,7 @@ $xml->startElement('mds');
     $xml->endElement();
     $xml->startElement('request');
         // $xml->writeElement('type', 'groups');
-        $xml->writeElement('type', 'check_external_flight_wait');
+        $xml->writeElement('type', 'check_external_flight_nowait');
         $xml->startElement('conditions');
             $xml->writeElement('par_adt',  $flight_details->Adult);
             $xml->writeElement('par_chd',  $flight_details->Child);
@@ -53,8 +53,6 @@ $xml->startElement('mds');
             }
             $xml->writeElement('ofr_tourOp', 'XTVF,XSAB');
             $xml->writeElement('group_by', 'carrierCodeStopover');
-            $xml->writeElement('limit_from', '1');
-            $xml->writeElement('limit_count', '100');
 
             // $xml->writeElement('trp_depDate', '20171101');
             // $xml->writeElement('trp_retDate', '20180126');
@@ -96,7 +94,7 @@ $xml->startElement('mds');
             $xml->writeElement('flightAdvancedSearch', 1);
             $xml->writeElement('rule_checker', 1);
             $xml->writeElement('language', 'EN');
-            // $xml->writeElement('calcPrecision', 2);
+            $xml->writeElement('calcPrecision', 2);
             $xml->writeElement('flightmixed', 0);
             $xml->writeElement('order_by', "ofr_price");
             if($flight_details->others[0]->value!='all'){
@@ -121,18 +119,17 @@ else{
 
 }
 function fcontroller($xml_response){
-    // echo(print_r($xml_response));
     $status=checkstatus($xml_response);
     // echo('here '.$status);
 
     if($status=="100,00DONE"){
-        // echo('sas: '.$xml_response->external_search->search_id);
         getF($xml_response->external_search->search_id);
      }
     else{fcontroller($xml_response);}
 }
 function checkstatus($resp){
     $search_id=$resp->external_search->search_id;
+
     $url = 'http://mdswsng.merlinx.eu/backgroundstatuscheckV1/?id='.$search_id;
     $result = file_get_contents($url);
     $result =str_replace(array('(',')'),'',$result);
@@ -172,7 +169,7 @@ function getF($search_id){
                 $xml->writeElement('flightAdvancedSearch', 1);
                 $xml->writeElement('language', 'EN');
                 $xml->writeElement('rule_checker', 1);
-                // $xml->writeElement('calcPrecision', 2);
+                $xml->writeElement('calcPrecision', 2);
                 $xml->writeElement('flightmixed', 0);
                 $xml->writeElement('order_by', "ofr_price");
 
@@ -236,35 +233,36 @@ function getF($search_id){
     if(!$xml_response_string){   die('ERROR');   }
     $xml_response = simplexml_load_string($xml_response_string);
     // echo "<pre>".print_r($xml_response, true)."</pre>";
-    $mark=getmark($flight_details->moduleCurrType->{0}->value->code, $flight_details->moduleCurrType->{1}->value->code);
-    foreach ($xml_response as $eachflight) {
-        // echo "<pre>".print_r($eachflight)."</pre>";
-        $totalPrice=0;
-         foreach($eachflight->extra->adtFlightInfo->persons as $persons ){
-             foreach($persons as $person){
-                 //only gives markup and down for aAdults
-                 if($person->attributes()->type=='ADT'){
-                    $marginPrice=compare($mark, $eachflight, $person, $flight_details->moduleType);
-                    if($marginPrice>0){
-                        $totalPrice+=$marginPrice;
-                    }
-                 }
-                // echo "<pre>".print_r($per->attributes()->type, true)."</pre>";
-            }
-         }
-         if($totalPrice > 0){
-             $eachflight['operPrice']=$totalPrice;
-         }
-    }
+    // $mark=getmark($flight_details->moduleCurrType->{0}->value->code, $flight_details->moduleCurrType->{1}->value->code);
+    // foreach ($xml_response as $eachflight) {
+    //     // echo "<pre>".print_r($eachflight)."</pre>";
+    //     $totalPrice=0;
+    //      foreach($eachflight->extra->adtFlightInfo->persons as $persons ){
+    //          foreach($persons as $person){
+    //              //only gives markup and down for aAdults
+    //              if($person->attributes()->type=='ADT'){
+    //                 $marginPrice=compare($mark, $eachflight, $person, $flight_details->moduleType);
+    //                 if($marginPrice>0){
+    //                     $totalPrice+=$marginPrice;
+    //                 }
+    //              }
+    //             // echo "<pre>".print_r($per->attributes()->type, true)."</pre>";
+    //         }
+    //      }
+    //      if($totalPrice > 0){
+    //          $eachflight['operPrice']=$totalPrice;
+    //      }
+    // }
      $re=turntojson($xml_response, $search_id);
      echo($re);
 }
 
 function turntojson($xml_response, $s_id){
     $arrayData = (array)$xml_response;
+    // print_r($arrayData);
     if (($arrayData != null)) {
         $arrayData = xmlToArray($xml_response, $s_id);
-        	$arrayData['searchID']=(string)$s_id;
+        $arrayData['searchID']=(string)$s_id;
     }
 
     $jsonOutput=json_encode($arrayData);

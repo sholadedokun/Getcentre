@@ -701,8 +701,14 @@ input:-moz-placeholder, textarea:-moz-placeholder {
 .pay-modal-window .modal-dialog {  width: 520px; background: none}
 .tour_avail{color:#fefefe; min-height:25px; margin:10px 0; padding:0.3em 0.5em ; font-size: 15px; font-weight: 600;   background:#7ccb25}
 .modal_head{padding: 0 1em;  border-bottom: 1px $pcolor2 solid;}
-.modal_h_list{    float: left;    padding: 1em 1em 0.4em;    margin-bottom: 0.6em; cursor:pointer}
-.modal_h_active{border-bottom: 2px $pcolor4 solid;}
+.modal_h_list{    float: left;    padding: 1em 1em 0.4em;   cursor:pointer}
+.modal_h_active{
+    background: $pcolor4;
+    border-radius: 5px;
+    color:#eee;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
 .modal_l{padding: 0em;  border-right: 1px $pcolor4 solid;}
 .rule_title{padding:0.5em 1em; color:$pcolor4; background:$pcolor6; cursor:pointer; position:relative; overflow:hidden;}
 .rule_title:nth-child(even){background:$pcolor6b; }

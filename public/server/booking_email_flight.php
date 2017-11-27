@@ -15,7 +15,7 @@
 	$to=$flightDetails->guest_details->adult[0]->email;
 	$flightContents=$flightDetails->flightDetails;
 
-	echo '<pre>'.print_r($flightDetails).' </pre>';
+	// echo '<pre>'.print_r($flightDetails).' </pre>';
 	if($flightDetails->flightType)
 	$bookingCode=$request->bookingCode;
 	$subject = "Getcentre Flight Reservation";

@@ -250,12 +250,13 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 		$dt= $tday.split(' ');	$scope.t_day = $dt[0];    $scope.t_month = $dt[1];     $scope.t_year = $dt[2];
 	}
 	function getfirst(){
-		var top = $('#appLoader').position().top;
-		console.log(top);
-		$(window).scrollTop( top );
+
 	//	flidetails=JSON.stringify($scope.search_c);
 		$scope.fList = flightListRs.save({f_det:$scope.search_c, c_dist:$scope.search_c.Child_ageDist, i_dist:$scope.search_c.Infant_ageDist},
 		function(fList) {
+			var top = $('#appLoader').position().top;
+			console.log(top);
+			window.scrollTo(0, top);
 			$scope.list=[]; //where all the flight list will be added.
 			$scope.total_flight=$scope.fList.response.count; //total number of all the flights found
 			$scope.search_c.searchId=$scope.fList.searchID;
@@ -405,7 +406,7 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 			stops={}
 			stp='leg'+a;
 			gap='gap'+a;
-			stops.airport=	'('+fleg[0].details[stp]['@desCode']+')'+fleg[0].details[stp]['@desDesc']+' '+fleg[0].details[stp]['@desDescExt'];
+			stops.airport=	'('+fleg[0].details[stp]['@desCode']+')'+fleg[0].details[stp]['@desDesc']+' '+(fleg[0].details[stp]['@desDescExt'] || '');
 			stops.desTime=fleg[0].details[stp]['@desTime'];
 			stops.desDate=fleg[0].details[stp]['@desDate'];
 			stops.fclass=fleg[0].details[stp]['@flightClassDesc'];
@@ -501,7 +502,7 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 
 flightList.controller('conditionModalInstanceCtrl', ['$scope', '$modalInstance', 'offer','search_c', 'flightCondRs', function ($scope,  $modalInstance, offer,search_c, flightCondRs) {
 	search_c.fOfferCode=offer;
-	console.log(search_c.fOfferCode);
+	$scope.currentIndex=0;
 	$scope.load_note=true;
 	$scope.fnCond=flightCondRs.save({f_det:search_c}, function(fnCond){
 		$scope.load_note=false;
@@ -510,11 +511,15 @@ flightList.controller('conditionModalInstanceCtrl', ['$scope', '$modalInstance',
 		$scope.paragraph=$scope.conditionz.paragraphs.paragraph[0];
 	});
 	$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
-		console.log('fired');
 	    $('.scroller_container').jScrollPane();
 
 	});
-	$scope.change_flight=function(flight){
+	$scope.activeClass=function(index){
+		 var activeClass=( index===$scope.currentIndex)?'modal_h_active': '';
+		 return activeClass;
+	}
+	$scope.change_flight=function(flight, index){
+		$scope.currentIndex = index;
 		$scope.conditionz=flight;
 		$scope.paragraph=$scope.conditionz.paragraphs.paragraph[0];
 	}
