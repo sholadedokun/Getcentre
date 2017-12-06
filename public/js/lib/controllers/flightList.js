@@ -1,7 +1,7 @@
 // JavaScript Document
 // last edited 01/08/2015
 var flightList =  angular.module('flightList',  ['ui.bootstrap']);
-flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'searchDatas', 'flightListRs','flightListNextRs','$location', 'flightCheckRs', 'travelPackD','currencyData','$modal', '$route', '$filter', function($scope, $rootScope, fpriceFilter, searchDatas, flightListRs, flightListNextRs, $location, flightCheckRs, travelPackD, currencyData, $modal, $route, $filter) {
+flightList.controller('flightList', ['$scope', '$http', '$rootScope', 'fpriceFilter', 'searchDatas', 'flightListRs','flightListNextRs','$location', 'flightCheckRs', 'travelPackD','currencyData','$modal', '$route', '$filter', function($scope, $http, $rootScope, fpriceFilter, searchDatas, flightListRs, flightListNextRs, $location, flightCheckRs, travelPackD, currencyData, $modal, $route, $filter) {
 
 
 
@@ -23,6 +23,9 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 	$scope.fcabin='All Cabin';
 	$scope.fstop='All';
 	$scope.allFlights=[]
+	$scope.foundAirports=[]
+	$scope.allAirports=[]
+
 	$scope.fduration='All Flight Duration';
 	$scope.sidefilt={'stopover':{'depart':['All'], 'return':['All']}, 'airname':{'depart':['All Airlines'], 'return':['All Airlines']}, 'cabin':{'depart':['All Cabin'], 'return':['All Cabin']}, 'duration':{'depart':['All Flight Duration'], 'return':['All Flight Duration']}};
 	$scope.sorting=	[{name:'Lowest Price', value:"offerPrice"},{name:'Highest Price', value:"-offerPrice"},{name:'Lowest Switch/Stopover', value:'flightList[0][0].details|stopover'},{name:'Higest Switch/Stopover', value:'-flightList[0][0].details|stopover'},{name:'Airline Name Asc.', value:'flightList[0][0].details.leg0["@carrierCodeDesc"]'},{name:'Airline Name Desc.', value:'-flightList[0][0].details.leg0["@carrierCodeDesc"]'}];
@@ -51,9 +54,26 @@ flightList.controller('flightList', ['$scope', '$rootScope', 'fpriceFilter', 'se
 		setPassengers();
 		getfirst();
 	}
-	// function parseDestination(){
-	// 	if($scope.search_c.)
-	// }
+	function findAirport(code){
+		var airPortDescription = $scope.foundAirports.filter((item)=> item.code==code)
+		//if airport Bucket is empty and it's Airport's json hasn't be retrieved...
+		if(airPortDescription.length == 0 && $scope.allAirports.lenght ==0){
+			$http.get("js/lib/airports.json").success(function(response) {
+				$scope.allAirports = response;
+
+			});//get Airports Json
+		}
+		else if(airPortDescription.length == 0){
+			airPortDescription = $scope.allAirports.filter(item=>{
+				item.code==code;
+			})
+			$scope.foundAirports.push(airPortDescription)
+			return airPortDescription;
+		}
+		return airPortDescription;
+
+
+    }
 	function setPassengers(){
 		passDist=$scope.search_c.moduleCurrType[5];
 		if($scope.search_c.moduleType=='MF'){

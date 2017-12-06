@@ -1,7 +1,8 @@
 
 var getcentre = angular.module('getcentre', ['ngRoute','ngResource','ngSanitize','ngAnimate','getAnimations','ui','angular.filter', 'ui.bootstrap','TravelPack', 'flightList','hotelList','hotelDetails','AddGuest','voucher']);
-getcentre.run(['currencyData','$rootScope','apiProxy', 'userData', '$http', function(currencyData, $rootScope, apiProxy, userData, $http){
+getcentre.run(['currencyData','$rootScope','apiProxy', 'userData', '$http', 'retrieveAirports', function(currencyData, $rootScope, apiProxy, userData, $http, retrieveAirports){
     $rootScope.user=userData.data();
+    retrieveAirports.getAllAirports()
     var checkCookie=getCookie("getCentreUser");
     if (checkCookie!=""){
 	     $rootScope.user=JSON.parse(checkCookie);

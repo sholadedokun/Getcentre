@@ -87,7 +87,7 @@
                                 <div class="col-xs-18 col-md-8 f_pad2">
                                     <div class="col-xs-18 nopadding">
                                         <label ng-bind="flight[0].details.leg0['@depDesc']"></label>
-                                        <span ng-bind="flight[0].details.leg0['@depDescExt']"></span>
+                                        <span ng-bind="flight[0].details.leg0['@depDescExt'] || flight[0].details.leg0['@depCode'] | findAirport"></span>
                                     </div>
                                     <div class="col-xs-18 nopadding visible-xs visible-sm">
                                     	<span ng-bind="flight[0].details.leg0['@depDate']|shortdate"></span> | <b><span ng-bind="flight[0].details.leg0['@depTime']"></span></b>
@@ -122,7 +122,7 @@
                             	<div class="col-xs-18 get_pad tA_l fvd"> <b>Trip <span ng-bind="$index+1"></span></b></div>
                                 <div class="col-xs-18 t_bl f_pad3">
                                     <span class="col-xs-18 col-md-9">
-                                        <label class="col-xs-6 nopadding">Departs:</label> <span class="col-xs-12 tA_l"> (<span ng-bind=" leg['@depDesc']"></span>) <span ng-bind=" leg['@depDescExt']"></span></span>
+                                        <label class="col-xs-6 nopadding">Departs:</label> <span class="col-xs-12 tA_l"> (<span ng-bind=" leg['@depDesc']"></span>) <span ng-bind=" leg['@depDescExt'] || leg['@depCode'] | findAirport "></span></span>
                                     </span>
                                     <span class="col-xs-18 col-md-9">
                                         <label class="col-xs-6 nopadding">Date & Time:</label> <span class="col-xs-12 tA_l"><span ng-bind="leg['@depDate']|shortdate"></span> | <span ng-bind="leg['@depTime']"></span></span>
@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="col-xs-18 t_bl f_pad3">
                                     <span class="col-xs-18 col-md-9">
-                                        <label class="col-xs-6 nopadding">Arrives:</label> <span class="col-xs-12 tA_l"> (<span ng-bind=" leg['@desDesc']"></span>) <span ng-bind=" leg['@desDescExt']"></span></span>
+                                        <label class="col-xs-6 nopadding">Arrives:</label> <span class="col-xs-12 tA_l"> (<span ng-bind=" leg['@desDesc']"></span>) <span ng-bind=" leg['@desDescExt'] ||  leg['@desCode'] | findAirport"></span></span>
                                     </span>
                                     <span class="col-xs-18 col-md-9">
                                         <label class="col-xs-6 nopadding">Date & Time:</label> <span class="col-xs-12 tA_l"><span ng-bind="leg['@desDate']|shortdate"></span> | <span ng-bind="leg['@desTime']"></span></span>

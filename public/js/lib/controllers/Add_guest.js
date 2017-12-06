@@ -7,6 +7,11 @@ $scope.disabled=false;
 $scope.payoption='';
 $scope.rate=currencyData.data();
 $scope.pricing={pricelist:[], curCur:'', totalPrice:''}
+
+var top = $('#appLoader').position().top;
+console.log(top);
+window.scrollTo(0, top);
+
 function setCookie(cname, cvalue, exmins) {
     var d = new Date();
     d.setTime(d.getTime() + (exmins*60*1000));
@@ -37,7 +42,7 @@ function getCookie(cname) {
 
      }
 	else{ console.log($scope.travelPD); add_guest($scope.travelPD)}
-
+    
 	function getlead(gService, user){
 		gService.title=user.title; gService.fname=user.fname; gService.lname=user.lname; gService.email=user.email;
 		gService.phone=user.phone; gService.dbirth=user.dob;  gService.caddress=user.caddress; gService.city=user.city;

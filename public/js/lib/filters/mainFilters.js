@@ -15,11 +15,37 @@ getcentre.filter('time_am_pm', function () {
 
 getcentre.filter('hdate', function () {
     return function (input) {
-        console.log(input);
+
         input= input.substr(0, 4) + "." + input.substr(4,2)+'.'+input.substr(6);
-        console.log(input);
         var n =moment(input, "YY.MM.DD").format('ddd. DD MMM ');
         return n;
+    }
+});
+getcentre.filter('findAirport', function (retrieveAirports) {
+    return function (code){
+        var allAirports=retrieveAirports.data();
+        // console.log(allAirports)
+		var airPortDescription = allAirports.currentAirports.filter((item)=> item.code==code)
+		//if airport Bucket is empty and it's Airport's json hasn't be retrieved...
+		if(airPortDescription.length == 0 && allAirports.airports.length ==0){
+            retrieveAirports.getAllAirports().then(data=>{
+                airPortDescription = data.airports.filter((item)=> item.code==code)
+                allAirports.currentAirports.push(airPortDescription[0])
+                // allAirports.airports=data.airports;
+                retrieveAirports.saveData(allAirports);
+                return airPortDescription[0].name;
+            })
+		}
+		else if(airPortDescription.length == 0){
+			airPortDescription = allAirports.airports.filter(item=>	item.code==code)
+			allAirports.currentAirports.push(airPortDescription[0])
+            retrieveAirports.saveData(allAirports);
+            return airPortDescription[0].name;
+		}
+        else{
+            return airPortDescription[0].name;
+        }
+
     }
 });
 getcentre.filter('htime', function () {
@@ -54,13 +80,13 @@ getcentre.filter('shortdateF', function () {
         return(n)
     }
 })
-getcentre.filter('lastlegDes', function () {
+getcentre.filter('lastlegDes', function (findAirportFilter) {
     return function (legobj) {
         $total_channel=-1
         for (property in legobj){if(legobj.hasOwnProperty(property)){$total_channel++;}}
         $arr_leg='leg'+$total_channel;//getting the last leg of this trip
         $des_desc=legobj[$arr_leg]['@desDesc'];//getting the destination date of the last leg
-        $des_ext = legobj[$arr_leg]['@desDescExt'] || '';
+        $des_ext = legobj[$arr_leg]['@desDescExt'] ||  findAirportFilter(legobj[$arr_leg]['@desCode']) || '';
         $des='<label>'+$des_desc+'</label> '+$des_ext;//format the date to a better readable format
         return($des)
     }

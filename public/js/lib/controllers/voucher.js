@@ -20,9 +20,8 @@ voucher.controller('voucher', ['$scope',  'tourData', 'hotelData',  'purchaseCon
 	 $scope.user=userData.data();
      $scope.voucher_det={};
      $scope.basketId= checkCookie('basketId');
-	 console.log($scope.user)
-	 console.log($scope.tot_trip)
-	 console.log($scope.lead_guest)
+	 setCookie('travelPD', '', 0)
+     setCookie('basketId', '', 0)
       $scope.voucher_det.bookref=$scope.tot_trip.bookref
 	 if($scope.user[0].status=='Register')	$scope.voucher_det.email=$scope.lead_guest.email;
 	 else{ $scope.voucher_det.email=$scope.user[1].email}
@@ -43,6 +42,12 @@ voucher.controller('voucher', ['$scope',  'tourData', 'hotelData',  'purchaseCon
 		}
 		else {}
 	}
+    function setCookie(cname, cvalue, exmins) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exmins*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + JSON.stringify(cvalue) + "; " + expires;
+    }
 	for($i=0; $i<$scope.tot_trip.length; $i++){
 		if($scope.tot_trip[$i].productType=='Flight'){
 

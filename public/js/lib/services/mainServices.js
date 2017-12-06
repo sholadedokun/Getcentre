@@ -313,6 +313,35 @@ getcentre.service('userData', function(){
          }
     }
 })
+getcentre.service('retrieveAirports', ['$http','$q',  function($http,$q){
+    var allAirports =  {currentAirports:[],airports:[]}
+    return{
+         data:function() {
+           return allAirports;
+         },
+         getAllAirports:function(data) {
+             return $q(
+                 function(resolve, reject){
+                     //get Airports Json
+                     $http.get("js/lib/airports.json").success(
+                         function(response) {
+                             allAirports.airports = response;
+                            //save the responseData
+                            resolve(allAirports);
+         			},
+                    function(err) {
+                        reject('Can\'t retrieve Airports');
+                    }
+                    );
+                 }
+             )
+
+         },
+         saveData:function(data) {
+            allAirports=data;
+         },
+    }
+}])
 getcentre.service('sendmailRS', ['$http','$q',  function($http, $q){
   return {
       sendmail:

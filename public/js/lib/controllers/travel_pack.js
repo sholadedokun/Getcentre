@@ -27,10 +27,11 @@ TravelPack.controller('TravelPack', ['$scope', '$rootScope', 'searchDatas',  'tr
 		    $scope.travelPD=JSON.parse($scope.cc);
 		}
 	}
-    // else{
-    //     setCookie("travelPD", $scope.travelPD, 30 );
-    // }
-    console.log($scope.travelPD);
+
+    var top = $('#appLoader').position().top;
+    console.log(top);
+    window.scrollTo(0, top);
+
 	$scope.getCond=function(ofrcode){
         var code=ofrcode;
     	var modalInstance = $modal.open({
