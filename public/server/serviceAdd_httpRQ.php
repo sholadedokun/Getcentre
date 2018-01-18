@@ -62,22 +62,23 @@
 						<AdultCount>'.$Guest[$i][0]->value.'</AdultCount>
 						<ChildCount>'.$Guest[$i][1]->value.'</ChildCount>
 						<GuestList>';
-				$aguest=$Guest[$i][0]->value*$rCount;	$achild=$Guest[$i][1]->value*$rCount;
+				$aguest=$Guest[$i][0]->value*$rCount;
+                $achild=$Guest[$i][1]->value*$rCount;
 				for($a=0; $a<$aguest; $a++){
 					$xml.='<Customer type="AD"><Age>45</Age><Name>GuestAdultFname'.($a+1).'</Name><LastName>GuestAdultLname'.($a+1).'</LastName></Customer>';
 				}
-
+                // print_r($Guest);
 				if($rCount>1 && $achild>0){
 					for($z=0+$i; $z<$rCount; $z++){
 						for($b=0; $b<$Guest[$z][1]->value; $b++){
-							$xml.='<Customer type="CH"> <Age>'.$Guest[$z][2][$b].'</Age> </Customer>';
+							$xml.='<Customer type="CH"> <Age>'.$Guest[$z][1]->ages[$b]->valueYear.'</Age> </Customer>';
 						}
 					}
 					//array_splice($request->Guest, $a, 1);
 				}
 				elseif($achild>0){
 					for($a=0; $a<$achild; $a++){
-						$xml.='<Customer type="CH"><Age>'.$Guest[$i][1][$a].'</Age><Name>GuestChildFname'.($a+1).'</Name><LastName>GuestAdultFname'.($a+1).''.$g[1].'</LastName></Customer>';
+						$xml.='<Customer type="CH"><Age>'.$Guest[$i][1]->ages[$a]->valueYear.'</Age><Name>GuestChildFname'.($a+1).'</Name><LastName>GuestAdultFname'.($a+1).''.$g[1].'</LastName></Customer>';
 					}
 				}
 				$xml.='</GuestList>	</Occupancy></HotelOccupancy>';
@@ -116,25 +117,25 @@
 		if($request->ServiceType=='ServiceTicket'){
 			$xml.='<Currency code="'.$request->currency.'"/>
 			<TicketInfo xsi:type="ProductTicket">
-			<Code>'.$request->ticketcode.'</Code>
-			<Destination code="'.$request->destcode.'" type="SIMPLE"/>
-		</TicketInfo>
-		<AvailableModality code="'.$request->availcode.'">
-			<Name>'.$request->availName.'</Name>
-			<Contract>
-				<Name>'.$request->availContactName.'</Name>
-				<IncomingOffice code="'.$request->availContactcode.'"/>
-			</Contract>
-		</AvailableModality>';
+    			<Code>'.$request->ticketcode.'</Code>
+    			<Destination code="'.$request->destcode.'" type="SIMPLE"/>
+    		</TicketInfo>
+    		<AvailableModality code="'.$request->availcode.'">
+    			<Name>'.$request->availName.'</Name>
+    			<Contract>
+    				<Name>'.$request->availContactName.'</Name>
+    				<IncomingOffice code="'.$request->availContactcode.'"/>
+    			</Contract>
+    		</AvailableModality>';
 
 		}
 		if($request->ServiceType=='ServiceTransfer'){
 			$xml.='
-		<TransferInfo xsi:type="ProductTransfer">
-			<Code>'.$request->code.'</Code>
-			<Type code="'.$request->codeType.'"/>
-			<VehicleType code="'.$request->VType.'"/>
-		</TransferInfo>';
+    		<TransferInfo xsi:type="ProductTransfer">
+    			<Code>'.$request->code.'</Code>
+    			<Type code="'.$request->codeType.'"/>
+    			<VehicleType code="'.$request->VType.'"/>
+    		</TransferInfo>';
 		}
 		if($request->ServiceType!='ServiceHotel'){
 			$guest=json_decode($request->Guest);
@@ -152,9 +153,7 @@
 				$xml.='<Customer type="CH"> <Age>'.$tourbreak[0][2][$b].'</Age><Name>Child</Name><LastName>Tourist'.($b+1).'</LastName></Customer>';
 			}
 			$xml.='</GuestList> ';
-
-
-		$xml.='</Paxes>';
+		    $xml.='</Paxes>';
 		}
 		if($request->ServiceType=='ServiceTransfer'){
 			$xml.='<PickupLocation xsi:type="ProductTransfer'.$request->picType.'">
@@ -173,7 +172,8 @@
 		// echo($xml);
         // die;
 	// echo "<pre>".print_r($xml, true)."</pre>";
-  $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
+    $xml_response_string = post_xml('http://api.interface-xml.com/appservices/http/FrontendService',  $xml);
+  // $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
 
     if(!$xml_response_string) die('ERROR');
     $xml_response = simplexml_load_string($xml_response_string);

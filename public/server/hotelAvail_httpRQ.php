@@ -54,11 +54,11 @@
 		$xmladdchild=''; //to reset additional child
 			for($a=$i+1; $a<count($roombreak); $a++){
 				if($roombreak[$i][0]->value==$roombreak[$a][0]->value){
-					if((count($roombreak[$i][1]->value))==(count($roombreak[$a][1]->value))){
+					if($roombreak[$i][1]->value==$roombreak[$a][1]->value){
 						$roomCount++;
-						if(count($roombreak[$a][1]->value)>0){//if there are children
-							for($b=0; $b<count($roombreak[$a][1]->value); $b++){
-								$xmladdchild.='<Customer type="CH"> <Age>'.$roombreak[$a][1][$b].'</Age> </Customer>';
+						if($roombreak[$a][1]->value>0){//if there are children
+							for($b=0; $b<$roombreak[$a][1]->value; $b++){
+								$xmladdchild.='<Customer type="CH"> <Age>'.$roombreak[$a][1]->ages[$b]->valueYear.'</Age> </Customer>';
 							}
 						}
 						array_splice($roombreak, $a, 1);
@@ -72,8 +72,9 @@
 						<ChildCount>'.$roombreak[$i][1]->value.'</ChildCount>';
 			if($roombreak[$i][1]->value>0){//if there are children
 				 $xml.='<GuestList> ';
-				 for($b=0; $b<count($roombreak[$i][1]->value); $b++){
-					$xml.='<Customer type="CH"> <Age>'.$roombreak[$i][1][$b].'</Age> </Customer>';
+                 // print_r($roombreak[$i][1]->value);
+				 for($b=0; $b<$roombreak[$i][1]->value; $b++){
+					$xml.='<Customer type="CH"> <Age>'.$roombreak[$i][1]->ages[$b]->valueYear.'</Age> </Customer>';
 				}
 				$xml.=$xmladdchild.' </GuestList> ';
 			}
@@ -84,9 +85,9 @@
 	</OccupancyList>
 </HotelValuedAvailRQ>
 ';
- //echo "<pre>".print_r($xml, true)."</pre>";
+ // echo "<pre>".print_r($xml, true)."</pre>";
+ // $xml_response_string = post_xml('http://api.interface-xml.com/appservices/http/FrontendService',  $xml);
   $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
-
     if(!$xml_response_string)
         die('ERROR');
 

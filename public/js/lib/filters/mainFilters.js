@@ -22,7 +22,9 @@ getcentre.filter('hdate', function () {
     }
 });
 getcentre.filter('findAirport', function (retrieveAirports) {
-    return function (code){
+    return function (code, city){
+        var reg= new RegExp('Airport|'+city+'|International', 'g');
+
         var allAirports=retrieveAirports.data();
         // console.log(allAirports)
 		var airPortDescription = allAirports.currentAirports.filter((item)=> item.code==code)
@@ -33,17 +35,18 @@ getcentre.filter('findAirport', function (retrieveAirports) {
                 allAirports.currentAirports.push(airPortDescription[0])
                 // allAirports.airports=data.airports;
                 retrieveAirports.saveData(allAirports);
-                return airPortDescription[0].name;
+                return airPortDescription[0].name.replace(reg,'').rep;
             })
 		}
 		else if(airPortDescription.length == 0){
 			airPortDescription = allAirports.airports.filter(item=>	item.code==code)
 			allAirports.currentAirports.push(airPortDescription[0])
             retrieveAirports.saveData(allAirports);
-            return airPortDescription[0].name;
+
+            return airPortDescription[0].name.replace(reg,'');
 		}
         else{
-            return airPortDescription[0].name;
+            return airPortDescription[0].name.replace(reg,'');
         }
 
     }
@@ -86,7 +89,7 @@ getcentre.filter('lastlegDes', function (findAirportFilter) {
         for (property in legobj){if(legobj.hasOwnProperty(property)){$total_channel++;}}
         $arr_leg='leg'+$total_channel;//getting the last leg of this trip
         $des_desc=legobj[$arr_leg]['@desDesc'];//getting the destination date of the last leg
-        $des_ext = legobj[$arr_leg]['@desDescExt'] ||  findAirportFilter(legobj[$arr_leg]['@desCode']) || '';
+        $des_ext = legobj[$arr_leg]['@desDescExt'] ||  findAirportFilter(legobj[$arr_leg]['@desCode'],legobj[$arr_leg]['@desDesc'] ) || '';
         $des='<label>'+$des_desc+'</label> '+$des_ext;//format the date to a better readable format
         return($des)
     }

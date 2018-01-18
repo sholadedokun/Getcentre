@@ -98,14 +98,15 @@ TravelPack.controller('TravelPack', ['$scope', '$rootScope', 'searchDatas',  'tr
 					console.log(data[$i].currency)
 					if(data[$i].currency==$scope.rate[1].currencyList[$a].curr){
 						data[$i].currency_sy=$a;
-                        data[$i].convertedPrice=data[$i].Price*$scope.rate[1].currencyList[$a].rate;
+                        data[$i].discountedPrice=data[$i].convertedPrice=data[$i].Price*$scope.rate[1].currencyList[$a].rate;
+
 					}
 				}
                 data[$i].idc=$i;
 				if(data[$i].productType=='Hotel'){$scope.hotelD.push(data[$i])}
 				else if(data[$i].productType=='Tour'){$scope.tourD.push(data[$i])}
 				else{$scope.transferD.push(data[$i])}
-				$scope.totalPrice=parseFloat($scope.totalPrice)+parseFloat(data[$i].convertedPrice);
+				$scope.totalPrice+=parseFloat(data[$i].discountedPrice);
 			}
             if(data[$i].product=='Aiico' &&(data[$i].status!='booked')){
 				for ($a=0; $a<4; $a++){
@@ -121,6 +122,7 @@ TravelPack.controller('TravelPack', ['$scope', '$rootScope', 'searchDatas',  'tr
 			}
 
 		}
+        setCookie('travelPD', JSON.stringify($scope.travelPD), 30)
 	}
 	$scope.remFlight=function(ind){
 		var tr= $scope.flightD[ind].idc;

@@ -49,17 +49,17 @@
 
                     </div>
                 </div>
-                <div class="col-xs-18" ng-if="HotelF[0]!=null">
+                <div class="col-xs-18" ng-if="HotelF">
                     <div class="col-md-9" ng-repeat="fact in HotelF">
                     <b>{{fact.name}} : </b> {{fact.number}}</div>
                 </div>
-                <div class="col-xs-18" ng-if="HotelIs[0]!=null">
+                <div class="col-xs-18" ng-if="HotelIs">
                 	<div class="col-xs-18" ng-repeat="issu in HotelIs">
                         <label class="col-xs-18">Possible Issues With This Hotel FROM {{issu.datefrom}}  TO  {{issu.dateto}}</label>
                         {{issu.incidence}}
                     </div>
                 </div>
-                <div class="col-xs-18" ng-if="HotelP[0]!=null">
+                <div class="col-xs-18" ng-if="HotelP">
                 	<div class="col-xs-18 get_pad">
                         <label class="col-xs-18 get_pad">Acceptable Payment at this Hotel</label>
                         <div class="col-xs-9" ng-repeat="pay in HotelP">{{pay.name}}</div>
@@ -188,7 +188,7 @@
                         <div class="col-xs-15">Hotel Amenities and Services</div>
                         <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
                     </div>
-                    <div class="col-xs-18 s_input" ng-if="HotelHo[0]!=null">
+                    <div class="col-xs-18 s_input" ng-if="HotelHo">
                     	<div class="col-xs-18 col-md-9" ng-repeat="hotelh in HotelHo">
                         	{{hotelh.name}}<span ng-if="hotelh.fee=='S'" ng-init="setvis(0)" class="pab"><b>*</b></span>
 
@@ -196,7 +196,7 @@
                         <span class="col-xs-18 paidFac" ng-if="visT[0]=='S'"><b>(*)</b> Some Services / Facilities may be Paid at the Establishment.</span>
                     </div>
                 </li>
-                <li class="col-xs-18 sf_item" ng-show="HotelR[0]!=null">
+                <li class="col-xs-18 sf_item" ng-show="HotelR">
                 	<div class="col-xs-18 service_list">
                         <div class="col-xs-15">Standard Room Facility</div>
                         <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
@@ -208,7 +208,7 @@
                         <span class="col-xs-18 paidFac" ng-if="visT[1]=='S'"><b>(*)</b> Some Services / Facilities may be Paid at the Establishment.</span>
                     </div>
                 </li>
-                <li class="col-xs-18 sf_item" ng-show="HotelRE[0]!=null">
+                <li class="col-xs-18 sf_item" ng-show="HotelRE">
                 	<div class="col-xs-18 service_list">
                         <div class="col-xs-15">Room Equipment</div>
                         <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
@@ -220,7 +220,7 @@
                         <span class="col-xs-18 paidFac" ng-if="visT[1]=='S'"><b>(*)</b> Some Services / Facilities may be Paid at the Establishment.</span>
                     </div>
                 </li>
-                <li class="col-xs-18 sf_item" ng-show="HotelPr[0]!=null">
+                <li class="col-xs-18 sf_item" ng-show="HotelPr">
                 	<div class="col-xs-18 service_list">
                         <div class="col-md-15">Nearest Tourist Attraction</div>
                         <div class="col-md-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
@@ -231,7 +231,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="col-xs-18 sf_item"  ng-show="HotelE[0]!=null">
+                <li class="col-xs-18 sf_item"  ng-show="HotelE">
                 	<div class="col-xs-18 service_list">
                         <div class="col-xs-15">Hotel Entertainment</div>
                         <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
@@ -244,7 +244,7 @@
                     </div>
 
                 </li>
-                <li class="col-xs-18 sf_item" ng-show="HotelMe[0]!=null">
+                <li class="col-xs-18 sf_item" ng-show="HotelMe">
                 	<div class="col-xs-18 service_list">
                         <div class="col-xs-15">Restaurant Services</div>
                         <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
@@ -257,7 +257,7 @@
                     </div>
 
                 </li>
-                <li class="col-xs-18 sf_item" ng-show="HotelG[0]!=null">
+                <li class="col-xs-18 sf_item" ng-show="HotelG">
                 	<div class="col-xs-18 service_list">
                         <div class="col-xs-15">Hotel Green Programs</div>
                         <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
@@ -270,7 +270,7 @@
                     </div>
 
                 </li>
-                <li class="col-xs-18 sf_item" ng-show="HotelH[0]!=null">
+                <li class="col-xs-18 sf_item" ng-show="HotelH">
                 	<div class="col-xs-18 service_list">
                         <div class="col-xs-15">Hotel Health Services</div>
                         <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
@@ -283,7 +283,7 @@
                     </div>
 
                 </li>
-                <li class="col-xs-18 sf_item" ng-show="HotelS[0]!=null">
+                <li class="col-xs-18 sf_item" ng-show="HotelS">
                 	<div class="col-xs-18 service_list">
                         <div class="col-xs-15">Hotel Sport Facility</div>
                         <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
@@ -296,7 +296,7 @@
                     </div>
 
                 </li>
-                <li class="col-xs-18 sf_item" ng-show="HotelN[0]!=null">
+                <li class="col-xs-18 sf_item" ng-show="HotelN">
                 	<div class="col-xs-18 service_list">
                         <div class="col-xs-15">Hotel Surrounding</div>
                         <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>
@@ -307,7 +307,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="col-xs-18 sf_item" ng-show="HotelTerm[0]!=null">
+                <li class="col-xs-18 sf_item" ng-show="HotelTerm">
                 	<div class="col-xs-18 service_list">
                         <div class="col-xs-15">Nearest Terminal</div>
                         <div class="col-xs-3"><span class="add_icon plus_ic ">+</span><span class="add_icon minus_ic hideme">-</span></div>

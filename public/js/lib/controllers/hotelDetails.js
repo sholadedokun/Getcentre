@@ -19,17 +19,15 @@ hotelDetails.controller('hotelDetails', ['$scope', 'searchDatas', 'hotelData', '
   $scope.search_c= searchDatas.data();
   $scope.getSelected= hotelData.data();
   // $scope.search_c= $scope.search_c.data
-  console.log($scope.search_c)
+  console.log($scope.getSelected)
   $scope.curr_pic=1;
   $scope.disabled=false;
   $scope.contact;
   $scope.visT=['N','N','N','N','N','N','N','N','N']; //for payment information
 
   //update search
-
-
-
-    if($scope.search_c == null){
+  if($scope.getSelected.length==0){
+        console.log('here 2')
     	$scope.getSelected=checkCookie('hotel_details');
     	$scope.hot=$scope.getSelected[0];
     	$scope.search_c=checkCookie('Last_Search');
@@ -37,21 +35,21 @@ hotelDetails.controller('hotelDetails', ['$scope', 'searchDatas', 'hotelData', '
     	$scope.travelPD=checkCookie('travelPD');
 	}
 	else{
+        console.log('here 1')
 		$scope.search_c=checkCookie('Last_Search');
 		$scope.hot=$scope.getSelected[0];
-		setCookie("hotel_details", $scope.getSelected, 30);
-		setCookie("Last_Search", $scope.search_c, 30);
+		setCookie("hotel_details", JSON.stringify($scope.getSelected), 30);
 
 		//setCookie("travelPD", $scope.travelPD, 30);
 	}
 
   function setCookie(cname, cvalue, exdays){
-		var d = new Date();
-		d.setTime(d.getTime() + (exdays*24*60*60*1000));
-		var expires = "expires="+d.toUTCString();
-		document.cookie = cname + "=" + JSON.stringify(cvalue) + "; " + expires;
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      var expires = "expires="+d.toUTCString();
+      document.cookie = cname + "=" + cvalue + "; " + expires;
 	}
-	function getCookie(cname) {
+    function getCookie(cname) {
 		var name = cname + "=";
 		var ca = document.cookie.split(';');
 
@@ -63,9 +61,7 @@ hotelDetails.controller('hotelDetails', ['$scope', 'searchDatas', 'hotelData', '
 	}
 	function checkCookie(cattype) {
 		var lSsearch=getCookie(cattype);
-		if (lSsearch != "") {
-			return JSON.parse(lSsearch);
-		}
+		if (lSsearch != ""){	return JSON.parse(lSsearch);	}
 		else {}
 	}
 
@@ -95,32 +91,31 @@ hotelDetails.controller('hotelDetails', ['$scope', 'searchDatas', 'hotelData', '
 			$scope.mainImageUrl = $scope.hotel_Detail.details[0].img_path;
 			$scope.hotelcode= $scope.hotel_Detail.details[0].hotelCode;
 
-            $scope.hotelE= new $scope.getHotelFacilities('server/hotelFacilityEntertainmentRQ.php')();
-            $scope.hotelF= new $scope.getHotelFacilities('server/hotelFacilityFactRQ.php')();
-            $scope.HotelG= new $scope.getHotelFacilities('server/hotelFacilityGreenProRQ.php')();
-			$scope.HotelH= new $scope.getHotelFacilities('server/hotelFacilityHealthRQ.php')();
-			$scope.HotelHo= new $scope.getHotelFacilities('server/hotelFacilityHotelRQ.php')();
-            $scope.HotelM= $scope.getHotelFacilities('server/hotelFacilityMainRQ.php');
-            $scope.HotelMe= $scope.getHotelFacilities('server/hotelFacilityMealOptRQ.php');
-            $scope.HotelN= $scope.getHotelFacilities('server/hotelFacilityNearestRQ.php');
-			$scope.HotelP= $scope.getHotelFacilities('server/hotelFacilityPaymentReceivedRQ.php');
-            $scope.HotelPr= $scope.getHotelFacilities('server/hotelFacilityProxRQ.php');
-            $scope.HotelR= $scope.getHotelFacilities('server/hotelFacilityRoomRQ.php');
-            $scope.HotelS= $scope.getHotelFacilities('server/hotelFacilitySportOptRQ.php');
-			$scope.HotelIs= $scope.getHotelFacilities('server/hotelIssuesRQ.php');
-            $scope.HotelTerm= $scope.getHotelFacilities('server/hotelTerminalRQ.php');
-            $scope.Contact= $scope.getHotelFacilities('server/hotelContactstRQ.php');
-			$scope.HotelRE=  $scope.getHotelFacilities('server/hotelFacilityRoomEquipRQ.php');
-            console.log($scope.hotelE())
+            $scope.hotelE= new getHotelFacilities('server/hotelFacilityEntertainmentRQ.php');
+            $scope.hotelF= new getHotelFacilities('server/hotelFacilityFactRQ.php');
+            $scope.HotelG= new getHotelFacilities('server/hotelFacilityGreenProRQ.php');
+			$scope.HotelH= new getHotelFacilities('server/hotelFacilityHealthRQ.php');
+			$scope.HotelHo= new getHotelFacilities('server/hotelFacilityHotelRQ.php');
+            $scope.HotelM= new getHotelFacilities('server/hotelFacilityMainRQ.php');
+            $scope.HotelMe= new getHotelFacilities('server/hotelFacilityMealOptRQ.php');
+            $scope.HotelN= new getHotelFacilities('server/hotelFacilityNearestRQ.php');
+			$scope.HotelP= new getHotelFacilities('server/hotelFacilityPaymentReceivedRQ.php');
+            $scope.HotelPr= new getHotelFacilities('server/hotelFacilityProxRQ.php');
+            $scope.HotelR= new getHotelFacilities('server/hotelFacilityRoomRQ.php');
+            $scope.HotelS= new getHotelFacilities('server/hotelFacilitySportOptRQ.php');
+			$scope.HotelIs= new getHotelFacilities('server/hotelIssuesRQ.php');
+            $scope.HotelTerm= new getHotelFacilities('server/hotelTerminalRQ.php');
+            $scope.Contact= new getHotelFacilities('server/hotelContactstRQ.php');
+			$scope.HotelRE=  new getHotelFacilities('server/hotelFacilityRoomEquipRQ.php');
+            console.log($scope.hotelE)
 		   }, function errorCallback(response) {
 			alert('error Occured')
 			console.log(response);
 });
-
-    $scope.getHotelFacilities=function(url){
+    function getHotelFacilities(url){
         var result=appRequest.sendRequest(url).query({hotelCode:$scope.hot.hotelCode});
         result.$promise.then(function(data){
-            console.log(data, $scope.hotelE, $scope.hotelF, $scope.hotelG, $scope.hotelH, $scope.hotelHo)
+            console.log(data[0])
             return data;
         },
         function(err){

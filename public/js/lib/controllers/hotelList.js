@@ -54,7 +54,6 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
   $scope.search_c= searchDatas.data();
   $scope.search_c= $scope.search_c.data
   $scope.currData= currencyData.data();
-  console.log($scope.search_c)
   $scope.travelPD= travelPackD.data();
   $scope.offer="";
   $scope.filter={lp:null, hp:null};
@@ -123,8 +122,6 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 		if(($scope.maxP>0)&&($scope.maxP>$scope.minP)){$scope.maxPrice = $scope.maxP;}
     };
 
-  //$scope.$watch('room_allo', function(value){$scope.room_allo=value; console.log($scope.room_allo)});
-  //$scope.$watch('guestBreak', function(value){$scope.guestBreak=value; console.log($scope.guestBreak)});
     if($scope.search_c){
         setCookie("Last_Search", $scope.search_c, 30);
     	setCookie("travelPD", $scope.travelPD, 30);
@@ -158,7 +155,6 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 		else {}
 	}
 	//update search
-    console.log($scope.search_c);
 	$scope.Dest=$scope.search_c.moduleCurrType[0].value;
 	f=$scope.search_c.moduleCurrType[1].value;
 	t= $scope.search_c.moduleCurrType[2].value;
@@ -166,6 +162,17 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
     $scope.f_day = f.day;    $scope.f_month = f.month;     $scope.f_year = f.year;
     $scope.t_day = t.day;    $scope.t_month = t.month;     $scope.t_year = t.year;
 
+    //resolve Child's age to years
+    for(room in $scope.search_c.moduleCurrType['occupancy']){
+        for(guest in $scope.search_c.moduleCurrType['occupancy'][room]){
+            if( $scope.search_c.moduleCurrType['occupancy'][room][guest].name=='Child'){
+                console.log( $scope.search_c.moduleCurrType['occupancy'][room][guest].ages)
+                for(age in $scope.search_c.moduleCurrType['occupancy'][room][guest].ages){
+                    $scope.search_c.moduleCurrType['occupancy'][room][guest].ages[age].valueYear=moment().diff(moment($scope.search_c.moduleCurrType['occupancy'][room][guest].ages[age].value, "DD.MM.YYYY"), "years");
+                }
+            }
+        }
+    }
 	jQuery("#to_complete, #from_complete, #transfer_hp_complete, #transfer_hd_complete").autocomplete({
 		source: 'server/hotel_autocomplete.php',
 		minLength: 3,
@@ -176,8 +183,8 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 				$scope.Dest.code=url;  //setting the destination code from global search data in app.js
 				$scope.Dest.value=pla;  //setting the destination description from global search data in app.js
 				$sour=$(this).attr('name');
-				if($sour=='des'){ currSearch.setDes(url); $scope.hd_city=url; console.log(url)}
-				else if($sour=='dep'){currSearch.setDep(url); $scope.hp_city=url;  console.log(url)}
+				if($sour=='des'){ currSearch.setDes(url); $scope.hd_city=url; }
+				else if($sour=='dep'){currSearch.setDep(url); $scope.hp_city=url;}
 				}
 				else{
 					$f_des_air='LHR';
@@ -205,8 +212,8 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 	});
 
 	// $hotelSupplier=[{url:'server/hotelAvail_httpRQ.php?', suppler:'hotelbeds'}, {url:'server/hotelAvail_juniper_RQ.php?', supplier:'juniper'}];
-	// $hotelSupplier=[{url:'server/hotelAvail_httpRQ.php?', suppler:'hotelbeds'}];
-    $hotelSupplier=[{url:'server/hotelAvail_juniper_RQ.php?', supplier:'juniper'}];
+	$hotelSupplier=[{url:'server/hotelAvail_httpRQ.php?', suppler:'hotelbeds'}];
+    // $hotelSupplier=[{url:'server/hotelAvail_juniper_RQ.php?', supplier:'juniper'}];
 	for (x=0; x<$hotelSupplier.length; x++){
 		 $http({method:'GET',
 		 		url:$hotelSupplier[x].url+'hdescode='+$scope.search_c.moduleCurrType[0].value.code+'&hcheckin='+$scope.search_c.moduleCurrType[1].value.short+'&hcheckout='+$scope.search_c.moduleCurrType[2].value.short+'&hRoomBreak='+JSON.stringify($scope.search_c.moduleCurrType['occupancy'])
@@ -221,13 +228,11 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 
 
 	}
-	console.log($scope.hotels);
 
 	$scope.currData[0].baseCurrency.currFrom=response.data.currency;
 	try{room_count=$scope.hotels[0].availRoom[0].HotelOccupancy.RoomCount; $scope.lowest_price=$scope.hotels[0].availRoom[0].HotelRoom.Price.Amount;}
 	catch(e){room_count=$scope.hotels[0].availRoom.HotelOccupancy.RoomCount; $scope.lowest_price= $scope.hotels[0].availRoom.HotelRoom.Price.Amount}
 	var curr_price=0;
-	console.log($scope.lowest_price)
 	for (property in $scope.hotels){//loop through the room_avail to get all room occupancies for this room
 	  if($scope.hotels.hasOwnProperty(property)){
 		  if($scope.hotels instanceof Array){var properti=$scope.hotels[property];}
@@ -239,7 +244,7 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 		  properti.filter=[[],[],[]];
 		  if(price instanceof Array){ room_count=price[0].HotelOccupancy.RoomCount; curr_price= room_count*price[0].HotelRoom.Price.Amount; }
 		  else{room_count=price.HotelOccupancy.RoomCount; curr_price= room_count*price.HotelRoom.Price.Amount}
-		  if(curr_price<$scope.lowest_price){console.log(curr_price);$scope.lowest_price=curr_price}
+		  if(curr_price<$scope.lowest_price){$scope.lowest_price=curr_price}
 		}
 	}
 	//hotelData.setData($scope.hotels);
@@ -247,7 +252,6 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 	$scope.getChain();
   }, function errorCallback(response) {
     alert('error Occured')
-	console.log(response);
   });
 	}
     $scope.pagination=function(data){
@@ -262,7 +266,6 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
     $(window).scroll(function() {
 
         if($(window).scrollTop()+10 >= $(document).height() - ($(window).height()+2500)) {
-            console.log('here');
             $scope.pagination($scope.hotelList);
             $scope.$apply();
         }
@@ -278,7 +281,7 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 		 }
 	 }
   }
-    $scope.getProximity=function(){
+  $scope.getProximity=function(){
 		$scope.hprox= hotelFprox.query({hotelCodes:JSON.stringify($scope.hClist)}, function(hprox){
 			for (property in hprox){//loop through the room_avail to get all room occupancies for this room
 			  if(hprox.hasOwnProperty(property)){
@@ -318,24 +321,20 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
   $scope.get_list=function(e, hcodes){
 		$scope.hClists= hcodes;
 		$scope.hprox= hotelFprox.get({hotelCodes:$scope.hClists}, function(hprox){
-			console.log(hprox)
+
 		})
 	}
   $scope.sethotels_details=function(code_token, index_num){
-      var json_str =  JSON.parse( $('#new_list').val() );
+     var json_str =  JSON.parse( $('#new_list').val() );
      $hot=json_str[index_num];
 
 	 $hot.hotelCode= code_token.target.attributes.name.value;
 	 $hot.hotelName= code_token.target.attributes.hname.value;
-
-      console.log($hot)
-
-	  hotelData.setData($hot);
-	  $location.path('/hotel/hotel_details');
-	}
+	 hotelData.setData($hot);
+	 $location.path('/hotel/hotel_details');
+ }
 
 	function getcustomer(room_break, tag){
-		console.log(room_break);
 		$scope.cust=[];
 		if(tag=='HotelBed'){
 			var room_guests=room_break.HotelOccupancy.Occupancy.GuestList.Customer;
@@ -374,15 +373,12 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
         var json_str =  JSON.parse( $('#new_list').val() );
         $hot=json_str[index_num];
         $selected_rooms=[];
-        console.log(room_index)
         if(Array.isArray($hot.availRoom)){
             if(room_index==0){
         	    if($scope.search_c.moduleCurrType[3].value<2){
-                    console.log('here');
                     $selected_rooms[0]=$hot.availRoom[room_index];
                 }
         	    else{
-                    console.log('here e')
             	    for($i=0; $i<$scope.search_c.moduleCurrType[3].value; $i++){
             			for (property in $hot.availRoom){//loop through the room_avail to get all room occupancies for this room
             			    if($hot.availRoom.hasOwnProperty(property)){
@@ -399,13 +395,10 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
             else{$selected_rooms=room_index }//because the available room is set to room index in this case
         }
         else{
-            console.log('here sdfse',$hot.availRoom )
             $selected_rooms.push($hot.availRoom)
         }
-        console.log($selected_rooms);
         $scope.purchaseD=purchaseData.data();
         $scope.purchaseT='none';
-        //  console.log($hot)
 
 		if($hot.tag=='HotelBed'){
 			if($scope.purchaseD[0]!=null){ $scope.purchaseT=$scope.purchaseD[0]['@purchaseToken']}
@@ -416,7 +409,6 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
                 del=i.toString();
                 delete $bookD[del].HotelRoom.Price;
             }
-            console.log($bookD);
 			hdata={pToken:$scope.purchaseT,
 				Availtoken:$hot.availToken,
 				contractName:$hot.contractName,
@@ -438,9 +430,6 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 				}
 		}
 		$http({method:'Post', url:$bookurl, data:hdata}).then(function successCallback(response) {
-
-				console.log(response);
-				console.log($hot);
 				$scope.roomz=[]
 				$scope.services=[]
 				$scope.serv=[]
@@ -468,9 +457,7 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 						$scope.serv.push($scope.services)
 					}
 				for($a=0; $a<$scope.serv.length; $a++){
-					console.log( $scope.serv);
 					if($scope.serv[$a].HotelInfo.Code==$hot.hotelCode){
-						 console.log( $scope.serv[$a]);
 						if(Array.isArray($scope.serv[$a].availRoom)){
 							for($b=0; $b<$scope.serv[$a].availRoom.length; $b++){
 								for($g=0; $g<$scope.serv[$a].availRoom[$b].HotelOccupancy.RoomCount; $g++){
@@ -565,7 +552,7 @@ hotelList.directive('roomType', function(hotel_room_allo) {
 			 var ind=0;
 			  for (property in room_all){//loop through the room_avail to get all room occupancies for this room
 				  if(room_all.hasOwnProperty(property)){
-					  if(room_all instanceof Array){var properti=room_all[property]; console.log(properti)}
+					  if(room_all instanceof Array){var properti=room_all[property]; }
 					  else{var properti=room_all;}
 					  var occupants=properti.HotelOccupancy.Occupancy;
 					  if((occupants.AdultCount== $scope.search_c.moduleCurrType['occupancy'][$i][0].value)&&(occupants.ChildCount==$scope.search_c.moduleCurrType['occupancy'][$i][1].value)){
@@ -574,7 +561,7 @@ hotelList.directive('roomType', function(hotel_room_allo) {
 						if(ind==1){
 							$scope.roomTotalPrice[$i+1]=properti.HotelRoom.Price.Amount;
 							$scope.guestBreak[$i]=properti
-							console.log($scope.guestBreak[$i])
+
 						}
 					  }
 					}
@@ -598,7 +585,6 @@ hotelList.directive('roomType', function(hotel_room_allo) {
 	if (typeof obj[i] == 'object') {
 	try{
 		if(obj[i].Board.$==bval && obj[i].RoomType.$==rval ){
-			console.log(obj[i]);
 			if(obj.HotelOccupancy.Occupancy.AdultCount==$scope.search_c.moduleCurrType['occupancy'][index][0].value && obj.HotelOccupancy.Occupancy.ChildCount==$scope.search_c.moduleCurrType['occupancy'][index][1].value){
 			objects.push(obj);
 			}
@@ -615,11 +601,9 @@ hotelList.directive('roomType', function(hotel_room_allo) {
 	$scope.get_room_type=function(type, boad, index){
 		$scope.roomtype=type;
 		$scope.board=boad;
-		console.log($scope.guestBreak);
 		$scope.att=getObjects($scope.room_allo, $scope.board, $scope.roomtype, index);
 		$scope.guestBreak[index]=$scope.att[0]
-		console.log($scope.guestBreak);
-		console.log($scope.att)
+
 		$scope.roomTotalPrice[index+1]=$scope.att[0].HotelRoom.Price.Amount;
 		addtotal();
 	}
@@ -628,8 +612,7 @@ hotelList.directive('roomType', function(hotel_room_allo) {
 		$scope.board=boad;
 		$scope.att=getObjects($scope.room_allo,  $scope.board, $scope.roomtype, index);
 		$scope.guestBreak[index]=$scope.att[0]
-		console.log($scope.guestBreak)
-		console.log($scope.att)
+
 		$scope.roomTotalPrice[index+1]=$scope.att[0].HotelRoom.Price.Amount
 		addtotal();
 	}

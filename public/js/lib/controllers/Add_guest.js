@@ -16,7 +16,7 @@ function setCookie(cname, cvalue, exmins) {
     var d = new Date();
     d.setTime(d.getTime() + (exmins*60*1000));
     var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + JSON.stringify(cvalue) + "; " + expires;
+    document.cookie = cname + "=" + cvalue + "; " + expires;
 }
 function getCookie(cname) {
     var name = cname + "=";
@@ -42,7 +42,7 @@ function getCookie(cname) {
 
      }
 	else{ console.log($scope.travelPD); add_guest($scope.travelPD)}
-    
+
 	function getlead(gService, user){
 		gService.title=user.title; gService.fname=user.fname; gService.lname=user.lname; gService.email=user.email;
 		gService.phone=user.phone; gService.dbirth=user.dob;  gService.caddress=user.caddress; gService.city=user.city;
@@ -68,7 +68,8 @@ function getCookie(cname) {
 		$scope.user=userData.data();
 		console.log($scope.user);
 		if($scope.user[0].status=='Logged_in'){	$scope.def=$scope.user[1];	}
-		$scope.totalPrice=0;
+		$scope.totalPrice=0
+        $scope.discountedPrice=0;
 		for($i=0; $i<data.length; $i++){
 			$scope.flight_g=[]
 			$scope.hotel_g=[];
@@ -117,12 +118,11 @@ function getCookie(cname) {
 				console.log($scope.flight_p)
 				data[$i].guest_details=$scope.flight_p;
 				$scope.pricing.pricelist.push({cur:data[$i].cur,  price:data[$i].Price})
-				$scope.totalPrice=parseFloat($scope.totalPrice)+parseFloat(data[$i].Price);
+				$scope.totalPrice+=parseFloat(data[$i].Price);
 			}
 			if(((data[$i].product=='HotelBed') || (data[$i].product=='Juniper'))&&(data[$i].productType=='Hotel')){ //find and declares all hotel guest with room comments
 				//$scope.hotel_d={hname:data[$i].hName, hcheckin:data[$i].hcheckin, hcheckout:data[$i].hcheckout, roomz:[]};
 				for($b=0; $b<data[$i].guestBreak.length; $b++){ // loop through the number of rooms booked
-					console.log(data[$i])
 					$roo=data[$i].hroomdist; // get the current guest distrubution in a room.
 					$scope.room={comment:'', guest:[]} //declares an object to hold the comment and guest details
 					for($a=0; $a<$roo[$b][0].value; $a++){ // loops through the number of adults
@@ -141,8 +141,7 @@ function getCookie(cname) {
 				$scope.hotel_g.push($scope.hotel_d) // push the whole array into the hotel_g
 				data[$i].guest_details=$scope.hotel_d;
 				$scope.pricing.pricelist.push({cur:data[$i].currency_sy, price:data[$i].Price})
-				console.log(data[$i])
-				$scope.totalPrice=parseFloat($scope.totalPrice)+parseFloat(data[$i].convertedPrice);
+				$scope.totalPrice+=parseFloat(data[$i].convertedPrice);
 			}
 			if((data[$i].product=='HotelBed')&&((data[$i].productType=='Tour')||(data[$i].productType=='Transfer'))){ //find and declares all hotel guest with room comments
 				if(data[$i].productType=='Tour'){$roo=data[$i].hroomdist;} // get the current guest distrubution.
@@ -163,22 +162,26 @@ function getCookie(cname) {
 				data[$i].guestBreak[0].cust_det=data[$i].cust_det
 				data[$i].guestBreak[0].guest_details=$scope.t_guest;
 				$scope.pricing.pricelist.push({cur:data[$i].currency_sy, price:data[$i].Price})
-				$scope.totalPrice=parseFloat($scope.totalPrice)+parseFloat(data[$i].convertedPrice);
+				$scope.totalPrice+=parseFloat(data[$i].convertedPrice);
 			}
 		}
 	}
-    // $scope.$watch('travelPD', function (newValue, oldValue, $scope) {
-    // if(newValue) {
-    //     console.log('fer')
-    //      $scope.newAgentPrice()
-    //     }
-    // });
+
+    $scope.processAgentDiscountHotel = function(service){
+        $scope.user[1].totalAgentPrice= $scope.user[1].totalAgentPrice || 0
+        $scope.travelPD[service].hotelDiscount="5%";
+        var discountValue = $scope.travelPD[service].convertedPrice * 0.05;
+        $scope.travelPD[service].discountedPrice= $scope.travelPD[service].convertedPrice - discountValue;
+        $scope.user[1].totalAgentPrice -=discountValue
+
+    }
     $scope.processAgentDiscountFlight=function(service){
         $tot_price=0;
         $tot_pDiscount=0;
+        $scope.user[1].totalAgentPrice= $scope.user[1].totalAgentPrice || 0
         for (property in service.priceB){ //loop through each person
             cprice=service.priceB[property];
-            pvalue=0
+            pvalue=0;
             newprice=0;
             //check if this flight has been markup_down by checking the the margin object
             if(cprice['@mark_perc'] !=0){
@@ -209,8 +212,9 @@ function getCookie(cname) {
     }
     $scope.newAgentPrice=function(){
         $scope.user[1].totalAgentPrice=0
-        for(service in $scope.travelPD){
-            $scope.user[1].totalAgentPrice=parseInt($scope.user[1].totalAgentPrice) + parseInt($scope.travelPD[service].soldPrice);
+        for(i=0; i< $scope.travelPD.length; i++){
+
+            $scope.user[1].totalAgentPrice += $scope.travelPD[i].convertedPrice;
         }
     }
 	$scope.makeReserv=function(poption){
@@ -291,57 +295,55 @@ function getCookie(cname) {
 
 				}
 				if(trans[t].product=='HotelBed' && trans[t].booked!='booked'){
-
-					if(trans[t].productType=='Hotel'){$scope.all_guests= trans[t].guestBreak}
-					else{$scope.all_guests= trans[t].guestBreak}
-					$scope.hotel_guest= JSON.stringify( $scope.all_guests );
+					$scope.hotel_guest= JSON.stringify( trans[t].guestBreak );
 					$scope.product_details= JSON.stringify(trans[t]);
 					$scope.main=trans[t];
 					$scope.lead=JSON.stringify($scope.def)
 					//$scope.main_det=JSON.stringify(trans[t]);
 					hdata={lead:$scope.def, details:$scope.product_details}
 					$http({method:'Post', url:'server/PurchaseConfirmRQ.php', data:hdata}).then(function successCallback(response) {
-						console.log(response);
-                        $scope.travelPD[0].status= 'booked';
-                        $scope.travelPD[0].bookingCode= $scope.f_booker.Reference;
-						$scope.f_booker=response.data.PurchaseConfirmRS.Purchase;
-						$scope.p_token=$scope.f_booker['@purchaseToken'];
-						$scope.holder=$scope.f_booker.Holder
-						$scope.ref=$scope.f_booker.Reference
-						$scope.pservices=$scope.f_booker.ServiceList
-						$scope.main.ref=$scope.ref;
-						console.log($scope.f_booker);
-						console.log($scope.user)
-						if($scope.pservices instanceof Array){
-							for($g=0; $g<$scope.pservices.length; $g++){
-								$scope.main.serviceRef=$scope.pservices[$g].Reference
-								$scope.main.supplier=$scope.pservices[$g].Supplier
-								$scope.sendbook=sendmailRS.get({
-									userE:$scope.user[1],
-									//hotelDetails:JSON.stringify($scope.pservices[$g]),
-									GuestDetails:$scope.lead_guest,
-									searchD:$scope.main_det,
-									//bookingCode:$scope.f_booker.booking_number
-									},
-									function(sendbook){$scope.user=$scope.sendbook;}
-								)
-							}
-							$scope.afterBook(bookref);
-						}
-						else{
-							$scope.main.serviceRef=$scope.pservices.Service.Reference
-							$scope.main.supplier=$scope.pservices.Service.Supplier
-							console.log($scope.main);
-							$scope.main_det=$scope.main;
-							console.log($scope.main_det)
-							sendmailRS.sendmail($scope.user[1], $scope.def, $scope.main_det).then(function(response) {
-								$scope.user=response; $scope.afterBook(bookref);
-								}, function(err) {
-									console.log('error')
-								}
-							);
-						}
-
+						// console.log(response);
+                        if(response.data.PurchaseConfirmRS.Purchase){
+                            $scope.travelPD[0].status= 'booked';                            
+    						$scope.f_booker=response.data.PurchaseConfirmRS.Purchase;
+                            $scope.travelPD[0].bookingCode= $scope.f_booker.Reference;
+    						$scope.p_token=$scope.f_booker['@purchaseToken'];
+    						$scope.holder=$scope.f_booker.Holder
+    						$scope.main.ref=$scope.f_booker.Reference
+    						$scope.pservices=$scope.f_booker.ServiceList
+    						console.log($scope.f_booker);
+    						// console.log($scope.user)
+    						if($scope.pservices instanceof Array){
+                                console.log('there');
+    							for($g=0; $g<$scope.pservices.length; $g++){
+    								$scope.main.serviceRef=$scope.pservices[$g].Reference
+    								$scope.main.supplier=$scope.pservices[$g].Supplier
+    								$scope.sendbook=sendmailRS.get({
+    									userE:$scope.user[1],
+    									//hotelDetails:JSON.stringify($scope.pservices[$g]),
+    									GuestDetails:$scope.lead_guest,
+    									searchD:$scope.main_det,
+    									//bookingCode:$scope.f_booker.booking_number
+    									},
+    									function(sendbook){$scope.user=$scope.sendbook;}
+    								)
+    							}
+    							$scope.afterBook(bookref);
+    						}
+    						else{
+    							$scope.main.serviceRef=$scope.pservices.Service.Reference
+    							$scope.main.supplier=$scope.pservices.Service.Supplier
+    							console.log($scope.main);
+    							$scope.main_det=$scope.main;
+    							// console.log($scope.main_det)
+    							sendmailRS.sendmail($scope.user[1], $scope.def, $scope.main_det).then(function(response) {
+    								$scope.user=response; $scope.afterBook(bookref);
+    								}, function(err) {
+    									console.log('error')
+    								}
+    							);
+    						}
+                        }
 					})
 				}
 				if(trans[t].product=='Juniper' && trans[t].status!='booked'){
@@ -378,8 +380,8 @@ function getCookie(cname) {
 	$scope.afterBook=function(bookref, basketId){
 		if($scope.payoption=='Paylater'){
             setCookie('basketId', basketId, 30)
-            setCookie('travelPD', $scope.travelPD, 30)
-			setCookie('lead_guest', $scope.def, 30)
+            setCookie('travelPD', JSON.stringify($scope.travelPD), 30)
+			setCookie('lead_guest', JSON.stringify($scope.def), 30)
 			$location.path('/voucher');
 		}
 		else{
@@ -420,7 +422,7 @@ function getCookie(cname) {
 		$scope.local_date_time=moment().format('DD/MM/YYYY');
 
 		$scope.payOnlineData={'product_id' : 6208, 'txn_ref' : $scope.txn_ref , 'pay_item_id' : 101, 'pay_item_name' : 'Flight|Hotel', 'amount' : $scope.Namount , 'currency' : $scope.currency , 'site_redirect_url' : $scope.site_redirect_url , 'site_name' : $scope.site_name , 'cust_id' : $scope.cust_id , 'cust_id_desc' : $scope.cust_id_desc , 'cust_name' : $scope.cust_name , 'cust_name_desc' : $scope.cust_name_desc , 'local_date_time' : $scope.local_date_time};
-		setCookie('payData', $scope.payOnlineData, 30)
+		setCookie('payData', JSON.stringify($scope.payOnlineData), 30)
 		$location.path('/payMentGateway');
 	}
 	$scope.cancel_all=function(){
@@ -461,10 +463,10 @@ function getCookie(cname) {
 		$scope.guest.push($scope.hotel_Mguest);
 		$scope.guest.push($scope.tour_Mguest);
 		$scope.guest.push($scope.transfer_Mguest);
-		setCookie('Guest', $scope.guest, 30);
+		setCookie('Guest', JSON.stringify($scope.guest), 30);
 		web_auth={'txn_ref':$scope.txn_ref, 'amount':$scope.amount, 'hasher':jQuery('#hash_hid').val()}
 		//var webret=JSON.stringify()
-		setCookie('webPay', web_auth, 30)
+		setCookie('webPay', JSON.stringify(web_auth), 30)
 	}
 }]);
 AddGuest.controller('bookErrorModalInstanceCtrl', ['$scope', '$rootScope','index', 'userData', '$modalInstance', 'errorObject','travelPackD',  function ($scope, $rootScope, index, userData, $modalInstance, errorObject, travelPackD){
@@ -507,10 +509,10 @@ AddGuest.controller('paymentModalInstanceCtrl', ['$scope', '$rootScope', 'userDa
 		$scope.guest.push($scope.hotel_Mguest);
 		$scope.guest.push($scope.tour_Mguest);
 		$scope.guest.push($scope.transfer_Mguest);
-		setCookie('Guest', $scope.guest, 30);
+		setCookie('Guest', JSON.stringify($scope.guest), 30);
 		web_auth={'txn_ref':$scope.txn_ref, 'amount':$scope.amount, 'hasher':jQuery('#hash_hid').val()}
 		//var webret=JSON.stringify()
-		setCookie('webPay', web_auth, 30)
+		setCookie('webPay', JSON.stringify(web_auth), 30)
 	}
 	$scope.cancel = function () {
     $modalInstance.dismiss('cancel');

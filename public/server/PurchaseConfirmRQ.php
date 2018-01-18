@@ -24,10 +24,9 @@
 	$postdata = file_get_contents("php://input");
 	$request = json_decode($postdata);
 
-	$data=json_decode(json_encode($request->details));
+	$data=json_decode($request->details);
 	$lead=$request->lead;
-	//echo "<pre>".print_r($data, true)."</pre>";
-	//for($x=0; $x<count($data); $x++ ){
+
 		if($data->product=='HotelBed'){
 	$xml='
 	<PurchaseConfirmRQ xmlns="http://www.hotelbeds.com/schemas/2005/06/messages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages/xsd/PurchaseConfirmRQ.xsd" version="2013/12">
@@ -112,7 +111,9 @@
 		//	}
 	$xml.='</ConfirmationServiceDataList></ConfirmationData></PurchaseConfirmRQ>';
 	// echo "<pre>".print_r($xml, true)."</pre>";
-	$xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
+
+    $xml_response_string = post_xml('http://api.interface-xml.com/appservices/http/FrontendService',  $xml);
+	// $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
 	//}
 
     if(!$xml_response_string)
