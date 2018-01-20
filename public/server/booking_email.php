@@ -116,7 +116,7 @@
 								$message.="<li><b> Children Ages ";
 								$chno=count($sDet->hroomdist[$i][1]->ages);
 								for($b=0; $b<$chno; $b++){
-									$message.=$sDet->hroomdist[$i][1][$b];
+									$message.=$sDet->hroomdist[$i][1]->ages[$b]->valueYear;
 									if(($chno-$b)==1){$message.='.</b></li><br>';}
 									else{
 										if(($chno-$b)>1){

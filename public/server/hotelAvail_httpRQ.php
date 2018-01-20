@@ -22,9 +22,8 @@
         curl_close($ch);
         return $response;
     }
-  $t=time();
 
-	 $xml='<HotelValuedAvailRQ echoToken="DummyEchoToken" sessionId="'.$t.'" xmlns="http://www.hotelbeds.com/schemas/2005/06/messages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages/xsd/HotelValuedAvailRQ.xsd" version="2013/12">
+	 $xml='<HotelValuedAvailRQ echoToken="DummyEchoToken" sessionId="'.$_GET["sessionId"].'" xmlns="http://www.hotelbeds.com/schemas/2005/06/messages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages/xsd/HotelValuedAvailRQ.xsd" version="2013/12">
 	<Language>ENG</Language>
 	<Credentials>
 		<User>GETCENTRENG163996</User>
@@ -45,8 +44,8 @@
 		$xml.='<Destination code="'.$zcods[0].'" type="SIMPLE"><ZoneList> <Zone type="SIMPLE" code="'.$zcods[1].'"/></ZoneList></Destination> <OccupancyList>';
 	}
 	else{$xml.='<Destination code="'.$_GET["hdescode"].'" type="SIMPLE"/> <OccupancyList>';}
-	$roombreak=json_decode(stripslashes(html_entity_decode($_GET["hRoomBreak"])));
-    // echo "<pre>".print_r($roombreak, true)."</pre>";
+	$roombreak=json_decode(stripslashes($_GET["hRoomBreak"]));
+     // echo "<pre>".print_r($roombreak, true)."</pre>";
 	$xmladdchild="";
 	for($i=0; $i<count($roombreak); $i++){//loop through the number of rooms
 		if($roombreak[$i][0]->value >0){
@@ -86,8 +85,8 @@
 </HotelValuedAvailRQ>
 ';
  // echo "<pre>".print_r($xml, true)."</pre>";
- // $xml_response_string = post_xml('http://api.interface-xml.com/appservices/http/FrontendService',  $xml);
-  $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
+ $xml_response_string = post_xml('http://api.interface-xml.com/appservices/http/FrontendService',  $xml);
+  // $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
     if(!$xml_response_string)
         die('ERROR');
 
@@ -104,7 +103,7 @@
 	$xml_response = simplexml_load_string($xml_response_string);
 
 	$array1 = (array)$xml_response;
-	//echo '<pre>'.print_r($array1).'</pre>';
+	// echo '<pre>'.print_r($array1).'</pre>';
 	if (($array1 != null)) {
 		$arrayData = xmlToArray($xml_response);
 		$a_json = array();

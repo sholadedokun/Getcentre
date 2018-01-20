@@ -65,6 +65,14 @@ hotelDetails.controller('hotelDetails', ['$scope', 'searchDatas', 'hotelData', '
 		else {}
 	}
 
+    $scope.setFromDate=function(eIndex){
+        jQuery( ".hfromdate" ).get(eIndex).focus();
+    }
+    $scope.setToDate=function(eIndex){
+        jQuery( ".htodate" ).get(eIndex).focus();
+
+    };
+
 	f=$scope.search_c.moduleCurrType[1].value.short;
 	t=$scope.search_c.moduleCurrType[2].value.short;
 	var fdate = [f.slice(0, 4), f.slice(4,6), f.slice(6)].join(' ');
@@ -91,36 +99,30 @@ hotelDetails.controller('hotelDetails', ['$scope', 'searchDatas', 'hotelData', '
 			$scope.mainImageUrl = $scope.hotel_Detail.details[0].img_path;
 			$scope.hotelcode= $scope.hotel_Detail.details[0].hotelCode;
 
-            $scope.hotelE= new getHotelFacilities('server/hotelFacilityEntertainmentRQ.php');
-            $scope.hotelF= new getHotelFacilities('server/hotelFacilityFactRQ.php');
-            $scope.HotelG= new getHotelFacilities('server/hotelFacilityGreenProRQ.php');
-			$scope.HotelH= new getHotelFacilities('server/hotelFacilityHealthRQ.php');
-			$scope.HotelHo= new getHotelFacilities('server/hotelFacilityHotelRQ.php');
-            $scope.HotelM= new getHotelFacilities('server/hotelFacilityMainRQ.php');
-            $scope.HotelMe= new getHotelFacilities('server/hotelFacilityMealOptRQ.php');
-            $scope.HotelN= new getHotelFacilities('server/hotelFacilityNearestRQ.php');
-			$scope.HotelP= new getHotelFacilities('server/hotelFacilityPaymentReceivedRQ.php');
-            $scope.HotelPr= new getHotelFacilities('server/hotelFacilityProxRQ.php');
-            $scope.HotelR= new getHotelFacilities('server/hotelFacilityRoomRQ.php');
-            $scope.HotelS= new getHotelFacilities('server/hotelFacilitySportOptRQ.php');
-			$scope.HotelIs= new getHotelFacilities('server/hotelIssuesRQ.php');
-            $scope.HotelTerm= new getHotelFacilities('server/hotelTerminalRQ.php');
-            $scope.Contact= new getHotelFacilities('server/hotelContactstRQ.php');
-			$scope.HotelRE=  new getHotelFacilities('server/hotelFacilityRoomEquipRQ.php');
-            console.log($scope.hotelE)
+            $scope.HotelE= new getHotelFacilities('server/hotelFacilityEntertainmentRQ.php').result;
+            $scope.HotelF= new getHotelFacilities('server/hotelFacilityFactRQ.php').result;
+            $scope.HotelG= new getHotelFacilities('server/hotelFacilityGreenProRQ.php').result;
+			$scope.HotelH= new getHotelFacilities('server/hotelFacilityHealthRQ.php').result;
+			$scope.HotelHo= new getHotelFacilities('server/hotelFacilityHotelRQ.php').result;
+            $scope.HotelM= new getHotelFacilities('server/hotelFacilityMainRQ.php').result;
+            $scope.HotelMe= new getHotelFacilities('server/hotelFacilityMealOptRQ.php').result;
+            $scope.HotelN= new getHotelFacilities('server/hotelFacilityNearestRQ.php').result;
+			$scope.HotelP= new getHotelFacilities('server/hotelFacilityPaymentReceivedRQ.php').result;
+            $scope.HotelPr= new getHotelFacilities('server/hotelFacilityProxRQ.php').result;
+            $scope.HotelR= new getHotelFacilities('server/hotelFacilityRoomRQ.php').result;
+            $scope.HotelS= new getHotelFacilities('server/hotelFacilitySportOptRQ.php').result;
+			$scope.HotelIs= new getHotelFacilities('server/hotelIssuesRQ.php').result;
+            $scope.HotelTerm= new getHotelFacilities('server/hotelTerminalRQ.php').result;
+            $scope.Contact= new getHotelFacilities('server/hotelContactstRQ.php').result;
+			$scope.HotelRE=  new getHotelFacilities('server/hotelFacilityRoomEquipRQ.php').result;
 		   }, function errorCallback(response) {
 			alert('error Occured')
 			console.log(response);
 });
     function getHotelFacilities(url){
-        var result=appRequest.sendRequest(url).query({hotelCode:$scope.hot.hotelCode});
-        result.$promise.then(function(data){
-            console.log(data[0])
+        this.result=appRequest.sendRequest(url).query({hotelCode:$scope.hot.hotelCode}, function(data){
             return data;
-        },
-        function(err){
-            console.log(err);
-        })
+        });
     }
 	$scope.setvis=function(ind){
 		$scope.visT[ind]='S';

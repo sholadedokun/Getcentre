@@ -67,6 +67,7 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
   $scope.hotels_total=0;
   $scope.hotel_name='';
   $scope.disabled=false;
+  $scope.sessionId=moment().unix();
   travel_pack={};
   $scope.sorting=[{name:'Lowest Price', value:'lowP'},{name:'Highest Price', value:'highP'},{name:'Lowest Star Rating', value:"hotelCat['@shortname']"},{name:'Higest Star Rating', value:"-hotelCat['@shortname']"},{name:'Hotel Name Asc.', value:'hotelName'},{name:'Hotel Name Desc.', value:'-hotelName'}];
 	$scope.priceMin = function (hotel) {
@@ -216,8 +217,7 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
     // $hotelSupplier=[{url:'server/hotelAvail_juniper_RQ.php?', supplier:'juniper'}];
 	for (x=0; x<$hotelSupplier.length; x++){
 		 $http({method:'GET',
-		 		url:$hotelSupplier[x].url+'hdescode='+$scope.search_c.moduleCurrType[0].value.code+'&hcheckin='+$scope.search_c.moduleCurrType[1].value.short+'&hcheckout='+$scope.search_c.moduleCurrType[2].value.short+'&hRoomBreak='+JSON.stringify($scope.search_c.moduleCurrType['occupancy'])
-
+		 		url:$hotelSupplier[x].url+'hdescode='+$scope.search_c.moduleCurrType[0].value.code+'&hcheckin='+$scope.search_c.moduleCurrType[1].value.short+'&hcheckout='+$scope.search_c.moduleCurrType[2].value.short+'&hRoomBreak='+JSON.stringify($scope.search_c.moduleCurrType['occupancy'])+'&sessionId='+$scope.sessionId
 		 	})
 		.then(function successCallback(response) {
              $scope.hotelList=response.data.hotelList
@@ -420,7 +420,8 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 				ServiceType:'ServiceHotel',
 				DateTo:$scope.search_c.moduleCurrType[2].value.short,
 				hotelcode:$hot.hotelCode,
-				destcode:$scope.search_c.moduleCurrType[0].value.code
+				destcode:$scope.search_c.moduleCurrType[0].value.code,
+                sessionId:$scope.sessionId
 			}
 
 		}
