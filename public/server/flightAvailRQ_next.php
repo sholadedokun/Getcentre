@@ -1,6 +1,6 @@
     <?php
     error_reporting(E_ALL);
-	ini_set('display_errors', 0);
+	ini_set('display_errors', 1);
 	require_once 'JSON.php';
     require_once 'fun_connect2.php';
     require_once 'markup_down.php';
@@ -9,7 +9,12 @@
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST,   1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+        if($xml !=''){
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+        }
+        else{
+            curl_setopt($ch, CURLOPT_HTTPHEADER, 'Content-type: application/x-www-form-urlencoded' );
+        }
         $response = curl_exec($ch);
         curl_close($ch);
         return $response;
@@ -98,8 +103,6 @@
                 $xml->writeElement('calcPrecision', 2);
                 $xml->writeElement('flightmixed', 0);
                 $xml->writeElement('order_by', "ofr_price");
-
-
 				$xml->writeElement('extraData', 'adtFlightInfo,extMarginFlights');
 				$xml->endElement();
 			$xml->endElement();
@@ -107,40 +110,21 @@
 		$xml->endDocument();
         // echo "<pre>".var_dump($xml->outputMemory(true))."</pre>";
         // die;
+
         $xml_response_string = post_xml('https://mws.merlinx.pl/dataV4/', $xml->outputMemory(true));
 		if(!$xml_response_string){   die('ERROR');   }
 		$xml_response = simplexml_load_string($xml_response_string);
-
-        $mark=getmark($flight->moduleCurrType->{0}->value->code, $flight->moduleCurrType->{1}->value->code);
-        foreach ($xml_response as $eachflight) {
-            // echo "<pre>".print_r($eachflight)."</pre>";
-            $totalPrice=0;
-             foreach($eachflight->extra->adtFlightInfo->persons as $persons ){
-                 foreach($persons as $person){
-                     //only gives markup and down for aAdults
-                     if($person->attributes()->type=='ADT'){
-                        $marginPrice=compare($mark, $eachflight, $person, $flight->moduleType);
-                        if($marginPrice>0){
-                            $totalPrice+=$marginPrice;
-                        }
-                     }
-                    // echo "<pre>".print_r($per->attributes()->type, true)."</pre>";
-                }
-             }
-             if($totalPrice > 0){
-                 $eachflight['operPrice']=$totalPrice;
-             }
-        }
-
+        // print_r($xml_response);
 		$re=turntojson($xml_response);
 		echo($re);
 
 	function turntojson($xml_response){
-		$array1 = (array)$xml_response;
-		if (($array1 != null)) {
+		$arrayData = (array)$xml_response;
+		if (($arrayData != null)) {
 			$arrayData = xmlToArray($xml_response);
-			$jsonOutput=json_encode($arrayData);
+            $jsonOutput=json_encode($arrayData);
 		}
+
 		return $jsonOutput;
 	}
 ?>

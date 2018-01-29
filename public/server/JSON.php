@@ -1,6 +1,6 @@
 <?php
 
-function xmlToArray($xml, $sid, $options = array()) {
+function xmlToArray($xml, $options = array()) {
     $defaults = array(
         'namespaceSeparator' => ':',//you may want this to be something other than a colon
         'attributePrefix' => '@',   //to distinguish between attributes and nodes with the same name

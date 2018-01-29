@@ -211,9 +211,11 @@
 														<div class="col-xs-18 bookingFormInput booking-form no-padding " ng-init="setDates(form)"  ng-if="form.type=='date'">
 															<input type="text" ng-if="form.subType=='fromdate'" data="{{form}}"  name="{{$parent.$parent.$parent.$index}}" class="fromdate datePickerDummy" date-from />
 															<div class="dateContainer" ng-if="form.subType=='fromdate'" >
-																<div class="dateBreaker rborder" ng-click="setFromDate($parent.$parent.$parent.$index)" ng-bind="form.value.day"></div>
-																<div class="dateBreaker rborder" ng-click="setFromDate($parent.$parent.$parent.$index)" ng-bind="form.value.month"></div>
-																<div class="dateBreaker rborder" ng-click="setFromDate($parent.$parent.$parent.$index)" ng-bind="form.value.year"></div>
+																<div class="dateBreaker rborder" ng-click="setFromDate($parent.$parent.$parent.$index)" >
+																	<span ng-bind="form.value.day"></span>
+																	<span ng-bind="form.value.month"></span>
+																	<span ng-bind="form.value.year"></span>
+																</div>
 																<div class="iconContainer" ng-click="setFromDate($parent.$parent.$parent.$index)"><span  class="iconCalendar"></span></div>
 															</div>
 														</div>

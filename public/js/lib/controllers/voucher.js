@@ -20,6 +20,7 @@ voucher.controller('voucher', ['$scope',  'tourData', 'hotelData',  'purchaseCon
 	 $scope.user=userData.data();
      $scope.voucher_det={};
      $scope.basketId= checkCookie('basketId');
+ 	 travelPackD.setData([])
 	 setCookie('travelPD', '', 0)
      setCookie('basketId', '', 0)
       $scope.voucher_det.bookref=$scope.tot_trip.bookref
@@ -35,12 +36,14 @@ voucher.controller('voucher', ['$scope',  'tourData', 'hotelData',  'purchaseCon
      }
 	function checkCookie(category) {
 		var lSsearch=getCookie(category);
-		if (lSsearch != "") {
+		if (lSsearch != "" && lSsearch.length > 20) {
 			console.log(lSsearch)
 			$scope.trip = JSON.parse(lSsearch);
 			return $scope.trip;
 		}
-		else {}
+		else {
+            return lSsearch
+        }
 	}
     function setCookie(cname, cvalue, exmins) {
         var d = new Date();

@@ -26,7 +26,7 @@
 	                    <div class="col-xs-18 col-md-6 nopadding"><span class="visible-xs"><b>Service Name: </b><br /></span>{{each_trip.Name || each_trip.flightTypeName}}</div>
 	                    <div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Tickets : </b><br /></span>{{each_trip.Adult}} Adults, {{each_trip.Child}} kid</div>
 	                    <div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Unit Price : </b><br /></span> &#8358; {{each_trip.Price  | number:2}}</div>
-						<div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Reference : </b><br /></span> &#8358; {{each_trip.bookingCode}}</div>
+						<div class="col-xs-18 col-md-3 nopadding"><span class="visible-xs"><b>Reference : </b><br /></span>{{each_trip.bookingCode}}</div>
 	                </div>
 	                <!-- <div class="col-md-6 t_price">
 	                    <div class="col-md-12 s_label"><a href="#">Cancel Booking</a></div>

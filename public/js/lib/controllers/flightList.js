@@ -148,25 +148,19 @@ flightList.controller('flightList', ['$scope', '$http', '$rootScope', 'fpriceFil
 			index=0
 			//particular to sabre... we need to re-organise the flight details object so as to match the flight legs and gap
 			for(fdetails in flightInfo){
-				//we won't be needing the person object
-				if(fdetails!='persons'){
+				//we won't be needing the person object and the lastTicketDate
+				if(fdetails!='persons' && fdetails!='lastTicketDate'){
 					//create a array everytime there is the search finds a 'leg0';
 					//if(flightInfo[fdetails].leg0){
 					if(flightDetails.type=='MT')
-					{
+					{	//trying to get the flight index
 						fdetailsRep=fdetails.replace('flight', '')
-						index=fdetailsRep[0];
+						index=fdetailsRep[0]; // the first letter after 'flight' has been removed i.e 'flight0', 'flight0TotalTime'
 					}
 					else{
-						if(fdetails.indexOf('in')==0){
-							index=1;
-						}
-						else{
-							index=0;
-						}
+						if(fdetails.indexOf('in')==0){	index=1;}
+						else{	index=0;}
 					}
-
-
 					if((flightDetails.type=='MT' && index>currentIndex) || (flightDetails.type=='RT' && fdetails.indexOf('out')> -1 && flightDetails.flightList.length < 2)){
 						flightDetails.flightList.push([]);
 						//get the value of the current Index that was just created...
@@ -182,7 +176,7 @@ flightList.controller('flightList', ['$scope', '$http', '$rootScope', 'fpriceFil
 			//now lets add other important details to our flight objects.
 			flightDetails.persons=flightInfo.persons;
 			flightDetails.id=list[flight]['@id'];
-			flightDetails.offerPrice=parseInt(list[flight]['@price'])
+			flightDetails.offerPrice=list[flight].brands.item.price
 			flightDetails.tourOp=list[flight]['@tourOp']
 
 			//lets push all this flight into the main render scope.
@@ -505,10 +499,10 @@ flightList.controller('flightList', ['$scope', '$http', '$rootScope', 'fpriceFil
 		if($scope.search_c.moduleType=='MF'){
 			$guest=$scope.search_c.moduleCurrType.q1
 		}
-		$scope.fCheck = flightCheckRs.get({Adult:$guest.subtypes[0].value,Child:$guest.subtypes[1].value, operPrice:operPrice, fOfferCode:$scope.search_c.fOfferCode, inf_age:$scope.search_c.Infant_ageDist, chd_age:$scope.search_c.Child_ageDist, tourop:tourOp}, function(fCheck) {
+		$scope.fCheck = flightCheckRs.get({Adult:$guest.subtypes[0].value,Child:$scope.search_c.Child, Infant:$scope.search_c.Infant, operPrice:operPrice, fOfferCode:$scope.search_c.fOfferCode, inf_age:$scope.search_c.Infant_ageDist, chd_age:$scope.search_c.Child_ageDist, tourop:tourOp}, function(fCheck) {
 		$scope.check=$scope.fCheck.response;
 		$scope.search_c.lastOfferDate=$scope.check.forminfo.LastTicketDate.value;
-		travel_pack={ product:'Sabre', productType:'Flight', flightType:flightType, flightTypeName:flightTypeName, Adult:$guest.subtypes[0].value, Child:$guest.subtypes[1].value, Child_ages:$scope.c_a_d,
+		travel_pack={ product:'Sabre', productType:'Flight', flightType:flightType, flightTypeName:flightTypeName, Adult:$guest.subtypes[0].value, Child:$scope.search_c.Child, Child_ages:$scope.c_a_d,
 			Infant:$scope.search_c.Infant, infant_ages:$scope.i_a_d, flightDetails:fdetails, fDepCode:$scope.search_c.fDepAirpCode, fDesCode:$scope.search_c.fDesAirpCode, fTravelDays:$scope.search_c.fTravelDays,
 			fOfferCode:$scope.search_c.fOfferCode, Price:$scope.check.pricetotal['@price'], tourOp:tourOp, lastTicketDate:$scope.search_c.lastOfferDate, guest_details:null,  priceB:priceBreakdown, curr:$scope.flightcurr};
 			console.log(travel_pack);

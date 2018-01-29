@@ -259,9 +259,8 @@ function getF($search_id){
 
 function turntojson($xml_response, $s_id){
     $arrayData = (array)$xml_response;
-    // print_r($arrayData);
     if (($arrayData != null)) {
-        $arrayData = xmlToArray($xml_response, $s_id);
+        $arrayData = xmlToArray($xml_response);
         $arrayData['searchID']=(string)$s_id;
     }
 

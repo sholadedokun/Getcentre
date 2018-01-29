@@ -2,7 +2,7 @@
 	require_once 'JSON.php';
 	require_once 'fun_connect2.php';
 	error_reporting(E_ALL);
-	ini_set('display_errors', 0);
+	ini_set('display_errors', 1);
 
 	$postdata = file_get_contents("php://input");
 	$request = json_decode($postdata);
@@ -18,6 +18,7 @@
 	// echo '<pre>'.print_r($flightDetails).' </pre>';
 	if($flightDetails->flightType)
 	$bookingCode=$request->bookingCode;
+	$bookingRef=$request->bookingRef;
 	$subject = "Getcentre Flight Reservation";
 	$message='<table cellpadding="0" cellspacing="0" style="font-family:\'Trebuchet MS\', Arial, Helvetica, sans-serif; width:80%; margin:0 auto;">
     <tr>
@@ -62,15 +63,15 @@
 				$message.='
 				<tr>
         	    	<td width="150px" style="padding:0px 0 0 10px;"><strong>Airline Name:</strong></td>
-        			<td width="300px" style="padding:0px 0 0 10px;">'.$flightContents[$i-1]['carrier'].'</td>
+        			<td width="300px" style="padding:0px 0 0 10px;">'.$flightContents[$i-1]->carrier.'</td>
         	    </tr>
         	    <tr>
         	    	<td width="150px" height="auto" style="padding:0 0 0 10px;"><span style="width:180px"><strong>Departure:</strong></span></td>
-        	        <td width="300px" height="auto"  style="padding:0 0 0 10px;"><span>'.$flightContents[$i-1]['depAirport'].'</span></td>
+        	        <td width="300px" height="auto"  style="padding:0 0 0 10px;"><span>'.$flightContents[$i-1]->depAirport.'</span></td>
         	    </tr>
         	    <tr cellpadding="0">
         	    	<td width="150px" height="auto" style="padding:0 0 0 10px;"><span style="width:180px"><strong>Departure Date:</strong></span></td>
-        	        <td width="300px" height="auto"  style="padding:0 0 0 10px;"><span>'.$flightContents[$i-1]['depDate'].'|'.$flightContents[$i-1]->depTime.'</span></td>
+        	        <td width="300px" height="auto"  style="padding:0 0 0 10px;"><span>'.$flightContents[$i-1]->depDate.'|'.$flightContents[$i-1]->depTime.'</span></td>
         	    </tr>
         	    <tr cellpadding="0">
         	    	<td width="150px" height="auto" style="padding:0 0 0 10px;"><span style="width:180px"><strong>Destination:</strong></span></td>
@@ -92,9 +93,9 @@
 								foreach($flightContents[$i-1]->fstop as $stops){
 									$message.='
 	                            <tr>
-	        						<td style="background:#b6d2d3; padding:10px; border-bottom:#999 thin solid; color:#035358" ><span>'.$stops['airport'].'</span></td>
-	        	                    <td style="background:#b6d2d3; padding:10px; border-bottom:#999 thin solid; color:#035358" ><span> Class '.$stops['fclass'].'</span></td>
-	        	                    <td style="background:#b6d2d3; padding:10px; border-bottom:#999 thin solid; color:#035358" ><span>'.$stops['flighttime'].'</span></td>
+	        						<td style="background:#b6d2d3; padding:10px; border-bottom:#999 thin solid; color:#035358" ><span>'.$stops->airport.'</span></td>
+	        	                    <td style="background:#b6d2d3; padding:10px; border-bottom:#999 thin solid; color:#035358" ><span> Class '.$stops->fclass.'</span></td>
+	        	                    <td style="background:#b6d2d3; padding:10px; border-bottom:#999 thin solid; color:#035358" ><span>'.$stops->flighttime.'</span></td>
 	        	                </tr>';
 								}
 						$message.='
@@ -137,7 +138,7 @@
                     	<span style=" font-size:18px;"><strong>Last Ticketing Date</strong></span>
                      </td>
                      <td colspan="2" style="background:#b6d2d3; padding:10px; border-bottom:#999 thin solid; color:#035358">
-                    	<span>'.$flightDetails['lastTicketDate'].'</span>
+                    	<span>'.$flightDetails->lastTicketDate.'</span>
                      </td>
                 </tr>
 				<tr>
@@ -145,7 +146,7 @@
                     	<span style=" font-size:18px;"><strong>Expected Amount</strong></span>
                      </td>
                      <td style="background:#b6d2d3; padding:10px; border-bottom:#999 thin solid; color:#035358" colspan="2" >
-                    	<span>'.$flightDetails['Price'].'</span>
+                    	<span>'.$flightDetails->Price.'</span>
                      </td>
                 </tr>
             	<tr>
@@ -154,6 +155,14 @@
                      </td>
                      <td style="background:#b6d2d3; padding:10px; border-bottom:#999 thin solid; color:#035358" colspan="2" >
                     	<span style=" font-size:14px;">'.$bookingCode.'</span>
+                     </td>
+                </tr>
+				<tr>
+                	<td  style="background:#0baeb7; padding:10px; border-bottom:#999 thin solid">
+                    	<span style=" font-size:18px;"><strong>Reservation Reference</strong></span>
+                     </td>
+                     <td style="background:#b6d2d3; padding:10px; border-bottom:#999 thin solid; color:#035358" colspan="2" >
+                    	<span style=" font-size:14px;">'.$bookingRef.'</span>
                      </td>
                 </tr>
             	<tr>

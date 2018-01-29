@@ -220,14 +220,14 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 		 		url:$hotelSupplier[x].url+'hdescode='+$scope.search_c.moduleCurrType[0].value.code+'&hcheckin='+$scope.search_c.moduleCurrType[1].value.short+'&hcheckout='+$scope.search_c.moduleCurrType[2].value.short+'&hRoomBreak='+JSON.stringify($scope.search_c.moduleCurrType['occupancy'])+'&sessionId='+$scope.sessionId
 		 	})
 		.then(function successCallback(response) {
-             $scope.hotelList=response.data.hotelList
-	if(response.data.total>1){
-		$scope.hotels_total= $scope.hotels_total+parseInt(response.data.total);
-		$scope.load_note=false;
-        $scope.pagination($scope.hotelList);
+            $scope.hotelList=response.data.hotelList
+        	if(response.data.total>1){
+        		$scope.hotels_total= $scope.hotels_total+parseInt(response.data.total);
+        		$scope.load_note=false;
+                $scope.pagination($scope.hotelList);
 
 
-	}
+        	}
 
 	$scope.currData[0].baseCurrency.currFrom=response.data.currency;
 	try{room_count=$scope.hotels[0].availRoom[0].HotelOccupancy.RoomCount; $scope.lowest_price=$scope.hotels[0].availRoom[0].HotelRoom.Price.Amount;}
@@ -242,9 +242,21 @@ hotelList.controller('hotelList', ['$scope', '$route', 'searchDatas', 'hotelData
 		  $scope.hClist.push(properti.hotelCode)
 		 // var pointOI={'pOI':[]};
 		  properti.filter=[[],[],[]];
-		  if(price instanceof Array){ room_count=price[0].HotelOccupancy.RoomCount; curr_price= room_count*price[0].HotelRoom.Price.Amount; }
-		  else{room_count=price.HotelOccupancy.RoomCount; curr_price= room_count*price.HotelRoom.Price.Amount}
-		  if(curr_price<$scope.lowest_price){$scope.lowest_price=curr_price}
+		  if(price instanceof Array){
+               room_count=price[0].HotelOccupancy.RoomCount;
+               //add 15% to the price of the hotel
+               price[0].HotelRoom.Price.Amount += parseFloat(price[0].HotelRoom.Price.Amount)*0.15;
+               curr_price= room_count*price[0].HotelRoom.Price.Amount;
+           }
+		  else{
+              room_count=price.HotelOccupancy.RoomCount;
+              //add 15% to the original price
+              price.HotelRoom.Price.Amount+=parseFloat(price.HotelRoom.Price.Amount)*0.15;
+              curr_price= room_count*price.HotelRoom.Price.Amount
+          }
+		  if(curr_price<$scope.lowest_price){
+              $scope.lowest_price=curr_price
+          }
 		}
 	}
 	//hotelData.setData($scope.hotels);

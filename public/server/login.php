@@ -27,8 +27,9 @@
 			$a_json_row["country"] = $row[13];
 			$a_json_row["rank"] = $row[15];
 			$a_json_row["joined"] = $row[16];
-			$a_json_row["hotelDiscount"] = $row[19];
+			$a_json_row["status"] = $row[17];
 			$a_json_row["flightDiscount"] = $row[18];
+			$a_json_row["hotelDiscount"] = $row[19];
 			$a_json_row["tourDiscount"] = $row[20];
 			$a_json_row["transferDiscount"] = $row[21];
 		}
