@@ -126,7 +126,15 @@ getcentre.service('searchObject', function(){
 			  name:'Tours',
 			  types:{
 				  regular:{
-					  to:{}, depDate:{}, retDate:{}
+                      0:{name:'Destination', value:{name:''}, type:'place'},
+                      1:{name:'CheckIn Date', type:'date', subType:'fromdate', value:{}},
+                      2:{name:'CheckOut Date', type:'date', subType:'todate', value:{}},
+                      occupancy:[
+                          [
+                              {name:'Adult', value:1, type:'guest'},
+                              {name:'Child', value:0, type:'guest',ages:[]}
+                          ]
+                      ]
 				  }
 			  },
 			  guestBreak:[{Adult:{},Child:{}}]
@@ -431,4 +439,24 @@ function($resource){
               isArray:true
           }
   });
+}]);
+getcentre.service('serviceAdd', ['$http','$q',  function($http, $q){
+  return {
+      addService:
+          function(hdata){
+              return $q(
+                  function(resolve, reject) {
+                      $http({method:'Post', url:'server/serviceAdd_httpRQ.php', data:hdata})
+                      .success(
+                          function(responseData, status, headers, config) {
+                              resolve(responseData);
+                          },
+                          function(err) {
+                              reject('Can\'t Add services');
+                          }
+                      );
+                  }
+              )
+          }
+      }
 }]);

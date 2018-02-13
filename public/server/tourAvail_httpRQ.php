@@ -18,17 +18,17 @@
         return $response;
     }
   	 $t=time();
-	 $tourbreak=json_decode($_GET["tourBreakDown"]);
-	 $xml='<TicketAvailRQ echoToken="DummyEchoToken" sessionId="'.$t.'" xmlns="http://www.hotelbeds.com/schemas/2005/06/messages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages/xsd/HotelValuedAvailRQ.xsd" version="2013/12">
+	 // $tourbreak=json_decode($_GET["tourBreakDown"]);
+	 $xml='<TicketAvailRQ echoToken="DummyEchoToken" sessionId="'.$t.'" xmlns="http://www.hotelbeds.com/schemas/2005/06/messages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages/xsd/TicketAvailRQ.xsd" version="2013/12">
 	<Language>ENG</Language>
-	<Credentials>
+    <Credentials>
 		<User>GETCENTRENG163996</User>
 		<Password>GETCENTRENG163996</Password>
 	</Credentials>
 	<PaginationData pageNumber="1" itemsPerPage="30"/>
 	<ServiceOccupancy>
-		<AdultCount>'.$tourbreak[0][1].'</AdultCount>
-		<ChildCount>'.count($tourbreak[0][2]).'</ChildCount>';
+		<AdultCount>1</AdultCount>
+		<ChildCount>0</ChildCount>';
 		if(count($tourbreak[0][2])>0){//if there are children
 				 $xml.='<GuestList> ';
 				 for($b=0; $b<count($tourbreak[0][2]); $b++){
@@ -43,7 +43,8 @@
 
 </TicketAvailRQ>
 ';
-  $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
+// echo($xml);
+  $xml_response_string = post_xml('http://api.interface-xml.com/appservices/http/FrontendService',  $xml);
 
     if(!$xml_response_string)
         die('ERROR');

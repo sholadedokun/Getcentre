@@ -315,6 +315,8 @@
 		<script type="text/javascript" src="js/lib/controllers/hotelList.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/hotelDetails.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/ltourDetails.js"></script>
+		<script type="text/javascript" src="js/lib/controllers/tourList.js"></script>
+		<script type="text/javascript" src="js/lib/controllers/tourDetail.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/travel_pack.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/Add_guest.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/voucher.js"></script>

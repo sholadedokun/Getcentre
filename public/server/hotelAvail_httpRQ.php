@@ -91,7 +91,7 @@
         die('ERROR');
 
 
-	//$string_response= "<pre>".print($xml_response)."</pre>";
+
 
 	$file = 'hotel_avail_log.txt';
 	// Open the file to get existing content
@@ -101,7 +101,7 @@
 	// Write the contents back to the file
 	file_put_contents($file, $xml_response_string);
 	$xml_response = simplexml_load_string($xml_response_string);
-
+    // var_dump($xml_response_string);
 	$array1 = (array)$xml_response;
 	// echo '<pre>'.print_r($array1).'</pre>';
 	if (($array1 != null)) {

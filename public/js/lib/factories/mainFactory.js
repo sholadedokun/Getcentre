@@ -139,6 +139,26 @@ function($resource){
           }
   });
 }]);
+getcentre.factory('tourListRs', ['$resource',
+function($resource){
+  return $resource('server/tourAvail_httpRQ.php', {}, {
+    query: {method:'GET',
+              params:{
+              },
+              isArray:true
+          }
+  });
+}]);
+getcentre.factory('tourValuationRs', ['$resource',
+function($resource){
+  return $resource('server/tourValuation_httpRQ.php', {}, {
+    query: {method:'GET',
+              params:{
+              },
+              isArray:true
+          }
+  });
+}]);
 getcentre.factory('purchaseConfirmRs', ['$resource',
 function($resource){
   return $resource('server/PurchaseConfirmRQ.php', {}, {

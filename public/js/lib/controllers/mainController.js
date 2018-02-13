@@ -284,20 +284,21 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
 	   else if($scope.defaultSearch.module=='Flights'){
 		   	$scope.defaultSearch.guest=$scope.defaultSearch.moduleCurrType['5'];
 			$scope.search.data.fsearch=true;
-		   	console.log($scope.defaultSearch);
-		   	console.log($route.current)
 		   	if($route.current.originalPath=='/flight/flight_list'){
 			   	$route.reload();
 		   	}
 		   	else{
 				$location.path('/flight/flight_list');
 		   	}
-
 	   	}
-	   	else if($scope.defaultSearch.modul=='Tours'){
-		   	$scope.getData[1].hsearch='Yes';
-		   	$scope.getData[1].hRoomBreak=$scope.room;
-		   	$location.path('/tour/tour_list')
+	   	else if($scope.defaultSearch.module=='Tours'){
+			$scope.search.data.hsearch=true;
+ 		   if($route.current.originalPath=='/tour/tour_list'){
+ 			 $route.reload();
+ 			 }
+ 			 else{
+ 				 $location.path('/tour/tour_list');
+ 			 }
 	   	}
 	   	else{
 		   	$scope.getData[1].hsearch='Yes';

@@ -264,6 +264,12 @@ flightList.controller('flightList', ['$scope', '$http', '$rootScope', 'fpriceFil
 		$dt= $tday.split(' ');	$scope.t_day = $dt[0];    $scope.t_month = $dt[1];     $scope.t_year = $dt[2];
 	}
 	function getfirst(){
+		if($scope.search_c.moduleType=='MF'){
+			$scope.search_c.moduleCurrType.multCities.sort(function(a, b){
+				return a[2].value.short - b[2].value.short
+			})
+			console.log($scope.search_c.moduleCurrType.multCities)
+		}
 
 	//	flidetails=JSON.stringify($scope.search_c);
 		$scope.fList = flightListRs.save({f_det:$scope.search_c, c_dist:$scope.search_c.Child_ageDist, i_dist:$scope.search_c.Infant_ageDist},
