@@ -1,7 +1,7 @@
     <?php
 	header("Content-Type: text/xml");
-	//error_reporting(E_ALL);
-	//ini_set('display_errors', 0);
+	error_reporting(E_ALL);
+	ini_set('display_errors', 0);
 
 	require_once 'JSON.php';
     function post_xml($url, $xml){
@@ -23,7 +23,7 @@
         return $response;
     }
   	 $t=time();
-	 $transferbreak=json_decode($_GET["transferBreakDown"]);
+	 // $transferbreak=json_decode($_GET["transferBreakDown"]);
 
 	 $xml='<TransferValuedAvailRQ xmlns="http://www.hotelbeds.com/schemas/2005/06/messages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages/xsd/TransferValuedAvailRQ.xsd" sessionId="asdasdasd" version="2013/12">
 	<Language>ENG</Language>
@@ -35,12 +35,12 @@
 	<AvailData type="IN">
 		<ServiceDate date="'.$_GET["htransferin"].'" time="'.$_GET["ttransferin"].'"/>
 		<Occupancy>
-			<AdultCount>'.$transferbreak[0][1].'</AdultCount>
-		<ChildCount>'.count($transferbreak[0][2]).'</ChildCount>';
-		if(count($transferbreak[0][2])>0){//if there are children
+			<AdultCount>'.$_GET["adult"].'</AdultCount>
+		<ChildCount>'.$_GET["child"].'</ChildCount>';
+		if($_GET["child"]>0){//if there are children
 				 $xml.='<GuestList> ';
-				 for($b=0; $b<count($transferbreak[0][2]); $b++){
-					$xml.='<Customer type="CH"> <Age>'.$transferbreak[0][2][$b].'</Age> </Customer>';
+				 for($b=0; $b<$_GET["child"]; $b++){
+					$xml.='<Customer type="CH"> <Age>'.$_GET["child"].'</Age> </Customer>';
 				}
 				$xml.='</GuestList> ';
 			}
@@ -58,8 +58,9 @@
 	</AvailData>
 	<ReturnContents>'.$_GET["hReturnOption"].'</ReturnContents>
 	</TransferValuedAvailRQ>';
-	//echo "<pre>".print_r($xml, true)."</pre>";
-  $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
+	// echo "<pre>".print_r($xml, true)."</pre>";
+    $xml_response_string = post_xml('http://api.interface-xml.com/appservices/http/FrontendService',  $xml);
+    // $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
 
     if(!$xml_response_string)
         die('ERROR');

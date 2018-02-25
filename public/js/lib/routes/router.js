@@ -45,7 +45,7 @@ getcentre.config(function($routeProvider) {
 		  controller: 'tourDetail'
 		}).
 		 when('/tours/transfer_list', {
-		  templateUrl: 'views/transfer_list.php',
+		  templateUrl: 'views/transfer_list.html',
 		  controller: 'transferList'
 		}).
 		when('/voucher', {

@@ -40,7 +40,6 @@
                         	 <div class="travel-pack" ng-controller="TravelPack">
                              	<span class="icon-suitcase3"></span>
                                 <div class="pack-counter" ng-bind="travelPD.length"></div>
-
                              </div>
                         </a></li>
                         <li ng-class="{ active:page.isSet(5)}" ng-controller="GetCentre">
@@ -76,48 +75,21 @@
                     <div class="viewanimate" ng-view autoscroll="true"></div>
                 </div>
             </div>
-            <!-- <div class=" col-xs-18 col-sm-11 text-anim">
-            	<span class="col-sm-18 text_anim_head">The World is waiting...</span>
-                <span class="col-sm-18  text_anim_p">...Are you ready to explore?</span>
-                <div class="col-sm-18">
-                    <div class=" col-xs-4 get_button_primary btn-lg">Discover GETCentre</div>
-                </div>
-            </div>-->
-
-
             <div class="col-xs-18 tour-posts" ng-init="localTours()">
-
             	<div class="col-xs-18 text-center info-top">
             		<h1 class="top-header">Our Top Tours</h1>
             		<p class="top-subheader">explore the world with us</p>
             	</div>
-
             	<div ng-class="tourClasses($index)"  ng-repeat="tours in localTs">
-
-                		<a href="#/tour/ltour/{{tours.id}}">
-                		<div class="over-cover"></div>
-                        <div class="tourImgfill">
-            		          <img ng-src="../admin/packageimages/{{tours.pict}}"  class="ftimg"/>
-                        </div>
-                		<div class="headline"><h1 class="the-place" ng-bind="tours.country"></h1>
-                		<p class="the-package"  ng-bind="tours.pname"></p></div></a>
-                		<span class="from-price" >From &#8358;<span ng-bind="tours.cost | number:2"></span></span>
-
+            		<a href="#/tour/ltour/{{tours.id}}">
+            		<div class="over-cover"></div>
+                    <div class="tourImgfill">
+        		          <img ng-src="../admin/packageimages/{{tours.pict}}"  class="ftimg"/>
+                    </div>
+            		<div class="headline"><h1 class="the-place" ng-bind="tours.country"></h1>
+            		<p class="the-package"  ng-bind="tours.pname"></p></div></a>
+            		<span class="from-price" >From &#8358;<span ng-bind="tours.cost | number:2"></span></span>
             	</div>
-
-
-
-            	<!-- <div class="leader-board col-md-18">
-
-            		<ul class="bxslider">
-            			<li><img src="img/slider1.jpg" /></li>
-            			<li><img src="img/slider1.jpg" /></li>
-
-            		</ul>
-
-
-            	</div> -->
-
             	<div class="blog-sec">
 
             		<div class="col-xs-18 col-md-18 text-center info-top">
@@ -146,26 +118,6 @@
             		</div>
             	</div>
         	</div>
-
-            <!-- <div class="col-xs-18 col-sm-18 blog-posts" >
-            	<span class="col-xs-18 col-sm-18 blog-post-title">Explore Our Blog</span>
-                <div class="col-xs-18 col-sm-6  from-blog" ng-repeat="blog in blogs | limitTo:3">
-                    <div class="col-sm-18 nopadding each-blog">
-                    	<div class="col-sm-18 nopadding blog-img">
-                            <a href="{{blog.permalink}}" target="_blank">
-                                <img src="images/blog1.jpg" blog-img blogcode="{{blog.id}}" width="100%" height="100%">
-                            </a>
-                        </div>
-                        <div class="col-sm-18 blog-details">
-                        	<div class="col-sm-18 blog-title" ng-bind-html="blog.title | limitTo:60"></div>
-                            <div class="col-sm-15 blog-fewdet"></div>
-                            <span class="col-sm-18 nopadding blog-more"><a href="{{blog.permalink}}" target="_blank">More >></a></span>
-                        </div>
-                    </div>
-                </div>
-
-                 <span class="col-xs-18 col-sm-18 allpost"><a href="http://www.blog.getcentre.com">View All Posts</a></span>
-            </div> -->
         </div>
         <div class="col-xs-18" id="footer_container">
         	<div class="subscribe">
@@ -196,12 +148,6 @@
                         <span class="col-xs-18 foot_item"><a href="#/about">Our Vision</a></span>
                         <span class="col-xs-18 foot_item"><a href="#/about">Value Proposition</a></span>
                     </div>
-                    <!--<div class="col-md-3 foot_col">
-                    	<span class="col-md-18 foot_title">PARTNER</span>
-                        <span class="col-md-18 foot_item">Sabre</span>
-                        <span class="col-md-18 foot_item">Hotelbeds</span>
-                        <span class="col-md-18 foot_item">TouchDown Travels</span>
-                    </div>-->
                     <div class="col-xs-18 col-md-9 foot_col">
                     		<span class="col-xs-18 foot_title">SUPPORT</span>
                         	<div class="col-xs-18 col-md-6 foot_item"><a href="#/support">Privacy Policy</a></div>
@@ -209,10 +155,8 @@
                             <div class="col-xs-18 col-md-6 foot_item"><a href="#/support">Cookies Usage</a></div>
                         	<div class="col-xs-18 col-md-6 foot_item"><a href="#/support">Terms &amp; Conditions</a></div>
                             <div class="col-xs-18 col-md-6 foot_item"><a href="#/support">3rd Party Disclosure</a></div>
-                            <!--<div class="col-md-6">Tutorial</div>-->
                         	<div class="col-xs-18 col-md-6 foot_item"><a href="#/support">Information Protection</a></div>
                             <div class="col-xs-18 col-md-6 foot_item"><a href="#/support">Pricing</a></div>
-                            <!--<div class="col-md-6">Pricing</div>-->
                     </div>
                     <div class="col-xs-18 col-md-3 foot_col">
                     	<span class="col-xs-18  foot_title">ACCOUNT</span>
@@ -220,15 +164,7 @@
                         <span class="col-xs-18 foot_item">Your Cart</span>
                         <span class="col-xs-18 foot_item">Log Out</span>
                     </div>
-                    <!-- <div class="col-xs-18 col-md-4 foot_col">
-                    	<div class="col-xs-18 foot_title">PAYMENT OPTIONS</div>
-                        <div class="col-xs-18 pay_img">
-                            <img src="images/paygate.png" width="213" height="140"/>
-                         </div>
-                    </div> -->
-
                 </div>
-
             </div>
             <div class="paymentOptions">
                 <div class="container">

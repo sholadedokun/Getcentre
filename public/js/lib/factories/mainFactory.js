@@ -99,6 +99,16 @@ function($resource){
          }
  });
 }]);
+getcentre.factory('transferListRs', ['$resource',
+function($resource){
+  return $resource('server/transferAvail_httpRQ.php', {}, {
+    query: {method:'GET',
+              params:{
+              },
+              isArray:true
+          }
+  });
+}]);
 getcentre.factory('registerUser', ['$resource',
 function($resource){
   return $resource('server/register_user.php', {}, {

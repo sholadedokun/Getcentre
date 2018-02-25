@@ -311,7 +311,7 @@
 	  $scope.r_min='45'
 	  $scope.hp_city='';
 	  $scope.hd_city='';
-	  $scope.returntrans=[{ name: 'Yes, Please', value: 'Y' },{ name: 'Don\'t Bother', value: 'N'}]
+	  $scope.returntrans=[{ name: 'Yes', value: 'Y' },{ name: 'No', value: 'N'}]
 	  $scope.am_pm=[{ name: 'AM', value: '0' },{ name: 'PM', value: '12' }]
 	  $scope.locationtype=[
 		{ name: 'Select Type', value: 'select' },

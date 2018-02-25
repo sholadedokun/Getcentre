@@ -38,7 +38,9 @@
 </TicketDetailRQ>
 ';
 //echo "<pre>".print_r($xml, true)."</pre>";
-  $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
+  // $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
+  $xml_response_string = post_xml('http://api.interface-xml.com/appservices/http/FrontendService',  $xml);
+
 
     if(!$xml_response_string)
         die('ERROR');

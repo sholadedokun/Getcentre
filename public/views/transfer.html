@@ -1,0 +1,113 @@
+
+        <div class="col-xs-18 search_result transferInput">
+            <div class="col-xs-12 col-md-6">
+                <div class="col-xs-18">
+                    <label>Transfer City </label>
+                    <div class="inputWrapper">
+                        <input type="text" class="placeSearch" placeholder="Enter destination" ng-model="defaultSearch.moduleCurrType.transferCity" ng-click="searchRevel()" name="0" />
+                    </div>
+                </div>
+                <div class="col-xs-12 each_form fsanim" ng-show="curr_search.service=='Transfers'">
+                    <label for="location1">Do you want a Return Transfer?</label>
+                    <div class="get_input col-sm-18  col-xs-11 col-md-12">
+                        <select class="col-xs-18 col-sm-15 form-control  input-md trans_input" ng-model="returnType" required="required" ng-init="returnType='Y'" ng-options="option.value as option.name for option in returntrans" ></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-18 col-sm-6" ng-if="curr_search.service=='Transfers'">
+                <label class="">Pick Up Location</label>
+                <div class="inputWrapper">
+                    <select class="" ng-model="pickupType" required="required" ng-options="option.value as option.name for option in locationtype">
+                    </select>
+                </div>
+                <div class="inputWrapper" ng-if="pickupType=='Hotel'"  >
+                     <input type="text" class="col-xs-18 form-control trans_input_sm"  placeholder="Please Type Hotel Location" name="dep" id="transfer_hp_complete">
+                </div>
+                <div class="inputWrapper" ng-if="pickupType!=''" ng-init="setTransferlocators(pickupType)">
+                    <input type="text" class="col-xs-18  form-control trans_input_sm"  placeholder="Please type a {{pickupType}} Code OR Name" name="from" id="transfer_complete">
+                </div>
+                <div class="col-xs-18 booking-form bookingFormInput no-padding" ng-init="setDates(defaultSearch.moduleCurrType['1'])">
+                    <input type="text" id="dateFrom" name="1|" class="fromdate datePickerDummy" date-from />
+                    <div class="dateContainer" name="f"  >
+                        <div class="dateBreaker rborder" ng-click="setFromDate(0)" >
+                            <span ng-bind="defaultSearch.moduleCurrType['1'].value.day"></span>
+                            <span ng-bind="defaultSearch.moduleCurrType['1'].value.month"></span>
+                            <span ng-bind="defaultSearch.moduleCurrType['1'].value.year"></span>
+                        </div>
+                        <div class="iconContainer" ng-click="setFromDate(0)"><span  class="iconCalendar"></span></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-18 col-sm-6" ng-if="curr_search.service=='Transfers'">
+                <label class="">Destination Location</label>
+                <div class="inputWrapper">
+                    <select class="" ng-model="destinationType"  ng-change="setTransferlocators(destinationType)" required="required" ng-init="destinationType=''" ng-options="option.value as option.name for option in locationtype" ></select>
+                </div>
+                <div class="inputWrapper" ng-show="destinationType=='Hotel'">
+                     <input type="text" class="col-xs-18 form-control  input-md trans_input_sm" placeholder="Please Type Hotel Location" name="des" id="transfer_hd_complete">
+                </div>
+                <div class="inputWrapper" ng-show="destinationType!=''"  ng-init="setTransferlocators(destinationType)">
+                    <input type="text" class="col-xs-18 form-control  input-md trans_input_sm" placeholder="Please type a {{destinationType}} Code OR Name" name="to" id="transfer_complete_2">
+                </div>
+                <div class="inputWrapper" ng-show="destinationType=='Terminal'">
+                    <div class="col-md-18">Flight / Bus / Train /Ship Departure Time</div>
+                    <div class="inputWrapper">
+                    	<input type="text" class="transfer_time" ng-model="d_hr" value="01" />
+                        <input type="text" class="transfer_time" ng-model="d_min" value="59" />
+                        <select class="transfer_time" ng-model="dtimeType" required="required" ng-init="dtimeType='0'" ng-options="option.value as option.name for option in am_pm" >
+                        </select>
+                        <span class="icon-time nopadding ic_sm_xs col-xs-4 hidden-xs"></span>
+                    </div>
+                </div>
+                <div class="col-xs-18 booking-form bookingFormInput no-padding" ng-init="setDates(defaultSearch.moduleCurrType['2'])"  >
+                    <input type="text" id="dateto" name="2|" class="todate datePickerDummy" date-to />
+                    <div class="dateContainer"  name="f" >
+                        <div class="dateBreaker rborder" ng-click="setToDate(0)" >
+                            <span ng-bind="defaultSearch.moduleCurrType['2'].value.day"></span>
+                            <span ng-bind="defaultSearch.moduleCurrType['2'].value.month"></span>
+                            <span ng-bind="defaultSearch.moduleCurrType['2'].value.year"></span>
+                        </div>
+
+                        <div class="iconContainer" ng-click="setToDate(0)"><span  class="iconCalendar"></span></div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-xs-18 no-padding pull-right booking-form sButAlign">
+                    <input type="submit" ng-disabled="disabled" value="search" ng-click="setSearch()" class="search-btn" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-xs-18" ng-init="initSearch()">
+
+
+            <div ng-repeat="input in currentProGuest">
+                <div class="col-sm-18 each_form fsanim" name="{{input.name}}">
+                    <label class="col-xs-7 col-md-4 get_pad hidden-sm"></label>
+                    <div class="get_input col-sm-18  col-xs-11 col-md-14">
+                        <div class="col-xs-5 col-md-4 s_add_m">
+                            <div ng-click="input.value=input.value+1">+</div>
+                            <div ng-click="input.value=input.value-1">-</div>
+                        </div>
+                        <input type="text" class="col-xs-7 col-md-5 day_month input-md trans_input" ng-readonly="true" value="{{input.value|custNo}}" placeholder="01">
+                        <span class="col-xs-6 col-md-5 s_label sh_l" ng-bind="input.name"></span>
+
+                        <span ng-if="input.name=='Adult'" class="icon-get_man ic_sm col-xs-1 hidden-xs"></span>
+                        <span ng-if="input.name=='Adult'" class="icon-get_woman nopadding ic_sm col-xs-1 hidden-xs"></span>
+                        <span ng-if="input.name=='Child'" class="icon-get_boy ic_sm col-xs-1 hidden-xs"></span>
+                        <span ng-if="input.name=='Child'" class="icon-get_girl nopadding ic_sm col-xs-1 hidden-xs"></span>
+                    </div>
+                </div>
+            </div>
+            <div ng-repeat="input in currentProOthers">
+                <div class="col-sm-18 each_form fsanim" ng-if="input.type=='select'" name="{{input.name}}">
+                    <label class="col-xs-7 col-md-6 get_pad  hidden-sm" ng-bind="input.name"></label>
+                    <div class="get_input col-sm-18  col-xs-11 col-md-12">
+                        <select class="col-xs-18 col-sm-15 form-control input-md trans_input" ng-model="input.value" required="required" ng-options="option.value as option.name for option in input.options" ng-change="class_change(input.value)" ></select>
+     				    <span class="icon-ticket3 ic_sm_xx col-xs-3 hidden-xs"  ></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

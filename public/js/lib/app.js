@@ -1,5 +1,5 @@
 
-var getcentre = angular.module('getcentre', ['ngRoute','ngResource','ngSanitize','ngAnimate','getAnimations','ui','angular.filter', 'ui.bootstrap','TravelPack', 'flightList','hotelList','tourList','hotelDetails','AddGuest','voucher']);
+var getcentre = angular.module('getcentre', ['ngRoute','ngResource','ngSanitize','ngAnimate','getAnimations','ui','angular.filter', 'ui.bootstrap','TravelPack', 'flightList','hotelList','tourList','tourDetail','transferList','hotelDetails','AddGuest','voucher']);
 getcentre.run(['currencyData','$rootScope','apiProxy', 'userData', '$http', 'retrieveAirports', function(currencyData, $rootScope, apiProxy, userData, $http, retrieveAirports){
     $rootScope.user=userData.data();
     retrieveAirports.getAllAirports()

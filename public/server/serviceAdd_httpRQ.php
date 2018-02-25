@@ -146,11 +146,11 @@
 			<AdultCount>'.$request->tourAdult.'</AdultCount>
 			<ChildCount>'.$request->tourChild.'</ChildCount>';
 			$xml.='<GuestList> ';
-			for($b=0; $b<$tourbreak[0][1]; $b++){
+			for($b=0; $b<$tourbreak[0]->value; $b++){
 				$xml.='<Customer type="AD"> <Age>30</Age> <Name>Adult</Name><LastName>Tourist'.($b+1).'</LastName></Customer>';
 			}
-			for($b=0; $b<count($tourbreak[0][2]); $b++){
-				$xml.='<Customer type="CH"> <Age>'.$tourbreak[0][2][$b].'</Age><Name>Child</Name><LastName>Tourist'.($b+1).'</LastName></Customer>';
+			for($b=0; $b<count($tourbreak[1]->Ages); $b++){
+				$xml.='<Customer type="CH"> <Age>'.$tourbreak[0][1]->Ages[$b].'</Age><Name>Child</Name><LastName>Tourist'.($b+1).'</LastName></Customer>';
 			}
 			$xml.='</GuestList> ';
 		    $xml.='</Paxes>';

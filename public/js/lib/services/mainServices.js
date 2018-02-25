@@ -139,7 +139,19 @@ getcentre.service('searchObject', function(){
 			  },
 			  guestBreak:[{Adult:{},Child:{}}]
 		  },
-		  Transfers:{},
+		  Transfers:{
+              name:"Transfers",
+              types:{
+                  regular:{
+                      0:{ name:'Destination',  value:{}, type:'place', from:{}, to:{}},
+                      1:{ name:'Pick Up Date',  value:{}, type:'date', subType:'fromdate'},
+                      2:{ name:'Return Date',  value:{}, type:'date', subType:'todate' },
+                      occupancy:[
+                          [{name:'Adult', value:1, type:'guest'}, {name:'Child', value:0, type:'guest',ages:[]}]
+                      ],
+                     }
+                  }
+              },
           Insurance:{
             types:{
                 regular:{
@@ -427,6 +439,20 @@ getcentre.service('tourData', function(){
          },
          addData:function(data, index){
             tourData[index].push(data);
+         }
+    }
+})
+getcentre.service('transferData', function(){
+    var transferData =  [[],[]]
+    return{
+         data:function() {
+           return transferData;
+         },
+         settransfer:function(data) {
+            transferData[0]=data;
+         },
+         settraveler:function(data, index){
+            transferData[1]=data;
          }
     }
 })

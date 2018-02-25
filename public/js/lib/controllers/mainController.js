@@ -11,10 +11,73 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
 		{ value:0, name:'0-11 Months'},
 		{ value:1, name:'1 Year'},
 	];
+	$scope.d_hr='10'
+	$scope.d_min='45'
+	$scope.t_hr='12'
+	$scope.t_min='45'
+	$scope.r_hr='11'
+	$scope.r_min='45'
+	$scope.hp_city='';
+	$scope.hd_city='';
+	$scope.returntrans=[{ name: 'Yes', value: 'Y' },{ name: 'No', value: 'N'}]
+	$scope.am_pm=[{ name: 'AM', value: '0' },{ name: 'PM', value: '12' }]
+	$scope.locationtype=[
+	  { name: 'Select Type', value: '' },
+	  { name: 'Terminal(Airport, Bus Station etc.)', value: 'Terminal' },
+	  { name: 'Hotel', value: 'Hotel' }
+  ];
+  	$scope.pickupType='';
 	for(var i=2; i<=17; i++){
 		$options={value:i, name:i+' Years'}
 		$scope.childAgeOptions.push($options)
 	}
+	$scope.setTransferlocators=function(transType){
+		console.log(transType);
+		jQuery("#transfer_complete").autocomplete({
+		source: "server/transfer_autocomplete.php?type="+transType+"&dest_code="+$scope.defaultSearch.moduleCurrType['0'].value.code,
+		minLength: 3,
+		select: function(event, ui) {
+			data=jQuery(this).attr('name');
+			var url = ui.item.id; var pla=ui.item.value;
+			if(url != '#') {
+				$scope.defaultSearch.moduleCurrType['0'][data].TCode=url;  //setting the destination code from global search data in app.js
+				$scope.defaultSearch.moduleCurrType['0'][data].TairName=pla;  //setting the destination description from global search data in app.js
+				// $scope.getData[4].TpickTcityName=$scope.hp_city;  //setting the destination description from global search data in app.js
+				$scope.defaultSearch.moduleCurrType['0'][data].Type=transType
+			}
+			$scope.$apply();
+		},
+		html: true, // optional (jquery.ui.autocomplete.html.js required)
+
+	  // optional (if other layers overlap autocomplete list)
+		open: function(event, ui) {
+			jQuery(".ui-autocomplete").css("z-index", 1000);
+		}
+
+	});
+	jQuery("#transfer_complete_2").autocomplete({
+	source: "server/transfer_autocomplete.php?type="+transType+"&dest_code="+$scope.defaultSearch.moduleCurrType['0'].value.code,
+	minLength: 3,
+	select: function(event, ui) {
+		data=jQuery(this).attr('name');
+		var url = ui.item.id; var pla=ui.item.value;
+		if(url != '#') {
+			$scope.defaultSearch.moduleCurrType['0'][data].TCode=url;  //setting the destination code from global search data in app.js
+			$scope.defaultSearch.moduleCurrType['0'][data].TairName=pla;  //setting the destination description from global search data in app.js
+			// $scope.getData[4].TpickTcityName=$scope.hp_city;  //setting the destination description from global search data in app.js
+			$scope.defaultSearch.moduleCurrType['0'][data].Type=transType
+		}
+		$scope.$apply();
+	},
+	html: true, // optional (jquery.ui.autocomplete.html.js required)
+
+  // optional (if other layers overlap autocomplete list)
+	open: function(event, ui) {
+		jQuery(".ui-autocomplete").css("z-index", 1000);
+	}
+
+});
+}
 	$scope.searchRevel= function(){$scope.searchInit=true;}
 	$scope.initSearch=function(){
 		searchMac=document.getElementById('searchMachine');
@@ -31,11 +94,7 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
 				$scope.defaultSearch.moduleCurrType=$scope.searchForm[$scope.defaultSearch.module].types.regular;
 				$scope.defaultSearch.others=$scope.searchForm[$scope.defaultSearch.module].others;
 			}
-
 		}
-
-		//   $scope.defaultSearch.guest=$scope.searchForm[$scope.defaultSearch.module].guestBreak;
-
 	}
 	$scope.typeClasses=function(typeValue, moduleType){
 		tclass='btn';
@@ -152,7 +211,7 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
 		jQuery( ".fromdate" ).get(eIndex).focus();
 	}
 	$scope.setToDate=function(eIndex){
-  		jQuery( ".todate" ).get(eIndex).focus();
+  		jQuery(".todate").get(eIndex).focus();
 
 	};
 
@@ -211,15 +270,12 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
 			minLength: 3,
 			select: function(event, ui) {
 				var url = ui.item.id; var pla=ui.item.value;
-				console.log($scope.defaultSearch.moduleCurrType);
 				obj={}
 				data=jQuery(this).attr('name');
-				if(isNaN(data)){
-					console.log(data)
+				console.log($scope.defaultSearch, data)
+				if(isNaN(data)&& $scope.defaultSearch.module!='Transfers'){
 					data=data.split('|');
-					console.log(data[0],data[1])
-					obj=$scope.defaultSearch.moduleCurrType.multCities[data[0]][data[1]].value
-					console.log(obj)
+					obj=$scope.defaultSearch.moduleCurrType.multCities[data[0]][data[1]].value;
 				}
 				else{
 					obj=$scope.defaultSearch.moduleCurrType[data].value
@@ -238,7 +294,6 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
 						obj.value=pla;  //setting the destination description from global search data
 						$sour=jQuery(this).attr('name');
 					}
-					console.log($scope.defaultSearch.moduleCurrType.multCities)
 					$scope.$apply();
 				}
 			},
@@ -301,11 +356,13 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
  			 }
 	   	}
 	   	else{
-		   	$scope.getData[1].hsearch='Yes';
-		   	$scope.getData[1].hRoomBreak=$scope.room;
-		   	$scope.getData[4].transfer_return=$scope.returnType;
-		   	$scope.getData[4].TpickTime= $scope.t_hr+$scope.t_min; //setting default departing date
-		   	$scope.getData[4].TdropTime= $scope.d_hr+$scope.d_min; //setting default departing date
+			console.log($scope.defaultSearch)
+			$scope.search.data.tranferSearch=true;
+		   	// $scope.getData[1].hsearch='Yes';
+		   	// $scope.getData[1].hRoomBreak=$scope.room;
+		   	// $scope.getData[4].transfer_return=$scope.returnType;
+		   	// $scope.getData[4].TpickTime= $scope.t_hr+$scope.t_min; //setting default departing date
+		   	// $scope.getData[4].TdropTime= $scope.d_hr+$scope.d_min; //setting default departing date
 		   	$location.path('/tours/transfer_list');
 	   	}
 

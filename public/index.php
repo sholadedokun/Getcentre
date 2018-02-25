@@ -115,7 +115,7 @@
 						<div class="col-xs-18 no-padding">
 							<div class="col-xs-18">
 								<div class="tab-below  hideMe" id="searchMachine" ng-show="search">
-									<div ng-if="defaultSearch.module!='Visa' && defaultSearch.module!='Insurance'">
+									<div ng-if="defaultSearch.module!='Visa' && defaultSearch.module!='Insurance' && defaultSearch.module!='Transfers'">
 
 										<div class="col-xs-18 hidden-xs trip-type booking-form" ng-show="searchInit" ng-if="defaultSearch.moduleType!='regular'">
 											<div class="btn" ng-click="moduleChangeType(type)"  ng-repeat="type in searchObject.typeBreak"  ng-class="typeClasses( type.value, defaultSearch.moduleType)">
@@ -263,6 +263,9 @@
 										</div>
 
 									</div>
+									<div ng-show="defaultSearch.module=='Transfers'">
+										<transfer-engine class="col-xs-18 no-padding"></transfer-engine>
+									</div>
 									<div ng-show="defaultSearch.module=='Visa'">
 										<visa-engine class="col-xs-18 no-padding" ng-show="defaultSearch.module=='Visa'"  ng-controller="otherPages"></visa-engine>
 									</div>
@@ -317,6 +320,7 @@
 		<script type="text/javascript" src="js/lib/controllers/ltourDetails.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/tourList.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/tourDetail.js"></script>
+		<script type="text/javascript" src="js/lib/controllers/transferList.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/travel_pack.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/Add_guest.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/voucher.js"></script>

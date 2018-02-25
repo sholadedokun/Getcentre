@@ -556,6 +556,17 @@ h1,h2,h3,h4,h5,h6{
 		background:#fff;
 		position: relative;
 	}
+	.transferInput{
+		.inputWrapper{
+			padding:5px;
+			width: 100%
+		}
+		.transfer_time{
+			width:20%;
+			margin:0.5em 1em;
+			float:left;
+		}
+	}
 
 	.two{
 		width: 40%;
@@ -1216,32 +1227,32 @@ h1,h2,h3,h4,h5,h6{
 	display: inline;
 }
 .input-md::-webkit-input-placeholder {
-	letter-spacing: 1px;
+	// letter-spacing: 1px;
 }
 .input-md::-moz-placeholder {
-	letter-spacing: 1px;
+	// letter-spacing: 1px;
 }
 .input-md::-ms-input-placeholder {
-	letter-spacing: 1px;
+	// letter-spacing: 1px;
 }
 
 ::-webkit-input-placeholder {
-  letter-spacing: 5px;
+  // letter-spacing: 5px;
   font-size: 10px;
   text-transform: uppercase;
   color:#e0e0e0
   }
 
 ::-moz-placeholder {
-  letter-spacing: 5px;
+  // letter-spacing: 5px;
   font-size: 9px; }
 
 :-ms-input-placeholder {
-  letter-spacing: 5px;
+  // letter-spacing: 5px;
   font-size: 9px; }
 
 :-moz-placeholder {
-  letter-spacing: 5px;
+  // letter-spacing: 5px;
   font-size: 9px; }
 
   //support css

@@ -22,7 +22,7 @@
         curl_close($ch);
         return $response;
     }
-  	$tourbreak=json_decode($_GET["tourBreakDown"]);
+  	$tourbreak=json_decode($_GET["occupancy"]);
 	 $xml='<TicketValuationRQ echoToken="DummyEchoToken" version="2013/12" xmlns="http://www.hotelbeds.com/schemas/2005/06/messages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages/xsd/TicketValuationRQ.xsd">
 	<Language>ENG</Language>
 	<Credentials>
@@ -31,12 +31,12 @@
 	</Credentials>
 	<AvailToken>'.$_GET["tAvailToken"].'</AvailToken>
 	<ServiceOccupancy>
-		<AdultCount>'.$tourbreak[0][1].'</AdultCount>
-		<ChildCount>'.count($tourbreak[0][2]).'</ChildCount>';
-		if(count($tourbreak[0][2])>0){//if there are children
+		<AdultCount>'.$tourbreak[0]->value.'</AdultCount>
+		<ChildCount>'.count($tourbreak[1]->Ages).'</ChildCount>';
+		if(count($tourbreak[1]->Ages)>0){//if there are children
 				 $xml.='<GuestList> ';
-				 for($b=0; $b<count($tourbreak[0][2]); $b++){
-					$xml.='<Customer type="CH"> <Age>'.$tourbreak[0][2][$b].'</Age> </Customer>';
+				 for($b=0; $b<count($tourbreak[1]->Ages); $b++){
+					$xml.='<Customer type="CH"> <Age>'.$tourbreak[1]->Ages[$b].'</Age> </Customer>';
 				}
 				$xml.='</GuestList> ';
 			}
@@ -48,8 +48,11 @@
 
 </TicketValuationRQ>
 ';
-//echo "<pre>".print_r($xml, true)."</pre>";
-  $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
+// echo "<pre>".print_r($xml, true)."</pre>";
+
+  // $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
+  $xml_response_string = post_xml('http://api.interface-xml.com/appservices/http/FrontendService',  $xml);
+
 
     if(!$xml_response_string)
         die('ERROR');

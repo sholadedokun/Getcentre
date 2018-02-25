@@ -1,4 +1,4 @@
-<div class="col-xs-18 search_result partial_view">
+<div class="container">
     <div class="col-xs-18 search_bar">
         <div class="col-xs-18 col-md-14"><h3>{{t.name}}</h3></div>
         <div class="col-xs-18 col-md-4">
@@ -12,7 +12,7 @@
             </div>
             <div class="col-xs-18 nopadding thumb_hold">
                 <div id="thumb_load">
-                    <div class="hthumb" name="{{$index}}" ng-repeat="thumb in allpict" ng-if="$even">                            
+                    <div class="hthumb" name="{{$index}}" ng-repeat="thumb in allpict" ng-if="$even">
                         <img ng-src="{{thumb.Url}}" ng-click="setImage(thumb, $index)" width="90" height="60" />
                     </div>
                 </div>

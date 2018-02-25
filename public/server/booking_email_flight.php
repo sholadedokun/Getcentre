@@ -172,7 +172,7 @@
                 </tr>
 				<tr>
                      <td style="padding:10px; color:#035358" colspan="3" >
-                    	<span style=" font-size:14px;">To cancel your booking please send an email to cancel@getcentre.com or call +2348188019555.</span>
+                    	<span style=" font-size:14px;">To cancel your booking please send an email to bookings@getcentre.com or call +2348188019555.</span>
                      </td>
                 </tr>
                 <tr>
@@ -197,7 +197,7 @@
 	$headers = "MIME-Version: 1.0"."\r\n";
 	$headers .= "Content-type:text/html; charset=iso-8859-1" . "\r\n";
 	$headers .= "From:Getcentre.com\r\n";
-	$headers .= 'Bcc: sholadedokun@yahoo.com';
+	$headers .= 'Bcc: sholadedokun@yahoo.com, sholadedokun@gmail.com';
 	//$message = nl2br($message);
 	$a = mail($to, $subject, $message, $headers);
 	// $json = json_encode($row);

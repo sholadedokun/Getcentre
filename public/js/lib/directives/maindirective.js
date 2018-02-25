@@ -39,6 +39,13 @@ getcentre.directive('visaEngine', function(){
 		controller:'otherPages'
 	};
 });
+getcentre.directive('transferEngine', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'views/transfer.html',
+		controller:'otherPages'
+	};
+});
 getcentre.directive('insuranceEngine', function(){
 	// Runs during compile
 	return {
@@ -74,7 +81,7 @@ getcentre.directive('dateFrom', function() {
 					d=$scope.d.split('|');
 					d=d[0];
 					dateObjectF=$scope.defaultSearch.moduleCurrType[d].value
-					console.log('NAN', $scope.defaultSearch)
+					console.log('NAN', d, $scope.d)
 				}
 				else{
 					dateObjectF=$scope.defaultSearch.moduleCurrType.multCities[$scope.d][2].value;
