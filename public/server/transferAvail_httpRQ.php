@@ -23,7 +23,7 @@
         return $response;
     }
   	 $t=time();
-	 // $transferbreak=json_decode($_GET["transferBreakDown"]);
+	 $occupancy=json_decode($_GET["occupancy"]);
 
 	 $xml='<TransferValuedAvailRQ xmlns="http://www.hotelbeds.com/schemas/2005/06/messages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages/xsd/TransferValuedAvailRQ.xsd" sessionId="asdasdasd" version="2013/12">
 	<Language>ENG</Language>
@@ -35,12 +35,12 @@
 	<AvailData type="IN">
 		<ServiceDate date="'.$_GET["htransferin"].'" time="'.$_GET["ttransferin"].'"/>
 		<Occupancy>
-			<AdultCount>'.$_GET["adult"].'</AdultCount>
-		<ChildCount>'.$_GET["child"].'</ChildCount>';
-		if($_GET["child"]>0){//if there are children
+			<AdultCount>'.$occupancy[0]->value.'</AdultCount>
+		<ChildCount>'.count($occupancy[1]->Ages).'</ChildCount>';
+		if(count($occupancy[1]->Ages)>0){//if there are children
 				 $xml.='<GuestList> ';
-				 for($b=0; $b<$_GET["child"]; $b++){
-					$xml.='<Customer type="CH"> <Age>'.$_GET["child"].'</Age> </Customer>';
+				 for($b=0; $b<count($occupancy[1]->Ages); $b++){
+					$xml.='<Customer type="CH"> <Age>'.$occupancy[1]->Ages[$b].'</Age> </Customer>';
 				}
 				$xml.='</GuestList> ';
 			}

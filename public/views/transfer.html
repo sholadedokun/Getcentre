@@ -7,12 +7,34 @@
                         <input type="text" class="placeSearch" placeholder="Enter destination" ng-model="defaultSearch.moduleCurrType.transferCity" ng-click="searchRevel()" name="0" />
                     </div>
                 </div>
-                <div class="col-xs-12 each_form fsanim" ng-show="curr_search.service=='Transfers'">
+                <div class="col-xs-18  no-padding"  ng-if="searchInit">
+                    <div class="col-xs-18 no-padding booking-form col-md-9" ng-repeat="guest in defaultSearch.moduleCurrType.occupancy[0]">
+                        <div class="col-xs-18 people-side">
+                            <div class="col-xs-6 increaser">
+                                <p class="plus" ng-click="addOccupancy(guest)">+</p>
+                                <p class="plus" ng-click="takeOccupancy(guest)">-</p>
+                            </div>
+
+                            <div class="col-xs-6 anum"><p class="apush" ng-bind="guest.value | custNo"></p></div>
+                            <div class="col-xs-6"><p class="apush" ng-bind="guest.name"></p></div>
+                        </div>
+                        <div class="col-xs-18 nopadding" ng-if="guest.name=='Child' && guest.ages.length > 0">
+                            <div class="col-xs-18 nopadding" ng-repeat="childAge in guest.ages">
+                                <span class="col-xs-18 nopadding child_select"><label>Child {{$index+1}}</label></span>
+                                <div class="get_input col-xs-18">
+                                    <input type="text" ng-model="childAge.value" class="form-control trans_input_sm input-sm" placeholder="Date of Birth" birth-dchild >
+                                </div>
+                                <!-- <select class="" ng-model="childAge.value" required="required" ng-options="option.value as option.name for option in childAgeOptions" ></select> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-xs-12 each_form fsanim" ng-show="curr_search.service=='Transfers'">
                     <label for="location1">Do you want a Return Transfer?</label>
                     <div class="get_input col-sm-18  col-xs-11 col-md-12">
                         <select class="col-xs-18 col-sm-15 form-control  input-md trans_input" ng-model="returnType" required="required" ng-init="returnType='Y'" ng-options="option.value as option.name for option in returntrans" ></select>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-sm-18 col-sm-6" ng-if="curr_search.service=='Transfers'">
                 <label class="">Pick Up Location</label>

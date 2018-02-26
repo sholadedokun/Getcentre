@@ -150,7 +150,7 @@
 				$xml.='<Customer type="AD"> <Age>30</Age> <Name>Adult</Name><LastName>Tourist'.($b+1).'</LastName></Customer>';
 			}
 			for($b=0; $b<count($tourbreak[1]->Ages); $b++){
-				$xml.='<Customer type="CH"> <Age>'.$tourbreak[0][1]->Ages[$b].'</Age><Name>Child</Name><LastName>Tourist'.($b+1).'</LastName></Customer>';
+				$xml.='<Customer type="CH"> <Age>'.$tourbreak[1]->Ages[$b].'</Age><Name>Child</Name><LastName>Tourist'.($b+1).'</LastName></Customer>';
 			}
 			$xml.='</GuestList> ';
 		    $xml.='</Paxes>';
