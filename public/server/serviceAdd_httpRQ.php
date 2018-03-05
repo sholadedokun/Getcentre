@@ -141,16 +141,16 @@
 			$guest=json_decode($request->Guest);
 
 
-			$tourbreak=json_decode($request->tourBreakDown);
+			$occupancy=json_decode($request->occupancy);
 			$xml.='<Paxes>
 			<AdultCount>'.$request->tourAdult.'</AdultCount>
 			<ChildCount>'.$request->tourChild.'</ChildCount>';
 			$xml.='<GuestList> ';
-			for($b=0; $b<$tourbreak[0]->value; $b++){
+			for($b=0; $b<$occupancy[0][0]->value; $b++){
 				$xml.='<Customer type="AD"> <Age>30</Age> <Name>Adult</Name><LastName>Tourist'.($b+1).'</LastName></Customer>';
 			}
-			for($b=0; $b<count($tourbreak[1]->Ages); $b++){
-				$xml.='<Customer type="CH"> <Age>'.$tourbreak[1]->Ages[$b].'</Age><Name>Child</Name><LastName>Tourist'.($b+1).'</LastName></Customer>';
+			for($b=0; $b<$occupancy[0][1]->value; $b++){
+				$xml.='<Customer type="CH"> <Age>'.$occupancy[0][1]->ages[$b].'</Age><Name>Child</Name><LastName>Tourist'.($b+1).'</LastName></Customer>';
 			}
 			$xml.='</GuestList> ';
 		    $xml.='</Paxes>';

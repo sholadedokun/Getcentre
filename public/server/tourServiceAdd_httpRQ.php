@@ -22,7 +22,7 @@
         curl_close($ch);
         return $response;
     }
-
+	$occupancy=json_decode($_GET["occupancy"]);
 	 $xml='<ServiceAddRQ echoToken="DummyEchoToken" version="2013/12" xmlns="http://www.hotelbeds.com/schemas/2005/06/messages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages/xsd/ServiceAddRQ.xsd">
 	<Language>ENG</Language>
 	<Credentials>
@@ -50,21 +50,23 @@
 				<IncomingOffice code="'.$_GET["availContactcode"].'"/>
 			</Contract>
 		</AvailableModality>
-		<Paxes>
-			<AdultCount>'.$_GET["tourAdult"].'</AdultCount>
-			<ChildCount>'.$_GET["tourChild"].'</ChildCount>
-			<GuestList>
-				<Customer type="CH">
-					<Age>2</Age>
-				</Customer>
-				<Customer type="CH">
-					<Age>3</Age>
-				</Customer>
-			</GuestList>
+		<Paxes>';			
+		$xml.='<AdultCount>'.$occupancy[0][0]->value.'</AdultCount>
+		<ChildCount>'.$occupancy[0][1]->value.'</ChildCount>';
+		if($occupancy[0][1]->value>0){//if there are children
+				 $xml.='<GuestList> ';
+				 for($b=0; $b<$occupancy[0][1]->value; $b++){
+					$xml.='<Customer type="CH"> <Age>'.$occupancy[0][1]->ages[$b].'</Age> </Customer>';
+				}
+				$xml.='</GuestList> ';
+			};
+		$xml='
 		</Paxes>
 	</Service>
 </ServiceAddRQ>
 ';
+echo $xml;
+die;
   $xml_response_string = post_xml('http://testapi.interface-xml.com/appservices/http/FrontendService',  $xml);
 
     if(!$xml_response_string)

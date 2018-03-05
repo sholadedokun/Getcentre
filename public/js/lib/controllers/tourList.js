@@ -11,7 +11,6 @@ tourList.factory('tour_cat', function($rootScope) {
     tour_allot.broadcastItem = function() {
         $rootScope.$broadcast('tourBroadcast');
     };
-
     return tour_allot;
 });
 
@@ -25,6 +24,7 @@ tourList.controller('tourList', ['$scope', 'searchDatas', 'tourData', 'tourListR
   $scope.currData= currencyData.data();
   function search_tour(){
 	  var tour={};
+	  $scope.load_note=true;
 	  $scope.getData= searchDatas.data();
 	  $scope.travelPD= travelPackD.data();
 	  $scope.offer="";
@@ -65,7 +65,8 @@ tourList.controller('tourList', ['$scope', 'searchDatas', 'tourData', 'tourListR
 			else {}
 		}
 	  $scope.tList = tourListRs.get({hDesCode:$scope.search_c.moduleCurrType[0].value.code,	hTourin:$scope.search_c.moduleCurrType[1].value.short, hTourout:$scope.search_c.moduleCurrType[2].value.short
-	  ,'tourBreakDown':JSON.stringify($scope.search_c.hRoomBreak)}, function(tList) {
+	  ,'occupancy':JSON.stringify($scope.search_c.moduleCurrType['occupancy'])}, function(tList) {
+		$scope.load_note=false;
 		$scope.tours_p=$scope.tList.TicketAvailRS;
 		$scope.tours_total=$scope.tours_p['@totalItems'];
 		console.log($scope.tList)
@@ -140,7 +141,7 @@ tourList.controller('tourList', ['$scope', 'searchDatas', 'tourData', 'tourListR
 	else{$availModal=selectedtour['@code']}
 
 	//if($availModal==null){ $availModal=tour.AvailableModality[0]['@code'];}
-	$scope.tvList = tourValuationRs.get({tTicketCode:$code, tAvailToken: $avail, tAvailModal: $availModal, hDesCode:$scope.search_c.hdescode,	hTourin:date, hTourout:date,'tourBreakDown':JSON.stringify($scope.search_c.hRoomBreak)},
+	$scope.tvList = tourValuationRs.get({tTicketCode:$code, tAvailToken: $avail, tAvailModal: $availModal, hDesCode:$scope.search_c.hdescode,	hTourin:date, hTourout:date,'occupancy':JSON.stringify($scope.search_c.moduleCurrType['occupancy'])},
 	function(tvList) {
 		console.log($scope.tvList);
 		$scope.tours_tickets=$scope.tvList.TicketValuationRS.ServiceTicket;
@@ -151,7 +152,7 @@ tourList.controller('tourList', ['$scope', 'searchDatas', 'tourData', 'tourListR
 			contractName:$scope.tours_tickets.ContractList.Contract.Name,
 			contractCode:$scope.tours_tickets.ContractList.Contract.IncomingOffice['@code'],
 			ServiceType:'ServiceTicket',
-			tourBreakDown:JSON.stringify($scope.search_c.hRoomBreak),
+			occupancy:JSON.stringify($scope.search_c.moduleCurrType['occupancy']),
 			DateFrom:$scope.tours_tickets.DateFrom['@date'],
 			DateTo:$scope.tours_tickets.DateFrom['@date'],
 			currency:$scope.tours_tickets.Currency['@code'],
@@ -195,7 +196,24 @@ tourList.controller('tourList', ['$scope', 'searchDatas', 'tourData', 'tourListR
 							console.log($scope.cust)
 						}
 
-						travel_pack={ product:'HotelBed', productType:'Tour', purchaseToken:response.ServiceAddRS.Purchase['@purchaseToken'], Adult:$scope.tours_tickets.Paxes.AdultCount, Child:$scope.tours_tickets.Paxes.ChildCount,	hdesdesc:$scope.search_c.hdesdesc,	ticketDate:$scope.tours_tickets.DateFrom['@date'], Name:$scope.services[i].TicketInfo.Name,  categoryName:$scope.tours_tickets.AvailableModality.Name, Price:$scope.services[i].TotalAmount, Spui:$scope.services[i]['@SPUI'], hroomdist:$scope.search_c.hRoomBreak, cust_det:$scope.cust, comment:$scope.services[i].CommentList.Comment.$, cancel:$scope.services[i].CancellationPolicyList, guestBreak:[], currency:$scope.services[i].Currency['@code'], imgurl:tour.TicketInfo.ImageList.Image[0].Url};
+						travel_pack={ 
+							product:'HotelBed', 
+							productType:'Tour', 
+							purchaseToken:response.ServiceAddRS.Purchase['@purchaseToken'], 
+							Adult:$scope.tours_tickets.Paxes.AdultCount, 
+							Child:$scope.tours_tickets.Paxes.ChildCount,	
+							hdesdesc:$scope.search_c.hdesdesc,	
+							ticketDate:$scope.tours_tickets.DateFrom['@date'], 
+							Name:$scope.services[i].TicketInfo.Name,  
+							categoryName:$scope.tours_tickets.AvailableModality.Name, 
+							Price:$scope.services[i].TotalAmount, 
+							Spui:$scope.services[i]['@SPUI'], 
+							occupancy:$scope.search_c.moduleCurrType['occupancy'], 
+							cust_det:$scope.cust, 
+							comment:$scope.services[i].CommentList.Comment.$, 
+							cancel:$scope.services[i].CancellationPolicyList, 
+							guestBreak:[], 
+							currency:$scope.services[i].Currency['@code'], imgurl:tour.TicketInfo.ImageList.Image[0].Url};
 						console.log(travel_pack);
 					}
 					travelPackD.setData(travel_pack)

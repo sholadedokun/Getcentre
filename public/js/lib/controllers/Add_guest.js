@@ -144,21 +144,21 @@ function getCookie(cname) {
 				$scope.totalPrice+=parseFloat(data[$i].convertedPrice);
 			}
 			if((data[$i].product=='HotelBed')&&((data[$i].productType=='Tour')||(data[$i].productType=='Transfer'))){ //find and declares all hotel guest with room comments
-				if(data[$i].productType=='Tour'){$roo=data[$i].hroomdist;} // get the current guest distrubution.
-				else{$roo=data[$i].hroomdist;}
+				if(data[$i].productType=='Tour'){$roo=data[$i].occupancy;} // get the current guest distrubution.
+				else{$roo=data[$i].occupancy;}
 				$scope.t_guest={comment:'', guest:[]} //declares an object to hold the comment and guest details
-				for($a=0; $a<$roo[0][1]; $a++){ // loops through the number of adults
+				for($a=0; $a<$roo[0][0].value; $a++){ // loops through the number of adults
 					guest={title:"", fname:"", lname:"", dbirth:""} //declares the default values for the adult
 					$scope.t_guest.guest.push(guest) //push empty guest details to the declared guest object.
 					if($a==0 && $scope.user[0].status=='Logged_in'){ // if first room asign the user details to the first adult name
 						$scope.t_guest.guest[0]={title:$scope.def.title, fname:$scope.def.fname, lname:$scope.def.lname, dbirth:$scope.def.dbirth}
 					}
 				}
-				for($a=0; $a<$roo[0][2].length; $a++){ //loop through the children in that room
+				for($a=0; $a<$roo[0][1].value; $a++){ //loop through the children in that room
 					guest={title:"Child", fname:"", lname:"", dbirth:""}
 					$scope.t_guest.guest.push(guest);
 				}
-				data[$i].guestBreak[0]={};
+				data[$i].guestBreak=[{}]
 				data[$i].guestBreak[0].cust_det=data[$i].cust_det
 				data[$i].guestBreak[0].guest_details=$scope.t_guest;
 				$scope.pricing.pricelist.push({cur:data[$i].currency_sy, price:data[$i].Price})
@@ -166,7 +166,6 @@ function getCookie(cname) {
 			}
 		}
 	}
-
     $scope.processAgentDiscountHotel = function(service){
         $scope.user[1].totalAgentPrice= $scope.user[1].totalAgentPrice || 0
         $scope.travelPD[service].hotelDiscount="5%";
