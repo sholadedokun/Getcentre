@@ -135,9 +135,9 @@ getcentre.controller('mainController', ['$scope','$rootScope','currSearch', 'sea
 
 	}
 	$scope.blogClass=function(row, index){
-		classB="col-md-7 small post-small";
+		classB="col-xs-18 col-md-7 small post-small";
 		if((row==1 && index==0) || (row==2 && index==1)){
-			classB="col-md-11 big_blog";
+			classB="col-xs-18 col-md-11 big_blog";
 		}
 		if(row==2 && index==2){
 			classB=classB+' nagMargin'

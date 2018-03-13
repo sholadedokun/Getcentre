@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="css/index.min.css">
 		<link rel="stylesheet" type="text/css" href="css/style.min.css">
 		<link rel="stylesheet" type="text/css" href="css/style2.css">
-		<link rel="stylesheet" type="text/css" href="css/media_query.css">
+		<link rel="stylesheet" type="text/css" href="css/media_query.min.css">
 		<link rel="stylesheet" href="css/icon.css" type="text/css" />
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
@@ -22,9 +22,10 @@
 		<link rel="stylesheet" href="css/animate_angular.css" type="text/css" />
 	</head>
 	<body>
-		<div class="booke-area container-fluid" ng-controller="mainController">
+		<div class="container-fluid">
+			<div class="row booke-area" ng-controller="mainController">
 
-			<div class="row hidden-xs">
+			<div class="row hidden-md hidden-xs">
 				<div class="col-md-3 col-xs-18 socials cage">
 					<a href="https://www.facebook.com/getcentreapp/" target="_blank" class="fa fa-facebook" aria-hidden="true"></a>
 					<a href="https://twitter.com/getcentre1" target="_blank" class="fa fa-twitter" aria-hidden="true"></a>
@@ -53,7 +54,7 @@
 			</div>
 
 			<div class="row">
-				<nav class="navbar container-fluid no-padding navbar-default">
+				<nav class="navbar col-xs-18 navbar-default">
 					<div class="web_back"></div>
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 	                    <span class="sr-only">Toggle navigation</span>
@@ -79,10 +80,11 @@
 					</div>
 				</nav>
 
-				<div class="col-xs-18" ng-init="initSearch()">
+				<div class="col-xs-18 hidden-xs hidden-sm" ng-init="initSearch()">
 					<!--booking engine -->
-					<div class="container no-padding booking-e">
-						<div class="col-xs-18 no-padding">
+					<div class="container booking-e">
+						<div class="row">
+							<div class="col-xs-18 no-padding">
 							<div class="col-xs-18 no-padding">
 								<div class="tab-top">
 									<div class="col-md-3" ng-class="menuClass('Flights')"  ng-click="updateSearch('Flights', 'NF', 'retTic', 'server/flight_autocomplete.php')">
@@ -112,7 +114,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-18 no-padding">
+						<div class="col-xs-18">
 							<div class="col-xs-18">
 								<div class="tab-below  hideMe" id="searchMachine" ng-show="search">
 									<div ng-if="defaultSearch.module!='Visa' && defaultSearch.module!='Insurance' && defaultSearch.module!='Transfers'">
@@ -139,7 +141,7 @@
 											</div>
 											<div class="col-xs-18 booking-form bookingFormInput no-padding" ng-init="setDates(input)"  ng-if="input.type=='date' && !(input | isArray)">
 												<input type="text" ng-if="input.subType=='fromdate'" id="dateFrom" name="{{$index}}|" class="fromdate datePickerDummy" date-from />
-				                        		<input type="text" ng-if="input.subType=='todate'"  id="dateto" name="{{$index}}|" class="todate datePickerDummy" date-to />
+												<input type="text" ng-if="input.subType=='todate'"  id="dateto" name="{{$index}}|" class="todate datePickerDummy" date-to />
 												<div class="dateContainer" ng-if="input.subType=='fromdate'" name="f"  >
 													<div class="dateBreaker rborder" ng-click="setFromDate(0)" >
 														<span ng-bind="input.value.day"></span>
@@ -171,10 +173,10 @@
 													</div>
 													<div class="col-xs-18 nopadding" ng-if="guest.name=='Child' && guest.ages.length > 0">
 														<div class="col-xs-18 nopadding" ng-repeat="childAge in guest.ages">
-									                    	<span class="col-xs-18 nopadding child_select"><label>Child {{$index+1}}</label></span>
-									                        <div class="get_input col-xs-18">
-									                        	<input type="text" ng-model="childAge.value" class="form-control trans_input_sm input-sm" placeholder="Date of Birth" birth-dchild >
-									                        </div>
+															<span class="col-xs-18 nopadding child_select"><label>Child {{$index+1}}</label></span>
+															<div class="get_input col-xs-18">
+																<input type="text" ng-model="childAge.value" class="form-control trans_input_sm input-sm" placeholder="Date of Birth" birth-dchild >
+															</div>
 															<!-- <select class="" ng-model="childAge.value" required="required" ng-options="option.value as option.name for option in childAgeOptions" ></select> -->
 														</div>
 													</div>
@@ -233,10 +235,10 @@
 															</div>
 															<div class="col-xs-18 nopadding" ng-if="form.name=='Child' && form.ages.length > 0">
 																<div class="col-xs-18 nopadding" ng-repeat="childAge in form.ages">
-											                    	<span class="col-xs-18 nopadding child_select"><label>Child {{$index+1}}</label></span>
-											                        <div class="get_input col-xs-18">
-											                        	<input type="text" ng-model="childAge.value" class="form-control trans_input_sm input-sm" placeholder="Date of Birth" birth-dchild >
-											                        </div>
+																	<span class="col-xs-18 nopadding child_select"><label>Child {{$index+1}}</label></span>
+																	<div class="get_input col-xs-18">
+																		<input type="text" ng-model="childAge.value" class="form-control trans_input_sm input-sm" placeholder="Date of Birth" birth-dchild >
+																	</div>
 																	<!-- <select class="" ng-model="childAge.value" required="required" ng-options="option.value as option.name for option in childAgeOptions" ></select> -->
 																</div>
 															</div>
@@ -250,14 +252,14 @@
 											</div>
 										</div>
 										<div ng-repeat="input in defaultSearch.others" class="col-md-6 col-xs-18 no-padding booking-form" ng-show="searchInit">
-							                <div class="col-xs-18 no-padding" ng-if="input.type=='select'" name="{{input.name}}">
-							                    <label ng-bind="input.name" class="col-md-8 col-xs-18 no-padding"></label>
-							                    <div class="bookingFormInput col-xs-18 col-md-9">
-							                        <select class="" ng-model="input.value" required="required" ng-options="option.value as option.name for option in input.options" ng-change="class_change(input.value)" ></select>
-							     				    <span class="ic_sm_xx col-xs-3 hidden-xs"  ></span>
-							                    </div>
-							                </div>
-							            </div>
+											<div class="col-xs-18 no-padding" ng-if="input.type=='select'" name="{{input.name}}">
+												<label ng-bind="input.name" class="col-md-8 col-xs-18 no-padding"></label>
+												<div class="bookingFormInput col-xs-18 col-md-9">
+													<select class="" ng-model="input.value" required="required" ng-options="option.value as option.name for option in input.options" ng-change="class_change(input.value)" ></select>
+													<span class="ic_sm_xx col-xs-3 hidden-xs"  ></span>
+												</div>
+											</div>
+										</div>
 										<div class="col-md-3 col-xs-18 no-padding pull-right booking-form sButAlign">
 											<input type="submit" ng-disabled="disabled" value="search" ng-click="setSearch()" class="search-btn" />
 										</div>
@@ -275,12 +277,18 @@
 								</div>
 							</div>
 						</div>
+
+						</div>
+						
 					</div>
 				</div>
 			</div>
+			<div class="row" ng-view autoscroll="true" id="appLoader"></div>
+			<footer-below subscribe="subscribe(subEmail)"></footer-below>
 		</div>
-		<div ng-view autoscroll="true" id="appLoader"></div>
-		<footer-below subscribe="subscribe(subEmail)"></footer-below>
+		
+		</div>
+		
 		<?php if(isset($_POST["txnref"])){ ?>
 			<input type="hidden" id="pref" value="<?php echo $_POST["txnref"];?>" payref="<?php echo $_POST["payRef"];?>" retref="<?php echo $_POST["retRef"];?>" />
 		<?php }    ?>
