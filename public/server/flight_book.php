@@ -118,11 +118,11 @@ $xml='<?xml version="1.0" encoding="UTF-8"?>
         <gender required="1">H</gender>
         <lastname required="1">'.$guest->lname.'</lastname>
         <name required="1">'.$guest->fname.'</name>
-        <street required="1">test</street>
-        <streetNr required="1">123</streetNr>
-        <zipcode required="1">12-345</zipcode>
-        <city required="1">testtt</city>
-        <state required="1">test</state>
+        <street required="1">GETCentre Limited</street>
+        <streetNr required="1">1</streetNr>
+        <zipcode required="1">234</zipcode>
+        <city required="1">Lagos</city>
+        <state required="1">Lagos</state>
         <country required="1">NG</country>
         <email required="1">'.$guest->email.'</email>
         <phone required="1">'.$guest->phone.'</phone>

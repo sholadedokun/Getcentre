@@ -217,7 +217,8 @@
 	}
 	.service_list {
 		border: 1px solid #014b4e;
-		border-radius: 5px;
+		border-bottom-right-radius: 5px;
+		border-bottom-left-radius: 5px;
 		margin-bottom: 2em;
 	}
 	.service_date {
@@ -239,6 +240,10 @@
 	}
 	.fd-tab {
 		padding: 0 !important;
+	}
+	.payment_bh .t_price {
+		text-align: left;
+		padding: 1em;
 	}
 }
 @media only screen and (min-width: 321px) and (max-width: 750px) {
@@ -316,6 +321,10 @@
 	// .img_holder{border:none !important; border-top:$pcolor 4px solid !important;}
 	.fd-tab {
 		padding: 0 !important;
+	}
+	.payment_bh .t_price {
+		text-align: left;
+		padding: 1em;
 	}
 }
 

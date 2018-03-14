@@ -394,7 +394,7 @@
                                     <span>of {{service.guest_details.adult.length}}</span>
                                 </div>
                                 <div class="service_guest_details col-xs-18">
-                                    <div class="col-xs-4 get_pad each_form">
+                                    <div class="col-xs-18 col-md-4 get_pad each_form">
                                         <div class="nopadding bookingFormInput col-xs-18">
                                             <select class=" nopadding col-xs-18 col-sm-18 form-control trans_input_sm input-md" ng-model="adult.title" required="required">
                                                 <option value="H">Mr.</option>
@@ -411,7 +411,7 @@
                                                 required="required">
                                         </div>
                                     </div>
-                                    <div class="col-xs-14 col-sm-7 get_pad each_form">
+                                    <div class="col-xs-18 col-sm-7 get_pad each_form">
                                         <div class="nopadding bookingFormInput col-xs-18">
                                             <input type="text" class="col-xs-18 form-control trans_input_sm input-md " ng-model="adult.lname" placeholder="Surname" required="required">
 
@@ -914,8 +914,11 @@
                     <div class="col-xs-18 col-md-6">
                         <div class=" get_button_reset col-xs-18 btn-lg" ng-click="cancel_all()">Cancel &amp; Start Over</div>
                     </div>
-                    <input type="button" class=" get_button_primary col-xs-18 col-md-7 btn-lg" ng-click="pay('Paylater')" value="Book Now &amp; Pay Later "
-                    />
+                    <div class="col-xs-18 col-md-7">
+                        <input type="button" class=" get_button_primary col-xs-18 btn-lg" ng-click="pay('Paylater')" value="Book Now &amp; Pay Later"
+                        />
+                    </div>
+
                     <div class="col-xs-18 col-md-5">
                         <div class=" get_button_primary col-xs-18 btn-lg" ng-click="pay('paynow')">Pay Now</div>
                     </div>

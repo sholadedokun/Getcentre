@@ -22,6 +22,7 @@ h5,
 h6 {
 	font-family: "Playfair Display", serif;
 }
+
 @mixin padding-top-bottom($dValue) {
 	padding-top: $dValue;
 	padding-bottom: $dValue;
