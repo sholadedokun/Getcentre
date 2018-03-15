@@ -19,6 +19,9 @@
 			border-radius: 25px;
 		}
 	}
+	.img_holder {
+		height: 200px;
+	}
 	.slideDetails {
 		text-align: right;
 		h1 {
@@ -204,7 +207,7 @@
 	}
 	// .pTab .btn-sm {@include border-radius-bottom-left(5px !important)}
 	.room_spec {
-		margin-top: -275px;
+		margin-top: -285px;
 	}
 	.other_room_spec .room_spec {
 		margin-top: 0px;
@@ -256,6 +259,9 @@
 		padding: 0px 8px 0;
 		line-height: 35px;
 	}
+	.img_holder {
+		height: 250px !important;
+	}
 	.search-tool form div div label {
 		padding: 1em 1em 0em 0em !important;
 		text-align: right;
@@ -305,7 +311,7 @@
 	}
 	// .pTab .btn-sm {@include border-radius-bottom-left(5px !important)}
 	.room_spec {
-		margin-top: -275px;
+		margin-top: -285px;
 	}
 	.other_room_spec .room_spec {
 		margin-top: 0px;

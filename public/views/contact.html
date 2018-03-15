@@ -11,27 +11,37 @@
 		</div>
 		<div class="col-md-10 contact-main">
 			<form ng-submit="sendC(contact)">
-			<span><input type="text" required placeholder="enter name"  ng-model="contact.fullname"  /></span>
-			<span><input type="text" required placeholder="enter email"  ng-model="contact.email"  /></span>
-			<span><input type="text" required placeholder="enter subject"  ng-model="contact.subject"  /></span>
-			<span><textarea required placeholder="enter message" cols="10"  ng-model="contact.message" ></textarea></span>
-			<span><input type="submit" value="send message &rarr;" class="send-btn"></span>
-			<span class="notification" ng-bind="notmessage">Please wait</span>
+				<span>
+					<input type="text" required placeholder="enter name" ng-model="contact.fullname" />
+				</span>
+				<span>
+					<input type="text" required placeholder="enter email" ng-model="contact.email" />
+				</span>
+				<span>
+					<input type="text" required placeholder="enter subject" ng-model="contact.subject" />
+				</span>
+				<span>
+					<textarea required placeholder="enter message" cols="10" ng-model="contact.message"></textarea>
+				</span>
+				<span>
+					<input type="submit" value="send message &rarr;" class="send-btn">
+				</span>
+				<span class="notification" ng-bind="notmessage">Please wait</span>
 
 			</form>
 		</div>
 		<div class="col-md-8 contact-info">
 			<div class="col-md-18">
 				<h2>Lagos office</h2>
-				<p>4, Salvation Road, Off Opebi</br>
-				Road, Ikeja, Lagos, Nigeria.</br>
-				+2348188009911</p>
+				<p>13B, Osho Street, By Opebi-Oregun Link Bridge</br>
+					Ikeja, Lagos, Nigeria.</br>
+					+2348188009911</p>
 			</div>
 			<div class="col-md-18">
 				<h2>Ilorin office</h2>
 				<p>Suite 10, Gbose Mall, Tanke Junction,</br>
-				G.R.A Ilorin, Nigeria..</br>
-				+2348188009922</p>
+					G.R.A Ilorin, Nigeria..</br>
+					+2348188009922</p>
 			</div>
 			<div class="col-md-18">
 				<h2>Call:</h2>

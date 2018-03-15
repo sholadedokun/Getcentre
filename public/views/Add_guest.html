@@ -133,9 +133,9 @@
                                 <div class="service_guest_details no-padding col-xs-18">
                                     <div class="col-xs-18 no-padding" ng-repeat="guest in room.guest_details.guest">
                                         <div class="col-xs-18 no-padding">
-                                            <div class="col-xs-4 no-padding each_form" ng-if="guest.title!='Child'">
-                                                <div class="nopadding bookingFormInput col-xs-18  col-xs-11">
-                                                    <select class=" nopadding col-xs-18 form-control trans_input_sm input-md" ng-model="guest.title" id="title">
+                                            <div class="col-xs-18 col-md-4 no-padding each_form" ng-if="guest.title!='Child'">
+                                                <div class="col-xs-18 nopadding bookingFormInput">
+                                                    <select class="col-xs-18 nopadding form-control trans_input_sm input-md" ng-model="guest.title" id="title">
                                                         <option>Mr.</option>
                                                         <option>Mrs.</option>
                                                         <option>Miss.</option>
@@ -145,18 +145,18 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-4 get_pad each_form" ng-if="guest.title=='Child'">
+                                            <div class="col-xs-18 col-md-4 each_form" ng-if="guest.title=='Child'">
                                                 <label class="col-xs-18 col-md-6 get_pad hidden-sm">Child</label>
                                             </div>
-                                            <div class="col-xs-14 col-sm-7 get_pad  each_form">
-                                                <div class="nopadding bookingFormInput col-xs-18">
+                                            <div class="col-xs-18 col-sm-7 each_form">
+                                                <div class="col-xs-18 nopadding bookingFormInput ">
                                                     <input type="text" ng-if="$index==0" class="col-xs-18 form-control trans_input_sm input-md" ng-model="guest.fname" placeholder="Guest's First Name"
                                                         required="required">
                                                     <input type="text" ng-if="$index!=0" class="col-xs-18 form-control trans_input_sm input-md" ng-model="guest.fname" placeholder="Guest's First Name">
                                                 </div>
                                             </div>
                                             <div class="col-xs-18 col-sm-7 no-padding each_form">
-                                                <div class="nopadding bookingFormInput col-xs-18 ">
+                                                <div class="col-xs-18 nopadding bookingFormInput">
                                                     <input type="text" ng-if="$index==0" class=" col-xs-18 form-control trans_input_sm input-md" ng-model="guest.lname" placeholder="Guest's Surname"
                                                         required="required">
                                                     <input type="text" ng-if="$index!=0" class=" col-xs-18 form-control trans_input_sm input-md" ng-model="guest.lname" placeholder="Guest's Surname">
