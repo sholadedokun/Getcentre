@@ -1,5 +1,32 @@
 @media only screen and (max-width: 420px) {
 	/* Small screen, non-retina */
+	.tab-top {
+		display: block !important;
+		background: transparent;
+		padding: 1em 0.85em;
+		border-radius: 0;
+		width: 100%;
+		border-top: 1px solid #ddeaea;
+	}
+	.search_Item_title {
+		width: 3.5em;
+		height: 3.5em;
+		border-radius: 50%;
+		float: left;
+		margin: 0.5em 0.25em;
+		background: #0fb7ba;
+		padding: 0.75em;
+		box-shadow: 1px 1px 5px #333;
+		cursor: pointer;
+		p {
+			letter-spacing: 1px;
+			font-size: 0.65em;
+			text-align: center;
+		}
+		img {
+			float: none;
+		}
+	}
 	label {
 		margin-top: 0px !important;
 	}
@@ -19,6 +46,7 @@
 			border-radius: 25px;
 		}
 	}
+
 	.img_holder {
 		height: 200px;
 	}
@@ -251,6 +279,7 @@
 }
 @media only screen and (min-width: 321px) and (max-width: 750px) {
 	/* Medium screen, non-retina */
+
 	.web_back {
 		background-image: url("../img/Logo.png");
 	}
