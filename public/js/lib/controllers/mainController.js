@@ -60,7 +60,7 @@ getcentre.controller("mainController", [
 
 				// optional (if other layers overlap autocomplete list)
 				open: function(event, ui) {
-					jQuery(".ui-autocomplete").css("z-index", 1000);
+					jQuery(".ui-autocomplete").css("z-index", 1500);
 				}
 			});
 			jQuery("#transfer_complete_2").autocomplete({
@@ -195,9 +195,7 @@ getcentre.controller("mainController", [
 		};
 		$scope.updateSearch = function(newS, moduleType, moduleRef, newU) {
 			$rootScope.search = true;
-
 			$scope.defaultSearch = { module: newS, moduleType: moduleType, moduleRef: moduleRef };
-			console.log(newS);
 			if (newS != "Visa") {
 				currSearch.setSearch(newS, newU);
 				$scope.setlocators();
@@ -320,7 +318,6 @@ getcentre.controller("mainController", [
 		$scope.getBlog = blogRS.query({ Burl: "http://blog.getcentre.com/?feed=json" }, function(getB) {
 			$scope.blogs = getB;
 		});
-
 		//retrieve all localtours
 		//getLocaltour
 		$scope.localTours = function() {
@@ -371,7 +368,6 @@ getcentre.controller("mainController", [
 				e.context.src = hsdet.det;
 			});
 		};
-
 		//account Actions
 		$scope.openRegister = function(accountA) {
 			$scope.account.action = accountA;
@@ -387,21 +383,20 @@ getcentre.controller("mainController", [
 				}
 			});
 		};
-		$scope.openSearch = function(accountA) {
-			$scope.account.action = accountA;
+		$scope.openSearch = function(type) {
+			$scope.updateSearch("Flights", "NF", "retTic", "server/flight_autocomplete.php");
 			var modalInstance = $modal.open({
 				templateUrl: "template/book_engine.html",
-				controller: "registerModalInstanceCtrl",
+				controller: "searchModalInstanceCtrl",
 				//size: 'sm',
 				windowClass: "register-modal-window",
 				resolve: {
-					account: function() {
-						return $scope.account;
+					defaultSearch: function() {
+						return $scope.defaultSearch;
 					}
 				}
 			});
 		};
-
 		//animationClass
 		$scope.mouseTB = function(state) {
 			if (state == "in") {

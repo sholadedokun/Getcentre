@@ -8,6 +8,26 @@
 		width: 100%;
 		border-top: 1px solid #ddeaea;
 	}
+	.register-modal-window .modal-dialog {
+		width: 90%;
+		.modal-content {
+			background: #eee;
+			margin-top: 30%;
+			width: 100%;
+			padding: 1em 1em 2em;
+			display: inline-block;
+			input {
+				outline: none;
+			}
+		}
+		.dateBreaker {
+			width: 84%;
+		}
+		.iconContainer {
+			width: auto;
+		}
+	}
+
 	.search_Item_title {
 		width: 3.5em;
 		height: 3.5em;

@@ -494,6 +494,15 @@ h6 {
 	font-size: 20px !important;
 	line-height: 12px !important;
 }
+.inputWrapper {
+	width: 80%;
+	padding: 14px 5px;
+	border-radius: 5px;
+	border: 1px solid #ddf2f3;
+	float: left;
+	background: #fff;
+	position: relative;
+}
 .tab-below {
 	padding: 0px 10px 20px;
 	border-bottom-left-radius: 5px;
@@ -536,15 +545,7 @@ h6 {
 		background: none;
 		outline: none;
 	}
-	.inputWrapper {
-		width: 80%;
-		padding: 14px 5px;
-		border-radius: 5px;
-		border: 1px solid #ddf2f3;
-		float: left;
-		background: #fff;
-		position: relative;
-	}
+
 	.transferInput {
 		.inputWrapper {
 			padding: 5px;

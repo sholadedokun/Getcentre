@@ -153,8 +153,8 @@
 													</div>
 												</div>
 												<div class="col-xs-18 booking-form bookingFormInput no-padding" ng-init="setDates(input)"  ng-if="input.type=='date' && !(input | isArray)">
-													<input type="text" ng-if="input.subType=='fromdate'" id="dateFrom" name="{{$index}}|" class="fromdate datePickerDummy" date-from />
-													<input type="text" ng-if="input.subType=='todate'"  id="dateto" name="{{$index}}|" class="todate datePickerDummy" date-to />
+													<input type="text" ng-if="input.subType=='fromdate'" id="dateFrom_3" name="{{$index}}|" class="fromdate datePickerDummy" date-from />
+													<input type="text" ng-if="input.subType=='todate'"  id="dateto_3" name="{{$index}}|" class="todate datePickerDummy" date-to />
 													<div class="dateContainer" ng-if="input.subType=='fromdate'" name="f"  >
 														<div class="dateBreaker rborder" ng-click="setFromDate(0)" >
 															<span ng-bind="input.value.day"></span>
@@ -334,6 +334,7 @@
 		<script type="text/javascript" src="js/lib/controllers/flightList.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/otherPages.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/registerLogin.js"></script>
+		<script type="text/javascript" src="js/lib/controllers/searchModal.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/hotelList.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/hotelDetails.js"></script>
 		<script type="text/javascript" src="js/lib/controllers/ltourDetails.js"></script>
