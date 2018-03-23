@@ -187,9 +187,7 @@ getcentre.controller("mainController", [
 			$scope.defaultSearch.moduleRef = type.ref;
 			$scope.defaultSearch.moduleCurrType = $scope.searchForm[$scope.defaultSearch.module].types[$scope.defaultSearch.moduleRef];
 			$scope.setlocators();
-			//  $scope.setDates(type.value);
 		};
-
 		$scope.removeDestination = function(ind, multi) {
 			multi.splice(ind, 1);
 		};
@@ -313,7 +311,6 @@ getcentre.controller("mainController", [
 			});
 		};
 		$scope.setlocators();
-
 		//retrieve Blogs
 		$scope.getBlog = blogRS.query({ Burl: "http://blog.getcentre.com/?feed=json" }, function(getB) {
 			$scope.blogs = getB;
@@ -383,8 +380,8 @@ getcentre.controller("mainController", [
 				}
 			});
 		};
-		$scope.openSearch = function(type) {
-			$scope.updateSearch("Flights", "NF", "retTic", "server/flight_autocomplete.php");
+		$scope.openSearch = function(type, mode, modeCode, url) {
+			$scope.updateSearch(type, mode, modeCode, url);
 			var modalInstance = $modal.open({
 				templateUrl: "template/book_engine.html",
 				controller: "searchModalInstanceCtrl",

@@ -23,8 +23,31 @@ getcentre.controller("searchModalInstanceCtrl", [
 		$scope.searchRevel = function() {
 			$scope.searchInit = true;
 		};
+		$scope.addOccupancy = function(input) {
+			if (input.name == "Child") {
+				input.ages.push({ value: "" });
+			}
+			input.value++;
+		};
+		$scope.takeOccupancy = function(input) {
+			if (input.value > 0) {
+				if (input.name == "Adult" && input.value == 1) return;
+				if (input.name == "Child" && input.ages.length > 0) input.ages.pop();
+				input.value--;
+			}
+		};
+		$scope.addRoom = function(input) {
+			input.value++;
+			roomObject = [{ name: "Adult", value: 1, type: "guest" }, { name: "Child", value: 0, type: "guest", ages: [] }];
+			$scope.defaultSearch.moduleCurrType.occupancy.push(roomObject);
+		};
+		$scope.takeRoom = function(input) {
+			if ($scope.defaultSearch.moduleCurrType.occupancy.length > 1) {
+				input.value--;
+				$scope.defaultSearch.moduleCurrType.occupancy.pop();
+			}
+		};
 		$scope.get_days = function(d_checkin, d_checkout) {
-			console.log("sadasd " + d_checkin + " " + d_checkout);
 			var start = moment(d_checkin);
 			var end = moment(d_checkout);
 			var num = end.diff(start, "days");
@@ -97,6 +120,7 @@ getcentre.controller("searchModalInstanceCtrl", [
 				} else {
 					$location.path("/hotel/hotel_list");
 				}
+				$scope.cancel();
 			} else if ($scope.defaultSearch.module == "Flights") {
 				$scope.defaultSearch.guest = $scope.defaultSearch.moduleCurrType["5"];
 				$scope.search.data.fsearch = true;
@@ -105,6 +129,7 @@ getcentre.controller("searchModalInstanceCtrl", [
 				} else {
 					$location.path("/flight/flight_list");
 				}
+				$scope.cancel();
 			} else if ($scope.defaultSearch.module == "Tours") {
 				$scope.search.data.hsearch = true;
 				if ($route.current.originalPath == "/tour/tour_list") {
@@ -112,10 +137,10 @@ getcentre.controller("searchModalInstanceCtrl", [
 				} else {
 					$location.path("/tour/tour_list");
 				}
+				$scope.cancel();
 			} else {
-				console.log($scope.defaultSearch);
+				$scope.cancel();
 				$scope.search.data.tranferSearch = true;
-
 				$location.path("/tours/transfer_list");
 			}
 		};

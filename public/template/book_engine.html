@@ -53,13 +53,13 @@
 						<p class="plus" ng-click="addOccupancy(guest)">+</p>
 						<p class="plus" ng-click="takeOccupancy(guest)">-</p>
 					</div>
-
-					<div class="col-xs-6 anum">
+					<div class="col-xs-5 anum">
 						<p class="apush" ng-bind="guest.value | custNo"></p>
 					</div>
-					<div class="col-xs-6">
+					<div class="col-xs-7">
 						<p class="apush" ng-bind="guest.name"></p>
 					</div>
+
 				</div>
 				<div class="col-xs-18 nopadding" ng-if="guest.name=='Child' && guest.ages.length > 0">
 					<div class="col-xs-18 nopadding" ng-repeat="childAge in guest.ages">
@@ -172,5 +172,6 @@
 	</div>
 	<div class="col-md-3 col-xs-18 no-padding pull-right booking-form sButAlign">
 		<input type="submit" ng-disabled="disabled" value="search" ng-click="setSearch()" class="search-btn" />
+		<input type="button" ng-disabled="disabled" value="Cancel" ng-click="cancel()" class="get_button_reset visible-xs" />
 	</div>
 </div>

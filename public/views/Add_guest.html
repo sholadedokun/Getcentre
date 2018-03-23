@@ -440,7 +440,7 @@
                                     </div>
                                     <div class="col-xs-18">
                                         <span class="sub_title">Travel Document </span>(* only required if passenger is traveling to USA OR CANADA)</div>
-                                    <div class="col-xs-9 get_pad each_form">
+                                    <div class="col-xs-18 col-md-9 get_pad each_form">
                                         <div class="nopadding bookingFormInput col-xs-18">
                                             <select class="input_xs col-xs-18" ng-model="adult.docuType" ng-options="options.code as options.name for options in docuType"
                                                 ng-init="adult.docuType = docuType[0].code">
@@ -448,7 +448,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-xs-9 get_pad each_form">
+                                    <div class="col-xs-18 col-md-9 get_pad each_form">
                                         <div class="nopadding bookingFormInput col-xs-18">
                                             <select class="input_xs col-xs-18" ng-model="adult.docuIssuCoun" ng-options="options.code as options.name for options in docuIssuCoun"
                                                 ng-init="adult.docuIssuCoun = docuIssuCoun[0].code">
@@ -456,13 +456,13 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-xs-9 get_pad each_form">
+                                    <div class="col-xs-18 col-md-9 get_pad each_form">
                                         <div class="nopadding bookingFormInput col-xs-18">
                                             <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="adult.docuNumber" placeholder="Travel Document Number">
 
                                         </div>
                                     </div>
-                                    <div class="col-xs-9 get_pad each_form">
+                                    <div class="col-xs-18 col-md-9 get_pad each_form">
                                         <div class="nopadding bookingFormInput col-xs-18">
                                             <input type="text" class="col-xs-18 form-control trans_input_sm input-md" ng-model="adult.docuExp" placeholder="Travel Document Expiry Date">
 
@@ -905,10 +905,8 @@
                         <sup class="curr_book" ng-bind-html="convS"></sup>
                         <span ng-bind="user[1].totalAgentPrice | number:2"></span>
                     </div>
-
                 </div>
                 <div class="col-xs-18 payment_section">
-
                     <label class="col-xs-18 get_pad">
                         <input type="checkbox" required="required" /> &nbsp;&nbsp;&nbsp;I have read and accepted the General Terms</label>
                     <div class="col-xs-18 col-md-6">

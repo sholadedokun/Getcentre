@@ -8,11 +8,61 @@
 		width: 100%;
 		border-top: 1px solid #ddeaea;
 	}
+	.get_button_reset {
+		margin-top: 1em;
+		background-color: #dedede !important;
+		color: #000;
+	}
+	.people-side {
+		background: #fff;
+		border-radius: 5px;
+		height: 3.5em;
+		padding: 0;
+		.increaser {
+			background: #0fb7ba;
+			height: 3.5em;
+			color: #fff;
+			border-top-left-radius: 5px;
+			border-bottom-left-radius: 5px;
+			padding: 0;
+			p {
+				width: 50%;
+				float: left;
+				height: 1.6em;
+				font-size: 2.2em;
+				margin-bottom: 0;
+				text-align: center;
+			}
+			p:first-child {
+				border-right: 1px solid #fff;
+			}
+		}
+		.anum {
+			height: 1.62em;
+			padding: 0;
+			font-size: 2.2em;
+			margin-bottom: 0;
+			text-align: center;
+			border-right: 1px solid #aaa;
+			.apush {
+				padding: 0;
+				font-size: 1em;
+			}
+		}
+		.apush {
+			height: 2em;
+			padding: 0.81em 0.5em;
+			font-size: 1.2em;
+			margin-bottom: 0;
+			text-align: center;
+			border-right: 1px solid #fff;
+		}
+	}
 	.register-modal-window .modal-dialog {
 		width: 90%;
 		.modal-content {
 			background: #eee;
-			margin-top: 30%;
+			margin-top: 5%;
 			width: 100%;
 			padding: 1em 1em 2em;
 			display: inline-block;
