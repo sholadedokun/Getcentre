@@ -31,7 +31,6 @@
 					<a href="https://www.linkedin.com/company/get-centre" target="_blank" class="fa fa-linkedin" aria-hidden="true"></a>
 					<a href="https://plus.google.com/u/0/118132775185913832007" target="_blank" class="fa fa-google-plus" aria-hidden="true"></a>
 				</div>
-				
 				<div class="col-md-4 col-xs-18 cage reach">
 					<p>+234 8188025444<img src="img/whatsapp.png" width="20px" height="20px"/></br>
 					+234 8188009911</br>+234 012916333</p>
@@ -123,8 +122,7 @@
 											<p class="hidden-xs">insurance</p>
 											<span><img src="img/insurance.png" /></span>
 										</div>
-									</div>
-									
+									</div>									
 								</div>
 							</div>
 							<div class="col-xs-18 hidden-xs hidden-sm">
@@ -169,7 +167,6 @@
 															<span ng-bind="input.value.month"></span>
 															<span ng-bind="input.value.year"></span>
 														</div>
-
 														<div class="iconContainer" ng-click="setToDate(0)"><span  class="iconCalendar"></span></div>
 													</div>
 												</div>
@@ -206,10 +203,7 @@
 														<div class="col-xs-6"><p class="apush" ng-bind="input.name">Rooms</p></div>
 													</div>
 												</div>
-
 												<!-- <div class="col-md-2 arrow booking-form no-padding"  ng-if=" input.type=='date' && input.subType=='todate' && !(input | isArray)">&rarr;</div> -->
-
-
 												<div ng-if="input | isArray" class="col-xs-18 no-padding">
 													<div ng-repeat="inp in input track by $index" class="col-xs-18 no-padding">
 														<div ng-if="defaultSearch.module=='Flight'" class="clearfix visible-xs-block desCounter" >
@@ -224,7 +218,7 @@
 																</div>
 															</div>
 															<div class="col-xs-18 bookingFormInput booking-form no-padding " ng-init="setDates(form)"  ng-if="form.type=='date'">
-																<input type="text" ng-if="form.subType=='fromdate'" data="{{form}}"  name="{{$parent.$parent.$parent.$index}}" class="fromdate datePickerDummy" date-from />
+																<input type="text" ng-if="form.subType=='fromdate'" data="{{form}}" id="from_3_{{$index}}"  name="{{$parent.$parent.$parent.$index}}" class="fromdate datePickerDummy" date-from />
 																<div class="dateContainer" ng-if="form.subType=='fromdate'" >
 																	<div class="dateBreaker rborder" ng-click="setFromDate($parent.$parent.$parent.$index)" >
 																		<span ng-bind="form.value.day"></span>
@@ -297,9 +291,7 @@
 			<div class="row" ng-view autoscroll="true" id="appLoader"></div>
 			<footer-below subscribe="subscribe(subEmail)"></footer-below>
 		</div>
-		
-		</div>
-		
+		</div>		
 		<?php if(isset($_POST["txnref"])){ ?>
 			<input type="hidden" id="pref" value="<?php echo $_POST["txnref"];?>" payref="<?php echo $_POST["payRef"];?>" retref="<?php echo $_POST["retRef"];?>" />
 		<?php }    ?>
@@ -317,7 +309,6 @@
 	    <script src="bower_components/getcentre/jquery-ui.js"></script>
 		<script src="bower_components/angular-ui/build/angular-ui.min.js"></script>
 	    <script src="bower_components/jquery.ui.autocomplete.html.js"></script>
-
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-sanitize.js"></script>
 	    <script src="bower_components/angular-animate/angular-animate.js"></script>
 	    <script src="bower_components/angular-route/angular-route.js"></script>
@@ -326,7 +317,6 @@
 	    <script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
 		<script src="bower_components/moment/min/moment.min.js"></script>
 		<script src="js/sha512.js"></script>
-
 		<!-- app scripts -->
 		<script type="text/javascript" src="js/lib/app.js"></script>
 		<script type="text/javascript" src="js/lib/routes/router.js"></script>
