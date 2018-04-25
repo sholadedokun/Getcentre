@@ -669,7 +669,7 @@ select {
 }
 .subscribe_item {
 	margin: 1em 0;
-	postion: relative;
+	position: relative;
 }
 .subscribe_item div {
 	margin: 0.5em 0;
@@ -964,8 +964,7 @@ select {
 	position: relative;
 	padding: 0;
 }
-.view_all_boards {
-}
+
 .all_boards {
 	background: $pcolor3;
 	padding: 1em;
@@ -1110,7 +1109,7 @@ select {
 	color: #fff;
 }
 .tra_nav div::active {
-	backround: $pcolor2;
+	background: $pcolor2;
 }
 .travel_list,
 .payment_bh {
@@ -1680,21 +1679,21 @@ select option {
 .textarea_input {
 	background: none;
 	border: none;
-	box-radius: 0;
+	border-radius: 0;
 	box-shadow: none;
 	height: 100px !important;
 }
 .trans_input {
 	background: none;
 	border: none;
-	box-radius: 0;
+	border-radius: 0;
 	box-shadow: none;
 	height: 44px !important;
 }
 .trans_input_sm {
 	background: none;
 	border: none;
-	box-radius: 0;
+	border-radius: 0;
 	box-shadow: none;
 }
 .day_month {
@@ -1708,7 +1707,7 @@ select option {
 .trans_input_sm:focus,
 .textarea_input:focus {
 	outline: none;
-	box-radius: none;
+	border-radius: none;
 	box-shadow: none;
 }
 

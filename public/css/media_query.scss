@@ -1,9 +1,9 @@
 @media only screen and (max-width: 420px) {
 	/* Small screen, non-retina */
 	.tab-top {
-		display: block !important;
+		display: flex !important;
 		background: transparent;
-		padding: 1em 0.85em;
+		padding: 1em 0em;
 		border-radius: 0;
 		width: 100%;
 		border-top: 1px solid #ddeaea;
@@ -77,7 +77,6 @@
 			width: auto;
 		}
 	}
-
 	.search_Item_title {
 		width: 3.5em;
 		height: 3.5em;
@@ -96,6 +95,9 @@
 		img {
 			float: none;
 		}
+	}
+	.search_Item_title:first-child {
+		margin-left: 0;
 	}
 	label {
 		margin-top: 0px !important;
@@ -149,7 +151,9 @@
 		width: 100px;
 		height: 70px;
 		float: left;
-		margin-left: 15px;
+	}
+	.navbar-toggle {
+		margin-right: 0;
 	}
 	.inputWrapper {
 		width: 100% !important;
@@ -435,6 +439,37 @@
 
 @media only screen and (min-width: 750px) and (max-width: 1000px) {
 	/* Large screen, retina */
+	.booke-area .cage {
+		display: none;
+		border-bottom: none;
+	}
+	.booke-area .identity {
+		display: block;
+		border-bottom: none;
+	}
+	.navbar-default {
+		margin-top: 0;
+	}
+	.slideContent {
+		padding: 100px 100px 0;
+		height: 390px;
+	}
+	.informate .places {
+		font-size: 20px;
+	}
+	.tab-top {
+		text-align: center;
+		p {
+			float: none;
+			margin-top: 0;
+			width: 100%;
+		}
+		img {
+			display: block;
+			margin: 0 auto;
+			float: none;
+		}
+	}
 	.flightC {
 		text-align: center !important;
 	}

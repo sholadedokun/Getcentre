@@ -1,6 +1,6 @@
-<div class="row topview">
+<section class="topview">
 	<div class="topShadow"></div>
-	<div class="col-xs-18">
+	<div>
 		<div class="banner">
 			<img src="img/dubai.jpg" width="100%" />
 			<div class="slideContent">
@@ -41,7 +41,7 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-18">
-						<div class="col-md-9 no-padding first-left">
+						<div class="col-sm-9 no-padding first-left">
 							<div ng-repeat="tour in localTs | limitTo:3" ng-class="tourClass(1, $index)" ng-mouseover="mouseTB('in')" ng-mouseleave="mouseTB('out')">
 								<div class="black-out"></div>
 								<img ng-src="http://www.getcentre.com/admin/packageimages/{{tour.pict}}" />
@@ -70,7 +70,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-9 second-right no-padding">
+						<div class="col-sm-9 second-right no-padding">
 							<div ng-repeat="tour in localTs.slice(3, 6)" ng-class="tourClass(2, $index)" ng-mouseover="mouseTB('in')" ng-mouseleave="mouseTB('out')">
 								<div class="black-out"></div>
 								<img ng-src="http://www.getcentre.com/admin/packageimages/{{tour.pict}}" />
@@ -199,4 +199,4 @@
 
 
 
-</div>
+</section>

@@ -78,6 +78,7 @@ getcentre.directive("dateFrom", function() {
 			changeMonth: true,
 			numberOfMonths: monthsNum,
 			onClose: function(selectedDate) {
+				console.log($scope.d, selectedDate);
 				if (isNaN($scope.d)) {
 					d = $scope.d.split("|");
 					d = d[0];

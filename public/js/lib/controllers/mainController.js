@@ -143,9 +143,9 @@ getcentre.controller("mainController", [
 			return classB;
 		};
 		$scope.blogClass = function(row, index) {
-			classB = "col-xs-18 col-md-7 small post-small";
+			classB = "col-xs-18 col-sm-7 small post-small";
 			if ((row == 1 && index == 0) || (row == 2 && index == 1)) {
-				classB = "col-xs-18 col-md-11 big_blog";
+				classB = "col-xs-18 col-sm-11 big_blog";
 			}
 			if (row == 2 && index == 2) {
 				classB = classB + " nagMargin";
@@ -202,6 +202,7 @@ getcentre.controller("mainController", [
 		};
 
 		$scope.setFromDate = function(eIndex) {
+			console.log(eIndex, jQuery(".fromdate"));
 			jQuery(".fromdate")
 				.get(eIndex)
 				.focus();
