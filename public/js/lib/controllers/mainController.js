@@ -35,6 +35,10 @@ getcentre.controller("mainController", [
 		$scope.am_pm = [{ name: "AM", value: "0" }, { name: "PM", value: "12" }];
 		$scope.locationtype = [{ name: "Select Type", value: "" }, { name: "Terminal(Airport, Bus Station etc.)", value: "Terminal" }, { name: "Hotel", value: "Hotel" }];
 		$scope.pickupType = "";
+		$scope.airportList = [];
+		$http.get("js/lib/allAirports.json").success(function(response) {
+			$scope.allAirports = response;
+		}); //get additional service Json
 		for (var i = 2; i <= 17; i++) {
 			$options = { value: i, name: i + " Years" };
 			$scope.childAgeOptions.push($options);
@@ -83,6 +87,14 @@ getcentre.controller("mainController", [
 				// optional (if other layers overlap autocomplete list)
 				open: function(event, ui) {
 					jQuery(".ui-autocomplete").css("z-index", 1000);
+				}
+			});
+		};
+		$scope.searchAirports = function(index) {
+			var searchTerm = $scope.defaultSearch.moduleCurrType[index].name.value;
+			$scope.airportList[index] = $scope.allAirports.filter(function(item) {
+				if (item.c.indexOf(searchTerm) >= 0 || item.n.indexOf(searchTerm) >= 0) {
+					return { c: item.c, n: "(" + item.c + ") " + item.n };
 				}
 			});
 		};

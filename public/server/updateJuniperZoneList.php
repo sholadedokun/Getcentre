@@ -1,4 +1,10 @@
 <?php
+ 	error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('memory_limit','5000M');
+    ini_set('max_execution_time', 300);
+    require_once 'fun_connect2.php';
+
 class OTA_UPDATEZONESERVICE{
 
     function OTA_UPDATEZONELIST() {
@@ -15,12 +21,40 @@ class OTA_UPDATEZONESERVICE{
         $obj = new SoapVar($tpa_extensions, XSD_ANYXML) ;
         $JP_ZoneListService->JP_ZoneListRQ->TPA_Extensions = $obj;
         $dataRQ = $JP_ZoneListService;
+        $string_response;
+        $rp;
         try{ $rp = $this->client->__soapCall('JP_ZoneListService', array( 'JP_ZoneListRQ' => $dataRQ ));
-        // echo count($rp);
-           echo "<pre>".print_r($rp)."</pre>";
-
+            $allZonelist=$rp->JP_ZoneListRS->Zone;
+            $allZoneJson;
+            // echo(count($allZonelist));
+            $sql="SELECT * FROM `juniper_zonelist`";
+            $res=mysql_query($sql) or die("Error : Could not fetch database".mysql_error);
+            if($res){
+                $currentIndex = mysql_num_rows($res);
+                $remainingZones = array_splice($allZonelist, $currentIndex);
+                for($i=0; $i<count($remainingZones); $i++){
+                    $sql="INSERT INTO `juniper_zonelist` VALUES (
+                        NULL,'".mysql_real_escape_string($remainingZones[$i]->Code)."',
+                        '".mysql_real_escape_string($remainingZones[$i]->JPDCode)."',
+                        '".mysql_real_escape_string($remainingZones[$i]->Name)."',
+                        '".mysql_real_escape_string($remainingZones[$i]->Parent)."',
+                        '".mysql_real_escape_string($remainingZones[$i]->IATA)."',
+                        '".mysql_real_escape_string($remainingZones[$i]->Type)."',
+                        '".mysql_real_escape_string($remainingZones[$i]->ClientType)."',
+                        '".mysql_real_escape_string($remainingZones[$i]->Name)."',
+                        '".mysql_real_escape_string($remainingZones[$i]->Hotels)."',
+                        '".mysql_real_escape_string($remainingZones[$i]->Searchable)."'
+                        )";
+                    // echo $sql;
+                    $res=mysql_query($sql)or die ("Error : could not insert values" . mysql_error());
+                }
+            }
+            // $file = 'new_zoneList.txt';
+            // file_put_contents($file, $allZoneJson);
         }
         catch (SoapFault $exception){ echo $exception; }
+         
+               
     }
 }
 $obj = new OTA_UPDATEZONESERVICE();

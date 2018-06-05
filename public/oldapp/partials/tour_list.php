@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="col-xs-9  col-sm-4">
-            <div class="col-xs-18"><label>From<input type="text" id="fromdate" class="datepicker_dummy" date-from /></label></div>
+            <div class="col-xs-18"><label>From<input type="text" data="fromdate_3" class="datepicker_dummy" date-from /></label></div>
             
             <div class="nopadding get_input col-sm-18  col-xs-11">
                 <input type="text" class="col-xs-4 form-control day_month get_pad input-md trans_input" ng-click="setfromdate()" ng-model="f_day"  id="h_from_date" placeholder="01" name="" >
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="col-xs-9 col-sm-4">
-            <div class="col-xs-18"><label>Until<input type="text" id="todate" class="datepicker_dummy" date-to /></label></div>
+            <div class="col-xs-18"><label>Until<input type="text" data="todate_3" class="datepicker_dummy" date-to /></label></div>
             <div class="nopadding get_input col-sm-18  col-xs-11">
                         <input type="text" class="col-xs-4 form-control day_month get_pad input-md trans_input" ng-click="settodate()" ng-model="t_day"  id="h_to_date" placeholder="01">
                         <input type="text" class="col-xs-5 form-control day_month get_pad input-md trans_input" ng-click="settodate()" ng-model="t_month"  id="h_to_month" placeholder="Dec">

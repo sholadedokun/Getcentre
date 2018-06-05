@@ -15,7 +15,7 @@ class OTA_HotelResV2Service{
 		$OTA_HotelResV2Service = $this->client->OTA_HotelResV2Service;
 		$OTA_HotelResV2Service->OTA_HotelResRQ->PrimaryLangID = "en";
 		$OTA_HotelResV2Service->OTA_HotelResRQ->SequenceNmbr = $request->details->Snum;
-		$OTA_HotelResV2Service->OTA_HotelResRQ->POS->Source->AgentDutyCode = "API@XML_techtuners";
+		$OTA_HotelResV2Service->OTA_HotelResRQ->POS->Source->AgentDutyCode = "XML_GETCentre";
 		$OTA_HotelResV2Service->OTA_HotelResRQ->POS->Source->RequestorID->Type = "1";
 		$OTA_HotelResV2Service->OTA_HotelResRQ->POS->Source->RequestorID->MessagePassword = "NdKT7Rs5t4";
 		$guest=$request->details->guestBreak;
@@ -23,7 +23,7 @@ class OTA_HotelResV2Service{
 		for($y=0; $y<$rooms; $y++){
 			$OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->RoomStays->RoomStay->RatePlans->RatePlan[$y]->RatePlanCode= $request->details->guestBreak[$y]->ratePlan;
 			$tpa_extensions = '<ns1:TPA_Extensions><Guests>';
-			$allguest=$guest[$y]->guest_details->guest;
+			$allguest=$guest[$y]->guest_details->guest;			
 			for($h=0; $h<count($allguest); $h++){
 				//$name = explode(" ", $guest[$y][0][$h]);
 				if($allguest[$h]->title!='Child'){
@@ -33,6 +33,7 @@ class OTA_HotelResV2Service{
 					$tpa_extensions=$tpa_extensions."<Guest Name='".$allguest[$h]->fname."' Surname='".$allguest[1]->lname."' Age='12'/>";
 				}
 			}
+			// print_r($allguest);
 			$tpa_extensions=$tpa_extensions."</Guests></ns1:TPA_Extensions>";
 
 			//echo $tpa_extensions;
@@ -76,11 +77,16 @@ class OTA_HotelResV2Service{
 			$tpa_extensions2=$tpa_extensions2."</Supplements></ns1:TPA_Extensions>";
 			$obj2 = new SoapVar($tpa_extensions2, XSD_ANYXML);
 			$OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->TPA_Extensions = $obj2;
-			echo "<pre>".print_r($OTA_HotelResV2Service, true)."</pre>";
+			
 		$dataRQ = $OTA_HotelResV2Service;
+		// print_r($dataRQ);
+		// die;
+		$file = 'juniper_hotelBookRQ.txt';
+        file_put_contents($file, serialize($dataRQ));
 		try{
 			$rp = $this->client->__soapCall('OTA_HotelResV2Service', array('OTA_HotelResRQ' => $dataRQ));
-			echo "<pre>".print_r($rp, true)."</pre>";
+			$file = 'juniper_hotelBookRS.txt';
+            file_put_contents($file,  serialize($rp));
 			$hotel_succ= $rp->OTA_HotelResRS->Success;
 			if(isset($hotel_succ)){
 				$array1 = (array) $rp;

@@ -358,7 +358,7 @@
 	$headers = "MIME-Version: 1.0"."\r\n";
 	$headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
 	$headers .= "From:Getcentre.com\r\n";
-	$headers .= 'Bcc: sholadedokun@yahoo.com';
+	$headers .= 'Bcc: bookings@getcentre.com, sholadedokun@gmail.com';
 	//$message = nl2br($message);
 	$a = mail($to, $subject, $message, $headers);
 	if($a){echo 'o';}

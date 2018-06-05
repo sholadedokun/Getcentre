@@ -1,82 +1,83 @@
-
 <div class="col-xs-18  search_result">
-    <div class="col-md-18 about-heading">
-        <div class="about-divide"></div>
-        <p>20 Years Experience | 24/7 Customer Service | Faster Processing Time</p>
-        <h2>Our VISA Assistance</h2>
-    </div>
-    <div class="col-xs-18 visaTab">
-    	<div class="col-md-18">
-                <div class="col-md-18 contact_pad"><h4>Schedule an appointment at our office</h4></div>
-                <div class="col-md-18 ">
-                    <div class="col-md-18 visa_form">
-                        <!-- <div class="col-md-18 login_options  contact_pad">Please Fill Your Details below</div> -->
-						<form ng-submit="sendV(visa)">
-	                        <div class="col-md-18 login_form_register">
+	<div class="col-md-18 about-heading">
+		<div class="about-divide"></div>
+		<p>20 Years Experience | 24/7 Customer Service | Faster Processing Time</p>
+		<h2>Our VISA Assistance</h2>
+	</div>
+	<div class="col-xs-18 visaTab">
+		<div class="col-md-18">
+			<div class="col-md-18 contact_pad">
+				<h4>Schedule an appointment at our office</h4>
+			</div>
+			<div class="col-md-18 ">
+				<div class="col-md-18 visa_form">
+					<!-- <div class="col-md-18 login_options  contact_pad">Please Fill Your Details below</div> -->
+					<form ng-submit="sendV(visa)">
+						<div class="col-md-18 login_form_register">
 
-                                <div class="col-md-4">
-                                    <div class="bookingFormInput col-md-18 ">
-                                     <select class="placeSearch" required  id="title" ng-model="visa.title" ng-options="options.value as options.name for options in titles">
-                                    </select>
-                                    </div>
-                                 </div>
-                                <div class="col-md-7 ">
-                                    <div class="bookingFormInput col-md-18">
-                                     <input type="text"  class="placeSearch" required placeholder="First Name" ng-model="visa.fname">
-                                    </div>
-                                </div>
-                                <div class="col-md-7 ">
-                                    <div class="bookingFormInput col-md-18 ">
-                                     <input type="text"  class="placeSearch" required placeholder="Surname" ng-model="visa.lname">
-                                    </div>
-                                </div>
-	                            <div class="col-md-6 clearfix contact_pad">
-	                                <div class="bookingFormInput col-md-18">
-	                                    <input type="text" class="placeSearch" required placeholder="Phone Number" ng-model="visa.phone">
-	                                </div>
-	                            </div>
-	                            <div class="col-md-6 contact_pad">
-	                                <div class="bookingFormInput col-md-18 ">
-	                                 <input type="text"  class="placeSearch" required placeholder="Email Address" ng-model="visa.email">
-	                                </div>
-	                            </div>
-	                            <div class="col-md-6 contact_pad">
-	                                <div class="bookingFormInput col-md-18">
-	                                    <input type="text" class="placeSearch" required placeholder="Resident Country" ng-model="visa.Rcountry">
-	                                </div>
-	                            </div>
-	                            <div class="col-md-6 contact_pad">
-	                                <div class="bookingFormInput col-md-18">
-	                                    <input type="text"  class="placeSearch" required placeholder="Scheduled Date" ng-model="visa.date" date-from>
-	                                </div>
-	                            </div>
-	                            <div class="col-md-6 contact_pad">
-	                                <div class="bookingFormInput col-md-18">
-	                                  <select class="placeSearch"  ng-model="visa.office" ng-options="options.value as options.name for options in offices">
-	                                </select>
-	                                </div>
-	                            </div>
-	                            <div class="col-md-6 contact_pad">
-	                                <div class="bookingFormInput col-md-18 ">
-	                                 <select class="placeSearch"  ng-model="visa.travelingP" required ng-options="options.value as options.name for options in purpose"></select>
-	                                </div>
-	                            </div>
-                                <div class="col-md-18 contact_pad">
-    	                            <div class="bookingFormInput col-md-6 ">
-    	                                 <select class="placeSearch" id="select_country" required ng-model="visa.Dcountry" ng-options="options.value as options.name for options in countries">
+							<div class="col-md-4">
+								<div class="bookingFormInput col-md-18 ">
+									<select class="placeSearch" required id="title" ng-model="visa.title" ng-options="options.value as options.name for options in titles">
+									</select>
+								</div>
+							</div>
+							<div class="col-md-7 ">
+								<div class="bookingFormInput col-md-18">
+									<input type="text" class="placeSearch" required placeholder="First Name" ng-model="visa.fname">
+								</div>
+							</div>
+							<div class="col-md-7 ">
+								<div class="bookingFormInput col-md-18 ">
+									<input type="text" class="placeSearch" required placeholder="Surname" ng-model="visa.lname">
+								</div>
+							</div>
+							<div class="col-md-6 clearfix contact_pad">
+								<div class="bookingFormInput col-md-18">
+									<input type="text" class="placeSearch" required placeholder="Phone Number" ng-model="visa.phone">
+								</div>
+							</div>
+							<div class="col-md-6 contact_pad">
+								<div class="bookingFormInput col-md-18 ">
+									<input type="text" class="placeSearch" required placeholder="Email Address" ng-model="visa.email">
+								</div>
+							</div>
+							<div class="col-md-6 contact_pad">
+								<div class="bookingFormInput col-md-18">
+									<input type="text" class="placeSearch" required placeholder="Resident Country" ng-model="visa.Rcountry">
+								</div>
+							</div>
+							<div class="col-md-6 contact_pad">
+								<div class="bookingFormInput col-md-18">
+									<input type="text" class="placeSearch" required placeholder="Scheduled Date" data="visa_3" ng-model="visa.date" date-from>
+								</div>
+							</div>
+							<div class="col-md-6 contact_pad">
+								<div class="bookingFormInput col-md-18">
+									<select class="placeSearch" ng-model="visa.office" ng-options="options.value as options.name for options in offices">
+									</select>
+								</div>
+							</div>
+							<div class="col-md-6 contact_pad">
+								<div class="bookingFormInput col-md-18 ">
+									<select class="placeSearch" ng-model="visa.travelingP" required ng-options="options.value as options.name for options in purpose"></select>
+								</div>
+							</div>
+							<div class="col-md-18 contact_pad">
+								<div class="bookingFormInput col-md-6 ">
+									<select class="placeSearch" id="select_country" required ng-model="visa.Dcountry" ng-options="options.value as options.name for options in countries">
 
-    	                                </select>
-    	                            </div>
-                                    <div class="col-md-6 pull-right no-padding">
-        								<input type="submit" value="Schedule Appointment" class="search-btn schedule_btn" />
-        							</div>
+									</select>
+								</div>
+								<div class="col-md-6 pull-right no-padding">
+									<input type="submit" value="Schedule Appointment" class="search-btn schedule_btn" />
+								</div>
 
-                                </div>
-	                            <div class="col-xs-18">{{notmessageV}}</div>
-	                        </div>
-						</form>
-                    </div>
-                </div>
-            </div>
-    </div>
+							</div>
+							<div class="col-xs-18">{{notmessageV}}</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

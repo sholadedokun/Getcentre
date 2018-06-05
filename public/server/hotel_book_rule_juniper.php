@@ -17,7 +17,7 @@ class OTA_HotelBookingRuleService{
 		$OTA_HotelBookingRuleService = $this->client->OTA_HotelBookingRuleService;
 		$OTA_HotelBookingRuleService->OTA_HotelBookingRuleRQ->PrimaryLangID = "en";
 		$OTA_HotelBookingRuleService->OTA_HotelBookingRuleRQ->SequenceNmbr = $request->sequence_num;
-		$OTA_HotelBookingRuleService->OTA_HotelBookingRuleRQ->POS->Source->AgentDutyCode = "XML_techtuners";
+		$OTA_HotelBookingRuleService->OTA_HotelBookingRuleRQ->POS->Source->AgentDutyCode = "XML_GETCentre";
 		$OTA_HotelBookingRuleService->OTA_HotelBookingRuleRQ->POS->Source->RequestorID->Type = "1";
 		$OTA_HotelBookingRuleService->OTA_HotelBookingRuleRQ->POS->Source->RequestorID->MessagePassword = "NdKT7Rs5t4";
 		$OTA_HotelBookingRuleService->OTA_HotelBookingRuleRQ->RuleMessage->HotelCode = $request->hotel_code;

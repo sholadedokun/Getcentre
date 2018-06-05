@@ -55,7 +55,7 @@
 				<div class="row">
 					<nav class="navbar col-xs-18 navbar-default">
 						<div class="web_back"></div>
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  ,-target="#navbar" aria-expanded="false" aria-controls="navbar">
 							<span class="sr-only">Toggle navigation</span>
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
@@ -146,14 +146,19 @@
 														<label class="" ng-bind="input.name"></label>
 														<div class="clearfix visible-xs-block"></div>
 														<div class="inputWrapper">
-															<input type="text" class="placeSearch" placeholder="enter destination"  ng-init="setlocators()" ng-model="input.value.name" ng-click="searchRevel()" name={{$index}} />
+															<input type="text" class="placeSearch" placeholder="enter destination"  ng-change="searchAirports($index)" ng-model="input.value.name" ng-click="searchRevel()" name={{$index}} />
 															<span ng-if="input.name=='From'" class="iconFlightFrom"></span>
 															<span ng-if="input.name=='To'" class="iconFlightTo"></span>
+															<ul class="airportList" ng-if="airpostList[$index].length>0">
+																<li ng-repeat="airport in airportList[$index]" data="{{airport.c}}">
+																	{{airport.n}}
+																</li>
+															</ul>
 														</div>
 													</div>
 													<div class="col-xs-18 booking-form bookingFormInput no-padding" ng-init="setDates(input)"  ng-if="input.type=='date' && !(input | isArray)">
-														<input type="text" ng-if="input.subType=='fromdate'" id="dateFrom_3" name="{{$index}}|" class="fromdate datePickerDummy" date-from />
-														<input type="text" ng-if="input.subType=='todate'"  id="dateto_3" name="{{$index}}|" class="todate datePickerDummy" date-to />
+														<input type="text" ng-if="input.subType=='fromdate'" data="dateFrom_3" name="{{$index}}|" class="fromdate datePickerDummy" date-from />
+														<input type="text" ng-if="input.subType=='todate'"  data="dateto_3" name="{{$index}}|" class="todate datePickerDummy" date-to />
 														<div class="dateContainer" ng-if="input.subType=='fromdate'" name="f"  >
 															<div class="dateBreaker rborder" ng-click="setFromDate(0)" >
 																<span ng-bind="input.value.day"></span>
@@ -219,7 +224,7 @@
 																	</div>
 																</div>
 																<div class="col-xs-18 bookingFormInput booking-form no-padding " ng-init="setDates(form)"  ng-if="form.type=='date'">
-																	<input type="text" ng-if="form.subType=='fromdate'" data="{{form}}" id="from_3_{{$parent.$parent.$parent.$index}}"  name="{{$parent.$parent.$parent.$index}}" class="fromdate datePickerDummy" date-from />
+																	<input type="text" ng-if="form.subType=='fromdate'"  data="from_3"  name="{{$parent.$parent.$parent.$index}}" class="fromdate datePickerDummy" date-from />
 																	<div class="dateContainer" ng-if="form.subType=='fromdate'" >
 																		<div class="dateBreaker rborder" ng-click="setFromDate($parent.$parent.$parent.$index)" >
 																			<span ng-bind="form.value.day"></span>

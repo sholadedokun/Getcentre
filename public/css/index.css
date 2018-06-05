@@ -5,6 +5,14 @@ body {
   height: 100%;
 }
 
+.bank_details {
+  margin-bottom: 1em !important;
+}
+
+.btn-lg {
+  margin-bottom: 1em;
+}
+
 @media only screen and (max-width: 320px) {
   /* Small screen, non-retina */
   .web_back {
@@ -16,7 +24,7 @@ body {
     line-height: 35px;
   }
   .search-tool form div div label {
-    padding: 1em 1em 0em  0em !important;
+    padding: 1em 1em 0em 0em !important;
     text-align: right;
   }
   .get_input {
@@ -43,7 +51,8 @@ body {
   .foot_col {
     padding: 3em 0em 0em !important;
   }
-  .copy_right, .social_media {
+  .copy_right,
+  .social_media {
     text-align: center !important;
     padding: 0.5em 0 1em !important;
   }
@@ -124,7 +133,7 @@ body {
     line-height: 35px;
   }
   .search-tool form div div label {
-    padding: 1em 1em 0em  0em !important;
+    padding: 1em 1em 0em 0em !important;
     text-align: right;
   }
   .get_input {
@@ -248,9 +257,8 @@ body {
 }
 
 .navbar-toggle {
-  border-radius: 10px;
+  border-color: transparent !important;
   background: transparent;
-  border: 2px solid #7ccb25 !important;
 }
 
 .navbar-toggle:hover {
@@ -259,7 +267,7 @@ body {
 }
 
 .navbar-toggle .icon-bar {
-  background: #7ccb25 !important;
+  background: #096266 !important;
 }
 
 .top_container {
@@ -628,7 +636,7 @@ select {
 
 .subscribe_item {
   margin: 1em 0;
-  postion: relative;
+  position: relative;
 }
 
 .subscribe_item div {
@@ -753,7 +761,8 @@ select {
   color: #000;
 }
 
-.search_bar, .voucher_Notification {
+.search_bar,
+.voucher_Notification {
   padding: 1em;
   background: #c7e3e4;
   color: #014b4e;
@@ -766,7 +775,10 @@ select {
   border-radius: 3px !important;
 }
 
-.search_result, .travel_bag, .headers, .service_name {
+.search_result,
+.travel_bag,
+.headers,
+.service_name {
   padding: 1em;
 }
 
@@ -788,7 +800,8 @@ select {
   color: #c7e3e4;
 }
 
-.cha_action, .serv_det {
+.cha_action,
+.serv_det {
   color: #0fb6ba;
 }
 
@@ -997,7 +1010,8 @@ select {
   min-height: 113px !important;
 }
 
-.t_price, .insureD {
+.t_price,
+.insureD {
   background: #014b4e;
   padding: 0.45em;
   font-size: 18px;
@@ -1177,10 +1191,11 @@ select {
 }
 
 .tra_nav div::active {
-  backround: #014b4e;
+  background: #014b4e;
 }
 
-.travel_list, .payment_bh {
+.travel_list,
+.payment_bh {
   background: #fff;
   min-height: 100px !important;
 }
@@ -1224,7 +1239,8 @@ select {
   font-size: 12px;
 }
 
-.contact_cancel, .fcond {
+.contact_cancel,
+.fcond {
   color: #096266;
 }
 
@@ -1311,7 +1327,8 @@ select {
 }
 
 /***********Complete Booking************/
-.complete_book, .acct {
+.complete_book,
+.acct {
   padding: 2em 1em;
   color: #014b4e;
   font-style: italic;
@@ -1405,7 +1422,8 @@ select {
   padding: 0px;
 }
 
-.lead_guest, .pay_confirm {
+.lead_guest,
+.pay_confirm {
   background: #0fb6ba;
   padding: 1em;
   color: #fff;
@@ -1418,7 +1436,8 @@ select {
   color: #0baeb7 !important;
 }
 
-a, .link {
+a,
+.link {
   cursor: pointer;
 }
 
@@ -1438,7 +1457,8 @@ a, .link {
   box-shadow: 0px 0px 2px #ccc;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
   color: #035358 !important;
 }
 
@@ -1488,7 +1508,7 @@ a:hover, a:focus {
 }
 
 .ui-widget {
-  font-size: .7em !important;
+  font-size: 0.7em !important;
 }
 
 .nopadding {
@@ -1510,7 +1530,10 @@ a:hover, a:focus {
   margin: 0 !important;
 }
 
-h3, h4, h5, h6 {
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }
 
@@ -1797,7 +1820,9 @@ select option {
   font-weight: 600;
 }
 
-.newsletter input, .newsletter button, .room_num {
+.newsletter input,
+.newsletter button,
+.room_num {
   margin-top: 15px;
 }
 
@@ -1816,7 +1841,7 @@ select option {
 .textarea_input {
   background: none;
   border: none;
-  box-radius: 0;
+  border-radius: 0;
   box-shadow: none;
   height: 100px !important;
 }
@@ -1824,7 +1849,7 @@ select option {
 .trans_input {
   background: none;
   border: none;
-  box-radius: 0;
+  border-radius: 0;
   box-shadow: none;
   height: 44px !important;
 }
@@ -1832,7 +1857,7 @@ select option {
 .trans_input_sm {
   background: none;
   border: none;
-  box-radius: 0;
+  border-radius: 0;
   box-shadow: none;
 }
 
@@ -1847,9 +1872,11 @@ select option {
   font-weight: bold;
 }
 
-.trans_input:focus, .trans_input_sm:focus, .textarea_input:focus {
+.trans_input:focus,
+.trans_input_sm:focus,
+.textarea_input:focus {
   outline: none;
-  box-radius: none;
+  border-radius: none;
   box-shadow: none;
 }
 
@@ -1873,11 +1900,13 @@ select option {
   color: #999;
 }
 
-input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
   color: #999;
 }
 
-input:-moz-placeholder, textarea:-moz-placeholder {
+input:-moz-placeholder,
+textarea:-moz-placeholder {
   color: #999;
 }
 
@@ -1926,7 +1955,9 @@ input:-moz-placeholder, textarea:-moz-placeholder {
   font-size: 0.95em;
 }
 
-.reg .inputWrapper, .reg input, .reg select {
+.reg .inputWrapper,
+.reg input,
+.reg select {
   width: 100% !important;
 }
 
@@ -2098,7 +2129,8 @@ input:-moz-placeholder, textarea:-moz-placeholder {
   color: #014b4e;
 }
 
-.get_input, textarea {
+.get_input,
+textarea {
   background: #fff !important;
   padding: 0 !important;
   margin: 0;

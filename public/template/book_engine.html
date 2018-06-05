@@ -21,9 +21,9 @@
 			</div>
 		</div>
 		<div class="col-xs-18 booking-form bookingFormInput no-padding" ng-init="setDates(input)" ng-if="input.type=='date' && !(input | isArray)">
-			<input type="text" ng-if="input.subType=='fromdate'" id="dateFrom_1" name="{{$index}}|" class="fromdate datePickerDummy"
+			<input type="text" ng-if="input.subType=='fromdate'" data="dateFrom_1" name="{{$index}}|" class="fromdate datePickerDummy"
 			 date-from />
-			<input type="text" ng-if="input.subType=='todate'" id="dateto_1" name="{{$index}}|" class="todate datePickerDummy" date-to
+			<input type="text" ng-if="input.subType=='todate'" data="dateto_1" name="{{$index}}|" class="todate datePickerDummy" date-to
 			/>
 			<div class="dateContainer" ng-if="input.subType=='fromdate'" name="f">
 				<div class="dateBreaker rborder" ng-click="setFromDate(2)">
@@ -108,7 +108,7 @@
 						</div>
 					</div>
 					<div class="col-xs-18 bookingFormInput booking-form no-padding " ng-init="setDates(form)" ng-if="form.type=='date'">
-						<input type="text" ng-if="form.subType=='fromdate'" data="{{form}}" name="{{$parent.$parent.$parent.$index}}" class="fromdate datePickerDummy"
+						<input type="text" ng-if="form.subType=='fromdate'" data="dat_3" name="{{$parent.$parent.$parent.$index}}" class="fromdate datePickerDummy"
 						 date-from />
 						<div class="dateContainer" ng-if="form.subType=='fromdate'">
 							<div class="dateBreaker rborder" ng-click="setFromDate($parent.$parent.$parent.$index)">

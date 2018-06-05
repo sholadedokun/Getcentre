@@ -70,7 +70,7 @@ getcentre.directive("a", function() {
 getcentre.directive("dateFrom", function() {
 	return function($scope, element, attrs) {
 		$scope.d = attrs.name;
-		var monthsNum = parseInt(attrs.id.split("_")[1]);
+		var monthsNum = parseInt(attrs.data.split("_")[1]);
 		element.datepicker({
 			defaultDate: "",
 			dateFormat: "dd M yy",
@@ -78,7 +78,7 @@ getcentre.directive("dateFrom", function() {
 			changeMonth: true,
 			numberOfMonths: monthsNum,
 			onClose: function(selectedDate) {
-				console.log($scope.d, selectedDate);
+				console.log($scope.d, "hello");
 				if (isNaN($scope.d)) {
 					d = $scope.d.split("|");
 					d = d[0];
@@ -120,8 +120,7 @@ getcentre.directive("dateFrom", function() {
 getcentre.directive("dateTo", function() {
 	return function($scope, element, attrs) {
 		$scope.d = attrs.name;
-		var monthsNum = parseInt(attrs.id.split("_")[1]);
-		console.log(attrs.id, attrs.id.split("_"));
+		var monthsNum = parseInt(attrs.data.split("_")[1]);
 		element.datepicker({
 			dateFormat: "dd M yy",
 			changeMonth: true,

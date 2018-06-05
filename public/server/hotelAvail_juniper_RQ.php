@@ -21,38 +21,64 @@
 					$database = "getcentr_getcentre";
 					@ mysql_pconnect($host,$username,$password);
 					$connection=mysql_select_db($database);
-					$sql="SELECT zone_code from `juniper_zonelist`  WHERE zone_IATA='".$zone."' AND zone_type=''";
-					//echo $sql;
+					$sql="SELECT zone_code from `juniper_zonelist`  WHERE zone_IATA='".$zone."' AND zone_type='CTY'";
+					// echo $sql;
 					$rs=mysql_query($sql);
 					$row_zone = mysql_fetch_array($rs);
+					// echo $row_zone[0];
 					return	$row_zone[0];
 				}
 			}
-			function getHotel($hotel, $sequence, $room_adult, $room_child){
+			function getRooms($hotel, $roomRate){
+
+			}
+			function getHotel($hotel, $sequence, $roombreak){
 				$a_json_row['S_num']= $sequence;
 				$a_json_row['position']= array();
 				$a_json_row['availToken']='not_available';
 				$a_json_row['availRoom']=array();
 				$a_json_row['currency']=$hotel->Total->CurrencyCode;
 				if (is_array($hotel->RoomRates->RoomRate)){
-					$ratecount= count($hotel->RoomRates->RoomRate);
+					// print_r($hotel->RoomRates->RoomRate);
+					$ratecount= count($hotel->RoomRates->RoomRate); //multiple rates found in this found
 				}
 				else{
-					$ratecount=1;
+					$ratecount=1; // just one rate found in this Hotel;
 				}
+				// print_r($roombreak);
 				for($b=0; $b<$ratecount; $b++){
 					if($ratecount==1){$rate=$hotel->RoomRates->RoomRate;}
 					else{$rate=$hotel->RoomRates->RoomRate[$b];}
-					$a_json_row['availRoom'][$b]->HotelOccupancy->Occupancy->AdultCount = $room_adult;
-					$a_json_row['availRoom'][$b]->HotelOccupancy->Occupancy->ChildCount = $room_child;
-					$a_json_row['availRoom'][$b]->HotelOccupancy->RoomCount=$rate->Rates->Rate->NumberOfUnits;
 
-					//$a_json['tag']='Juniper';
-					$a_json_row['availRoom'][$b]->HotelRoom->RateCode=$rate->RatePlanCode;
-					$a_json_row['availRoom'][$b]->HotelRoom->Board->{'$'}=$rate->RatePlanCategory;
-					$a_json_row['availRoom'][$b]->HotelRoom->Price->Amount=$rate->Total->AmountAfterTax;
-					$a_json_row['availRoom'][$b]->HotelRoom->RoomType->{'$'}=$rate->Rates->Rate->RateDescription->Text->_;
-					//array_push($a_json_row['availRoom'],$hotel->RoomRates[$b]);
+					if(is_array($rate->Rates->Rate)){
+						$allRooms=$rate->Rates->Rate;
+						$totalPrice=0;
+						for($c=0; $c<count($allRooms); $c++){
+							$index= count($a_json_row['availRoom']);
+							$roomNum=explode(",",$allRooms[$c]->RateSource);
+							for($a=0; $a<count($roomNum); $a++){
+								$a_json_row['availRoom'][$index]->HotelOccupancy->Occupancy->AdultCount = $roombreak[($roomNum[$a]-1)][0]->value;
+								$a_json_row['availRoom'][$index]->HotelOccupancy->Occupancy->ChildCount = $roombreak[($roomNum[$a]-1)][1]->value;;
+								$a_json_row['availRoom'][$index]->HotelOccupancy->RoomCount=$allRooms[$c]->NumberOfUnits;
+								$a_json_row['availRoom'][$index]->HotelRoom->RateCode=$rate->RatePlanCode;
+								$a_json_row['availRoom'][$index]->HotelRoom->Board->{'$'}=$rate->RatePlanCategory;
+								$a_json_row['availRoom'][$index]->HotelRoom->Price->Amount=$allRooms[$c]->Total->AmountAfterTax;
+								$a_json_row['availRoom'][$index]->HotelRoom->RoomType->{'$'}=$allRooms[$c]->RateDescription->Text->_;
+							}							
+							// $totalPrice+=$allRooms[$c]->Total->AmountAfterTax;
+						}
+						// $a_json_row['availRoom'][$b]->totalPrice=$totalPrice;
+					}
+					else{
+						$a_json_row['availRoom'][$b]->HotelOccupancy->Occupancy->AdultCount = $room_adult;
+						$a_json_row['availRoom'][$b]->HotelOccupancy->Occupancy->ChildCount = $room_child;
+						$a_json_row['availRoom'][$b]->HotelOccupancy->RoomCount=$rate->Rates->Rate->NumberOfUnits;
+						$a_json_row['availRoom'][$b]->HotelRoom->RateCode=$rate->RatePlanCode;
+						$a_json_row['availRoom'][$b]->HotelRoom->Board->{'$'}=$rate->RatePlanCategory;
+						$a_json_row['availRoom'][$b]->HotelRoom->Price->Amount=$rate->Total->AmountAfterTax;
+						$a_json_row['availRoom'][$b]->HotelRoom->RoomType->{'$'}=$rate->Rates->Rate->RateDescription->Text->_;
+					}
+					
 				}
 				$a_json_row['dateFrom']=$hotel->TimeSpan->Start;
 				$a_json_row['dateTo']=$hotel->TimeSpan->End;;
@@ -86,28 +112,30 @@
 			$OTA_HotelAvailService->OTA_HotelAvailRQ->POS->Source->RequestorID->MessagePassword = 'NdKT7Rs5t4';
 			$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->StayDateRange->Start =substr($_GET["hcheckin"],0,4).'-'.substr($_GET["hcheckin"],4,2).'-'.substr($_GET["hcheckin"],-2);
 			$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->StayDateRange->End = substr($_GET["hcheckout"],0,4).'-'.substr($_GET["hcheckout"],4,2).'-'.substr($_GET["hcheckout"],-2);
-			for($x=0; $x<count($_GET["hRoomBreak"]); $x++){
-				$roombreak=json_decode($_GET["hRoomBreak"]);
-				$room_adult = $roombreak[$x][0]->value;
+			
+			$roombreak=json_decode($_GET["hRoomBreak"]);
+			for($i=0; $i<count($roombreak); $i++){
+				$room_adult = $roombreak[$i][0]->value;
 				if($room_adult>0){	//if there are Adult occupant in the room array.
-					$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->RoomStayCandidates->RoomStayCandidate[$x]->Quantity = '1';
-					$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->RoomStayCandidates->RoomStayCandidate[$x]->GuestCounts->GuestCount[0]->Count = $room_adult;
-					$room_child=$roombreak[$x][1]->value;
-					if($room_child!=0){
-						$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->RoomStayCandidates->RoomStayCandidate[$x]->GuestCounts->GuestCount[1]->Age = '11';
-						$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->RoomStayCandidates->RoomStayCandidate[$x]->GuestCounts->GuestCount[1]->Count = $room_child;
+					$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->RoomStayCandidates->RoomStayCandidate[$i]->Quantity = '1';
+					$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->RoomStayCandidates->RoomStayCandidate[$i]->GuestCounts->GuestCount[0]->Count = $room_adult;
+					$room_child=$roombreak[$i][1]->value;
+					for($c=1; $c<=$room_child; $c++){
+						$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->RoomStayCandidates->RoomStayCandidate[$i]->GuestCounts->GuestCount[$c]->Age = $roombreak[$i][1]->ages[$c-1]->valueYear;
+						$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->RoomStayCandidates->RoomStayCandidate[$i]->GuestCounts->GuestCount[$c]->Count = 1;
 					}
 				}
-			}
+			}				
+			
 			if(strpos($_GET["hdescode"],'_')>0){
 				$zcods=explode('_',$_GET["hdescode"]);
-				$zonecode='13826';
-				// $zonecode=getcityCode($zcods[0], $zcods[1]);
+				// $zonecode='13826';
+				$zonecode=getcityCode($zcods[0], $zcods[1]);
 				$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->HotelSearchCriteria->Criterion->HotelRef->HotelCityCode = $zonecode;
 			}
 			else{
-				$zonecode='13826';
-				// $zonecode=getcityCode($_GET["hdescode"], null);
+				// $zonecode='13826';
+				$zonecode=getcityCode($_GET["hdescode"], null);
 				$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->HotelSearchCriteria->Criterion->HotelRef->HotelCityCode =$zonecode;
 			}
 			//retrieve on 4 star hotels
@@ -115,12 +143,18 @@
 			$tpa_extensions = '<ns1:TPA_Extensions><ShowBasicInfo>1</ShowBasicInfo><ShowCatalogueData>1</ShowCatalogueData><IsGiataHotelCode>1</IsGiataHotelCode><Debug>1</Debug></ns1:TPA_Extensions>';
 			$obj = new SoapVar($tpa_extensions, XSD_ANYXML) ;
 			$OTA_HotelAvailService->OTA_HotelAvailRQ->AvailRequestSegments->AvailRequestSegment->HotelSearchCriteria->Criterion->TPA_Extensions = $obj;
+			
+			// print_r($OTA_HotelAvailService);
+			// die;
 			$dataRQ = $OTA_HotelAvailService;
-			// echo "<pre>".print_r($dataRQ, true)."</pre>";
+			$file = 'juniper_hotelAvailRQ.txt';
+			file_put_contents($file, serialize($dataRQ));
 			try{ $rp = $this->client->__soapCall('OTA_HotelAvailService', array( 'OTA_HotelAvailRQ' => $dataRQ ));
 
 				$array1 = (array) $rp;
-				// echo "<pre>".print_r($rp)."</pre>";
+				// print_r($array1['OTA_HotelAvailRS']->RoomStays->RoomStay);
+				$file = 'juniper_hotelAvailRS.txt';
+            	file_put_contents($file, serialize($rp));
 				$a_json = array();
 				$a_json_row = array();
 				$a_json['total']=count($array1['OTA_HotelAvailRS']->RoomStays->RoomStay);
@@ -129,14 +163,16 @@
 				if($a_json['total']>0){
 					$hotel=$array1['OTA_HotelAvailRS']->RoomStays->RoomStay;
 					if($a_json['total']==1){
+						//just one hotel found
 						$a_json['currency']=$array1['OTA_HotelAvailRS']->RoomStays->RoomStay->Total->CurrencyCode;
-						array_push($a_json['hotelList'],getHotel($hotel, $sequence, $room_adult, $room_child));
+						array_push($a_json['hotelList'],getHotel($hotel, $sequence, $roombreak));
 					}
 					else{
+						//multiple hotels found
 						$a_json['currency']=$array1['OTA_HotelAvailRS']->RoomStays->RoomStay[0]->Total->CurrencyCode;
 						for ($i=0; $i<$a_json['total']; $i++){
 							$hotel=$array1['OTA_HotelAvailRS']->RoomStays->RoomStay[$i];
-							array_push($a_json['hotelList'],getHotel($hotel, $sequence, $room_adult, $room_child));
+							array_push($a_json['hotelList'],getHotel($hotel, $sequence, $roombreak));
 						}
 					}
 				}

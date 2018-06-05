@@ -40,7 +40,7 @@
                                             <input type="text" class="form-control col-xs-18 input-sm get_input" ng-click="setfromdate()" ng-model="f_year" id="h_from_year">
                                         </div>
                                         <div class="col-xs-18 change_date" ng-click="setfromdate()">
-                                            Change Date<input type="text" id="s_date" class="datepicker_dummy" tdate-from />
+                                            Change Date<input type="text" id="data_3" class="datepicker_dummy" tdate-from />
                                         </div>
                                     </div>
                                 </div>                            
@@ -90,7 +90,7 @@
                                             <input type="text" class="form-control col-xs-18 input-sm get_input" ng-click="setfromdate()" ng-model="f_year" id="h_from_year">
                                         </div>
                                         <div class="col-xs-18 change_date" ng-click="setfromdate()">
-                                            Change Date<input type="text" id="s_date" class="datepicker_dummy" tdate-from />
+                                            Change Date<input type="text" data="tour_3" class="datepicker_dummy" date-from />
                                         </div>
                                     </div>
                                     

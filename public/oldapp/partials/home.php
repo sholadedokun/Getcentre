@@ -312,8 +312,8 @@
                     <div class="col-xs-9" ng-if="input.type=='date'">
                         <label class="col-xs-7 col-md-4 get_pad hidden-sm" >
                             <span ng-bind="input.name" ></span>
-                            <input type="text" ng-if="input.subType=='fromdate'" name="f" class="{{input.subType}} datepicker_dummy" date-from />
-                            <input type="text" ng-if="input.subType=='todate'" name="f"  class="{{input.subType}} datepicker_dummy" date-to />
+                            <input type="text" ng-if="input.subType=='fromdate'" name="f" data="home_3" class="{{input.subType}} datepicker_dummy" date-from />
+                            <input type="text" ng-if="input.subType=='todate'" name="f"  data="home_3" class="{{input.subType}} datepicker_dummy" date-to />
                         </label>
                         <div class="get_input col-sm-18  col-xs-11 col-md-14" ng-if="input.subType=='fromdate'"  name="f" >
                             <input type="text" class="col-xs-5 col-md-4 form-control day_month get_pad input-md trans_input" ng-click="setfromdate()" ng-model="input.value.day"   placeholder="01"   name="" >

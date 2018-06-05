@@ -207,8 +207,8 @@ getcentre.filter('currencyConvert', function (currencyData) {
 })
 getcentre.filter('lower_price', function (searchDatas) {
     return function (price) {
-        try{room_count= price[0].HotelOccupancy.RoomCount; return price[0].HotelRoom.Price.Amount}//return (room_count)*(price[0].HotelRoom.Price.Amount);
-        catch(e){room_count= price.HotelOccupancy.RoomCount; return price.HotelRoom.Price.Amount }// return (room_count)*(price.HotelRoom.Price.Amount)}
+        try{ return price[0].HotelRoom.Price.Amount}//return (room_count)*(price[0].HotelRoom.Price.Amount);
+        catch(e){return price.HotelRoom.Price.Amount }// return (room_count)*(price.HotelRoom.Price.Amount)}
     }
 })
 getcentre.filter('first_b', function () {
