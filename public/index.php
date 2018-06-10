@@ -146,12 +146,12 @@
 														<label class="" ng-bind="input.name"></label>
 														<div class="clearfix visible-xs-block"></div>
 														<div class="inputWrapper">
-															<input type="text" class="placeSearch" placeholder="enter destination"  ng-change="searchAirports($index)" ng-model="input.value.name" ng-click="searchRevel()" name={{$index}} />
+															<input type="text" class="placeSearcher"  placeholder="enter destination"  ng-change="searchAirports($index)" ng-model="input.value.name" ng-click="searchRevel()" name={{$index}} />
 															<span ng-if="input.name=='From'" class="iconFlightFrom"></span>
 															<span ng-if="input.name=='To'" class="iconFlightTo"></span>
-															<ul class="airportList" ng-if="airpostList[$index].length>0">
-																<li ng-repeat="airport in airportList[$index]" data="{{airport.c}}">
-																	{{airport.n}}
+															<ul class="airportList" id="airSearch{{$index}}" ng-if="input.value.name.length>1 ">
+																<li ng-repeat="airport in airportList[$index] track by $index" data="{{airport.c}}" ng-click="selectAirport($parent.$index, airport)">
+																	({{airport.c}}){{airport.n}}, {{airport.l}}
 																</li>
 															</ul>
 														</div>
@@ -220,7 +220,12 @@
 																<div class="col-xs-18 no-padding going booking-form"  ng-if="form.type=='place'" ng-show="form.name=='From' || searchInit" >
 																	<label ng-bind="form.name"></label>
 																	<div class="inputWrapper">
-																		<input type="text" class="placeSearch" placeholder="enter destination"  ng-init="setlocators()" ng-model="form.value.name" ng-click="searchRevel()"  name="{{$parent.$parent.$index}}|{{$index}}" />
+																		<input type="text" class="placeSearcher" placeholder="enter destination"  ng-init="setlocators()" ng-model="form.value.name" ng-click="searchRevel()" ng-change="searchAirports($index, $parent.$parent.$parent.$index)" name="{{$parent.$parent.$index}}|{{$index}}" />
+																		<ul class="airportList" id="airSearch{{$index}}" ng-if="form.value.name.length>1 ">
+																			<li ng-repeat="airport in airportList[$index] track by $index" data="{{airport.c}}" ng-click="selectAirport($parent.$index, airport, $parent.$parent.$parent.$parent.$index)">
+																				({{airport.c}}){{airport.n}}, {{airport.l}}
+																			</li>
+																		</ul>
 																	</div>
 																</div>
 																<div class="col-xs-18 bookingFormInput booking-form no-padding " ng-init="setDates(form)"  ng-if="form.type=='date'">

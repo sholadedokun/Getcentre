@@ -36,6 +36,8 @@ getcentre.controller("mainController", [
 		$scope.locationtype = [{ name: "Select Type", value: "" }, { name: "Terminal(Airport, Bus Station etc.)", value: "Terminal" }, { name: "Hotel", value: "Hotel" }];
 		$scope.pickupType = "";
 		$scope.airportList = [];
+		var airportList,
+			minAirportSearchData = [];
 		$http.get("js/lib/allAirports.json").success(function(response) {
 			$scope.allAirports = response;
 		}); //get additional service Json
@@ -43,6 +45,9 @@ getcentre.controller("mainController", [
 			$options = { value: i, name: i + " Years" };
 			$scope.childAgeOptions.push($options);
 		}
+		document.addEventListener("click", function() {
+			jQuery(".airportList").removeClass("revelContent");
+		});
 		$scope.setTransferlocators = function(transType) {
 			console.log(transType);
 			jQuery("#transfer_complete").autocomplete({
@@ -90,13 +95,39 @@ getcentre.controller("mainController", [
 				}
 			});
 		};
-		$scope.searchAirports = function(index) {
-			var searchTerm = $scope.defaultSearch.moduleCurrType[index].name.value;
-			$scope.airportList[index] = $scope.allAirports.filter(function(item) {
-				if (item.c.indexOf(searchTerm) >= 0 || item.n.indexOf(searchTerm) >= 0) {
-					return { c: item.c, n: "(" + item.c + ") " + item.n };
+		$scope.selectAirport = function(index, airport, parent) {
+			console.log(parent, index)
+			let flightObject;
+
+			if ($scope.defaultSearch.moduleType != "MF") flightObject = $scope.defaultSearch.moduleCurrType[index].value;
+			else flightObject = $scope.defaultSearch.moduleCurrType.multCities[parent][index].value;
+
+			flightObject.name = "(" + airport.c + ") " + airport.n;
+			flightObject.code = airport.c;
+		};
+		$scope.searchAirports = function(index, parent) {
+			var id = "#airSearch" + index;
+			jQuery(id).addClass("revelContent");
+			let searchTerm;
+			if ($scope.defaultSearch.moduleType != "MF") searchTerm = $scope.defaultSearch.moduleCurrType[index].value.name.toLowerCase();
+			else searchTerm = $scope.defaultSearch.moduleCurrType.multCities[parent][index].value.name.toLowerCase();
+			if (searchTerm.length < 3) {
+				minAirportSearchData = $scope.allAirports;
+			}
+			airportList = minAirportSearchData.filter(function(item) {
+				let c = item.c.toLowerCase();
+				let n = item.n.toLowerCase();
+				let l = item.l.toLowerCase();
+				if (c.indexOf(searchTerm) >= 0 || n.indexOf(searchTerm) >= 0 || l.indexOf(searchTerm) >= 0) {
+					return { c: item.c, n: "(" + item.c + ") " + item.n + ", " + item.l };
 				}
 			});
+			if (searchTerm.length > 2) {
+				$scope.airportList[index] = airportList;
+			} else {
+				minAirportSearchData = airportList;
+				$scope.airportList[index] = [];
+			}
 		};
 		$scope.searchRevel = function() {
 			$scope.searchInit = true;
@@ -212,7 +243,6 @@ getcentre.controller("mainController", [
 			}
 			$scope.initSearch();
 		};
-
 		$scope.setFromDate = function(eIndex) {
 			console.log(eIndex, jQuery(".fromdate"));
 			jQuery(".fromdate")
