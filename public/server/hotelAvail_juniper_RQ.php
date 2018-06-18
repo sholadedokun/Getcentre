@@ -45,17 +45,20 @@
 				else{
 					$ratecount=1; // just one rate found in this Hotel;
 				}
-				// print_r($roombreak);
+				//  print_r($roombreak);
+				 
 				for($b=0; $b<$ratecount; $b++){
 					if($ratecount==1){$rate=$hotel->RoomRates->RoomRate;}
 					else{$rate=$hotel->RoomRates->RoomRate[$b];}
-
+					// print_r($rate);
 					if(is_array($rate->Rates->Rate)){
 						$allRooms=$rate->Rates->Rate;
 						$totalPrice=0;
 						for($c=0; $c<count($allRooms); $c++){
 							$index= count($a_json_row['availRoom']);
 							$roomNum=explode(",",$allRooms[$c]->RateSource);
+
+							
 							for($a=0; $a<count($roomNum); $a++){
 								$a_json_row['availRoom'][$index]->HotelOccupancy->Occupancy->AdultCount = $roombreak[($roomNum[$a]-1)][0]->value;
 								$a_json_row['availRoom'][$index]->HotelOccupancy->Occupancy->ChildCount = $roombreak[($roomNum[$a]-1)][1]->value;;

@@ -146,7 +146,8 @@
 														<label class="" ng-bind="input.name"></label>
 														<div class="clearfix visible-xs-block"></div>
 														<div class="inputWrapper">
-															<input type="text" class="placeSearcher"  placeholder="enter destination"  ng-change="searchAirports($index)" ng-model="input.value.name" ng-click="searchRevel()" name={{$index}} />
+															<input type="text" ng-if="defaultSearch.module=='Hotels'" class="placeSearch" placeholder="enter destination"  ng-init="setlocators()" ng-model="input.value.name" ng-click="searchRevel()" name={{$index}} />
+															<input type="text" ng-if="defaultSearch.module!='Hotels'" class="placeSearcher"  placeholder="enter destination"  ng-change="searchAirports($index)" ng-model="input.value.name" ng-click="searchRevel()" name={{$index}} />
 															<span ng-if="input.name=='From'" class="iconFlightFrom"></span>
 															<span ng-if="input.name=='To'" class="iconFlightTo"></span>
 															<ul class="airportList" id="airSearch{{$index}}" ng-if="input.value.name.length>1 ">

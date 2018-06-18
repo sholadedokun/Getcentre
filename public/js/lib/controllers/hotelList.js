@@ -484,6 +484,8 @@ hotelList.controller("hotelList", [
 			var json_str = JSON.parse($("#new_list").val());
 			$hot = json_str[index_num];
 			$selected_rooms = [];
+			console.log($scope.search_c);
+			console.log($hot, index_num, room_index);
 			if (Array.isArray($hot.availRoom)) {
 				if (room_index == 0) {
 					if ($scope.search_c.moduleCurrType[3].value < 2) {
@@ -567,14 +569,15 @@ hotelList.controller("hotelList", [
 					}
 					hotelData.setData($scope.serv);
 				} else {
-					if (Array.isArray($hot.availRoom)) {
+					if (Array.isArray($selected_rooms)) {
 						$scope.services = [];
-						for ($r = 0; $r < $hot.availRoom.length; $r++) {
+						for ($r = 0; $r < $selected_rooms.length; $r++) {
 							// $scope.services[$r].availRoom = $scope.services[$r].AvailableRoom;
 							// $scope.serv.push($scope.services[$r]);
-							$hot.availRoom[$r].HotelRoom.CancellationPolicies = response.data;
-							$scope.services[$r].availRoom = $hot.availRoom[$r];
-							$scope.services[$r].TotalAmount = $hot.availRoom[$r].HotelRoom.Price.Amount;
+							$scope.services[$r] = {};
+							$selected_rooms[$r].HotelRoom.CancellationPolicies = response.data;
+							$scope.services[$r].availRoom = $selected_rooms[$r];
+							$scope.services[$r].TotalAmount = $selected_rooms[$r].HotelRoom.Price.Amount;
 							$scope.services[$r].Currency = $hot.currency;
 							$scope.services[$r].HotelInfo = {};
 							$scope.services[$r].HotelInfo.Code = $hot.hotelCode;
@@ -582,9 +585,9 @@ hotelList.controller("hotelList", [
 						}
 					} else {
 						$scope.services = {};
-						$hot.availRoom.HotelRoom.CancellationPolicies = response.data;
-						$scope.services.availRoom = $hot.availRoom;
-						$scope.services.TotalAmount = $hot.availRoom.HotelRoom.Price.Amount;
+						$selected_room.HotelRoom.CancellationPolicies = response.data;
+						$scope.services.availRoom = $selected_room;
+						$scope.services.TotalAmount = $selected_room.HotelRoom.Price.Amount;
 						$scope.services.Currency = $hot.currency;
 						$scope.services.HotelInfo = {};
 						$scope.services.HotelInfo.Code = $hot.hotelCode;
@@ -594,7 +597,7 @@ hotelList.controller("hotelList", [
 				for ($a = 0; $a < $scope.serv.length; $a++) {
 					if ($scope.serv[$a].HotelInfo.Code == $hot.hotelCode) {
 						if (Array.isArray($scope.serv[$a].availRoom)) {
-							console.log("yes mauliptle");
+							console.log("yes muliptle");
 							for ($b = 0; $b < $scope.serv[$a].availRoom.length; $b++) {
 								for ($g = 0; $g < $scope.serv[$a].availRoom[$b].HotelOccupancy.RoomCount; $g++) {
 									$scope.cust = getcustomer($scope.serv[$a].availRoom[$b], $hot.tag);
