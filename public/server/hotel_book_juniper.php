@@ -2,7 +2,7 @@
 require_once 'JSON.php';
 require_once 'fun_connect.php';
 //error_reporting(E_ALL);
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 
 class OTA_HotelResV2Service{
 	function OTA_HotelResRQ()
@@ -23,14 +23,16 @@ class OTA_HotelResV2Service{
 		for($y=0; $y<$rooms; $y++){
 			$OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->RoomStays->RoomStay->RatePlans->RatePlan[$y]->RatePlanCode= $request->details->guestBreak[$y]->ratePlan;
 			$tpa_extensions = '<ns1:TPA_Extensions><Guests>';
-			$allguest=$guest[$y]->guest_details->guest;			
+			$allguest=$guest[$y]->guest_details->guest;	
+			$age=$request->details->hroomdist[$y];		
 			for($h=0; $h<count($allguest); $h++){
 				//$name = explode(" ", $guest[$y][0][$h]);
 				if($allguest[$h]->title!='Child'){
 					$tpa_extensions=$tpa_extensions."<Guest Name='".$allguest[$h]->fname."' Surname='".$allguest[$h]->lname."' Age='40'/>";
 				}
 				else{
-					$tpa_extensions=$tpa_extensions."<Guest Name='".$allguest[$h]->fname."' Surname='".$allguest[1]->lname."' Age='12'/>";
+					$childAge=$age[1]->ages[$h-1]->valueYear;
+					$tpa_extensions=$tpa_extensions."<Guest Name='".$allguest[$h]->fname."' Surname='".$allguest[$h]->lname."' Age='".$childAge."'/>";
 				}
 			}
 			// print_r($allguest);
@@ -54,8 +56,8 @@ class OTA_HotelResV2Service{
 		$OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->RoomStays->RoomStay->TimeSpan->End = $request->details->hcheckout;
 		$OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->RoomStays->RoomStay->BasicPropertyInfo->HotelCode = $request->details->hcode;
 		$OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->RoomStays->RoomStay->Total->CurrencyCode = $request->details->currency;
-		$OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->RoomStays->RoomStay->Total->AmountAfterTax = $request->details->Price;
-		$tpa_extensions1="<ns1:TPA_Extensions><ExpectedPriceRange min='0' max='".$request->details->Price."' /></ns1:TPA_Extensions>";
+		$OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->RoomStays->RoomStay->Total->AmountAfterTax = floor($request->details->Price);
+		$tpa_extensions1="<ns1:TPA_Extensions><ExpectedPriceRange min='0' max='".floor((float)$request->details->Price)."' /></ns1:TPA_Extensions>";
 		$obj1 = new SoapVar($tpa_extensions1, XSD_ANYXML);
 		$OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->RoomStays->RoomStay->TPA_Extensions=$obj1;
 		$OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->RoomStays->RoomStay->Comments->Comment=$request->details->guestBreak[0]->guest_details->comment;
@@ -79,7 +81,8 @@ class OTA_HotelResV2Service{
 			$OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->TPA_Extensions = $obj2;
 			
 		$dataRQ = $OTA_HotelResV2Service;
-		// print_r($dataRQ);
+		// $sample=array('OTA_HotelResRQ' => $dataRQ);
+		// echo "REQUEST:\n" .htmlentities($OTA_HotelResV2Service->__getLastRequest()). "\n";
 		// die;
 		$file = 'juniper_hotelBookRQ.txt';
         file_put_contents($file, serialize($dataRQ));

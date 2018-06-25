@@ -434,7 +434,6 @@ h6 {
 
 .booking-form {
   margin-top: 20px;
-  overflow: hidden;
 }
 
 .sButAlign {
@@ -497,6 +496,32 @@ h6 {
   float: left;
   background: #fff;
   position: relative;
+}
+
+.inputWrapper .airportList {
+  max-height: 25em;
+  text-align: left;
+  background: #fff;
+  position: absolute;
+  z-index: 100000;
+  display: none;
+  top: 3em;
+  overflow: auto;
+  padding: 1em 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-right: 1px solid #ddf2f3;
+  border-left: 1px solid #ddf2f3;
+}
+
+.inputWrapper .airportList li {
+  padding: 1em;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.inputWrapper .revelContent {
+  display: block;
 }
 
 .tab-below {

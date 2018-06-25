@@ -554,6 +554,7 @@ hotelList.controller("hotelList", [
 				$scope.roomz = [];
 				$scope.services = [];
 				$scope.serv = [];
+				$serviceCounter = 0;
 				if ($hot.tag == "HotelBed") {
 					$scope.services = response.data.ServiceAddRS.Purchase.ServiceList.Service;
 					if (Array.isArray($scope.services)) {
@@ -561,40 +562,23 @@ hotelList.controller("hotelList", [
 							if ($scope.services[$r]["@xsi:type"] == "ServiceHotel") {
 								$scope.services[$r].availRoom = $scope.services[$r].AvailableRoom;
 								$scope.serv.push($scope.services[$r]);
+								$serviceCounter++;
 							}
 						}
 					} else {
 						$scope.services.availRoom = $scope.services.AvailableRoom;
 						$scope.serv.push($scope.services);
 					}
-					hotelData.setData($scope.serv);
 				} else {
-					if (Array.isArray($selected_rooms)) {
-						$scope.services = [];
-						for ($r = 0; $r < $selected_rooms.length; $r++) {
-							// $scope.services[$r].availRoom = $scope.services[$r].AvailableRoom;
-							// $scope.serv.push($scope.services[$r]);
-							$scope.services[$r] = {};
-							$selected_rooms[$r].HotelRoom.CancellationPolicies = response.data;
-							$scope.services[$r].availRoom = $selected_rooms[$r];
-							$scope.services[$r].TotalAmount = $selected_rooms[$r].HotelRoom.Price.Amount;
-							$scope.services[$r].Currency = $hot.currency;
-							$scope.services[$r].HotelInfo = {};
-							$scope.services[$r].HotelInfo.Code = $hot.hotelCode;
-							$scope.serv.push($scope.services[$r]);
-						}
-					} else {
-						$scope.services = {};
-						$selected_room.HotelRoom.CancellationPolicies = response.data;
-						$scope.services.availRoom = $selected_room;
-						$scope.services.TotalAmount = $selected_room.HotelRoom.Price.Amount;
-						$scope.services.Currency = $hot.currency;
-						$scope.services.HotelInfo = {};
-						$scope.services.HotelInfo.Code = $hot.hotelCode;
-						$scope.serv.push($scope.services);
-					}
+					$scope.services[$serviceCounter] = { HotelInfo: {}, HotelRoom: {} };
+					$scope.services[$serviceCounter].HotelRoom.CancellationPolicies = response.data;
+					$scope.services[$serviceCounter].HotelInfo.Code = $hot.hotelCode;
+					$scope.services[$serviceCounter].availRoom = $selected_rooms;
+					$scope.serv = $scope.services;
 				}
+				hotelData.setData($scope.serv);
 				for ($a = 0; $a < $scope.serv.length; $a++) {
+					var totalAmount = 0;
 					if ($scope.serv[$a].HotelInfo.Code == $hot.hotelCode) {
 						if (Array.isArray($scope.serv[$a].availRoom)) {
 							console.log("yes muliptle");
@@ -613,9 +597,8 @@ hotelList.controller("hotelList", [
 										cust_det: $scope.cust
 									};
 									if ($hot.tag == "Juniper") {
-										roomz.price = $scope.serv[$a].availRoom.HotelRoom.Price.Amount;
-										roomz.ratePlan = $scope.serv[$a].availRoom.HotelRoom.RateCode;
-										console.log(roomz);
+										roomz.ratePlan = $scope.serv[$a].availRoom[$b].HotelRoom.RateCode;
+										totalAmount += parseFloat($scope.serv[$a].availRoom[$b].HotelRoom.Price.Amount);
 									}
 									$scope.roomz.push(roomz);
 								}
@@ -635,9 +618,8 @@ hotelList.controller("hotelList", [
 									roomCount: $scope.serv[$a].availRoom.HotelOccupancy.RoomCount
 								};
 								if ($hot.tag == "Juniper") {
-									roomz.price = $scope.serv[$a].availRoom.HotelRoom.Price.Amount;
 									roomz.ratePlan = $scope.serv[$a].availRoom.HotelRoom.RateCode;
-									console.log(roomz);
+									totalAmount += parseFloat($scope.serv[$a].availRoom.HotelRoom.Price.Amount);
 								} else {
 									roomz.price = $scope.serv[$a].availRoom.HotelRoom.Price.Amount;
 								}
@@ -657,7 +639,7 @@ hotelList.controller("hotelList", [
 							imgurl: $hot.hotelImages[0],
 							Name: $hot.hotelName,
 							hRoom: $scope.search_c.moduleCurrType[3].value,
-							Price: $scope.serv[$a].TotalAmount,
+							Price: $scope.serv[$a].TotalAmount || totalAmount,
 							guestBreak: $scope.roomz,
 							total_nights: $scope.search_c.moduleCurrType[2].value.fTravelDays,
 							hroomdist: $scope.search_c.moduleCurrType["occupancy"],
@@ -681,7 +663,7 @@ hotelList.controller("hotelList", [
 						});
 					} else {
 						travel_pack.hStar = $hot.hotelCat["@attributes"].Code;
-						travel_pack.currency = $scope.serv[$a].Currency;
+						travel_pack.currency = $hot.currency;
 						travel_pack.Snum = $hot.S_num;
 						travel_pack.hcode = $hot.hotelCode;
 						travel_pack.destination = $hot.destination;
