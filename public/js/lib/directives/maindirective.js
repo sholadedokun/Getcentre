@@ -191,7 +191,7 @@ getcentre.directive("birthDchild", function() {
 			dateFormat: "dd.mm.yy",
 			changeMonth: true,
 			changeYear: true,
-			yearRange: "-12:-1",
+			yearRange: "-18:-1",
 			defaultDate: "-12y-m-d",
 			numberOfMonths: 1,
 			onClose: function(selectedDate) {

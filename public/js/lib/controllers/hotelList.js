@@ -574,7 +574,7 @@ hotelList.controller("hotelList", [
 					$scope.services[$serviceCounter].HotelRoom.CancellationPolicies = response.data;
 					$scope.services[$serviceCounter].HotelInfo.Code = $hot.hotelCode;
 					$scope.services[$serviceCounter].availRoom = $selected_rooms;
-					$scope.serv = $scope.services;
+					$scope.serv = $scope.services; //needs review
 				}
 				hotelData.setData($scope.serv);
 				for ($a = 0; $a < $scope.serv.length; $a++) {

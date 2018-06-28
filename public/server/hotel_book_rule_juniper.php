@@ -33,7 +33,10 @@ class OTA_HotelBookingRuleService{
 		$dataRQ = $OTA_HotelBookingRuleService;
 		try{
 			$rp = $this->client->__soapCall('OTA_HotelBookingRuleService', array('OTA_HotelBookingRuleRQ' => $dataRQ));
-			//echo "<pre>".print_r($rp, true)."</pre>";
+				$fileRQ = 'juniper_hotelRulesRQ.txt';
+				file_put_contents($fileRQ,  serialize($this->client->__getLastRequest()));
+				$fileRS = 'juniper_hotelRulesRS.txt';
+				file_put_contents($fileRS, serialize($this->client->__getLastResponse()));
 			$array1 = (array) $rp;
 			$a_json = array();
 			$a_json['booking_rule']=$array1['OTA_HotelBookingRuleRS']->RuleMessage->BookingRules->BookingRule->CancelPenalties->CancelPenalty->PenaltyDescription->Text->_;

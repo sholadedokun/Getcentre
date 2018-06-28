@@ -156,8 +156,10 @@
 
 				$array1 = (array) $rp;
 				// print_r($array1['OTA_HotelAvailRS']->RoomStays->RoomStay);
-				$file = 'juniper_hotelAvailRS.txt';
-            	file_put_contents($file, serialize($rp));
+				$fileRQ = 'juniper_hotelAvailRQ.txt';
+				file_put_contents($fileRQ,  serialize($this->client->__getLastRequest()));
+				$fileRS = 'juniper_hotelAvailRS.txt';
+				file_put_contents($fileRS, serialize($this->client->__getLastResponse()));
 				$a_json = array();
 				$a_json_row = array();
 				$a_json['total']=count($array1['OTA_HotelAvailRS']->RoomStays->RoomStay);
