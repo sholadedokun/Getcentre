@@ -19,7 +19,7 @@ class OTA_HotelResV2Service{
 		$client->OTA_HotelResV2Service->OTA_HotelResRQ->POS->Source->RequestorID->MessagePassword = "NdKT7Rs5t4";
 		$guest=$request->details->guestBreak;
 		$rooms=$request->details->hRoom;
-		$client->OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->RoomStays->RoomStay->RatePlans->RatePlan->RatePlanCode= $request->details->guestBreak[0]->ratePlan;
+		$client->OTA_HotelResV2Service->OTA_HotelResRQ->HotelReservations->HotelReservation->RoomStays->RoomStay->RatePlans->RatePlan->RatePlanCode= $request->details->ratePlan;
 		for($y=0; $y<$rooms; $y++){			
 			$tpa_extensions = '<ns1:TPA_Extensions><Guests>';
 			$allguest=$guest[$y]->guest_details->guest;	

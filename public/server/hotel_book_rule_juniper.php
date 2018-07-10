@@ -42,6 +42,7 @@ class OTA_HotelBookingRuleService{
 			$a_json['booking_rule']=$array1['OTA_HotelBookingRuleRS']->RuleMessage->BookingRules->BookingRule->CancelPenalties->CancelPenalty->PenaltyDescription->Text->_;
 			$a_json['absoluteCutoff']=$array1['OTA_HotelBookingRuleRS']->RuleMessage->BookingRules->BookingRule->AbsoluteCutoff;
 			$a_json['cancelDescription']= $array1['OTA_HotelBookingRuleRS']->RuleMessage->BookingRules->BookingRule->Description->Text->_;
+			$a_json['newRatePlan']= $array1['OTA_HotelBookingRuleRS']->RuleMessage->StatusApplication;
 			if (($a_json != null) && (sizeof($a_json) > 0)) {
 				//$json = new Services_JSON();
 				$jsonOutput = json_encode($a_json);

@@ -96,7 +96,7 @@ getcentre.controller("mainController", [
 			});
 		};
 		$scope.selectAirport = function(index, airport, parent) {
-			console.log(parent, index)
+			console.log(parent, index);
 			let flightObject;
 
 			if ($scope.defaultSearch.moduleType != "MF") flightObject = $scope.defaultSearch.moduleCurrType[index].value;
@@ -114,7 +114,8 @@ getcentre.controller("mainController", [
 			if (searchTerm.length < 3) {
 				minAirportSearchData = $scope.allAirports;
 			}
-			airportList = minAirportSearchData.filter(function(item) {
+			airportList = minAirportSearchData.filter(item => {
+				console.log(item);
 				let c = item.c.toLowerCase();
 				let n = item.n.toLowerCase();
 				let l = item.l.toLowerCase();

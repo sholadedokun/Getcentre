@@ -571,7 +571,8 @@ hotelList.controller("hotelList", [
 					}
 				} else {
 					$scope.services[$serviceCounter] = { HotelInfo: {}, HotelRoom: {} };
-					$scope.services[$serviceCounter].HotelRoom.CancellationPolicies = response.data;
+					$scope.services[$serviceCounter].CancellationPolicies = response.data;
+					$scope.services[$serviceCounter].ratePlanCode = response.data.newRatePlan.RatePlanCode;
 					$scope.services[$serviceCounter].HotelInfo.Code = $hot.hotelCode;
 					$scope.services[$serviceCounter].availRoom = $selected_rooms;
 					$scope.serv = $scope.services; //needs review
@@ -597,6 +598,7 @@ hotelList.controller("hotelList", [
 										cust_det: $scope.cust
 									};
 									if ($hot.tag == "Juniper") {
+										roomz.cancel= $scope.serv[$a].CancellationPolicies;
 										roomz.ratePlan = $scope.serv[$a].availRoom[$b].HotelRoom.RateCode;
 										totalAmount += parseFloat($scope.serv[$a].availRoom[$b].HotelRoom.Price.Amount);
 									}
@@ -618,6 +620,7 @@ hotelList.controller("hotelList", [
 									roomCount: $scope.serv[$a].availRoom.HotelOccupancy.RoomCount
 								};
 								if ($hot.tag == "Juniper") {
+									roomz.cancel = $scope.serv[$a].CancellationPolicies;
 									roomz.ratePlan = $scope.serv[$a].availRoom.HotelRoom.RateCode;
 									totalAmount += parseFloat($scope.serv[$a].availRoom.HotelRoom.Price.Amount);
 								} else {
@@ -641,6 +644,7 @@ hotelList.controller("hotelList", [
 							hRoom: $scope.search_c.moduleCurrType[3].value,
 							Price: $scope.serv[$a].TotalAmount || totalAmount,
 							guestBreak: $scope.roomz,
+							ratePlan: $scope.serv[0].ratePlanCode,
 							total_nights: $scope.search_c.moduleCurrType[2].value.fTravelDays,
 							hroomdist: $scope.search_c.moduleCurrType["occupancy"],
 							ref: null,

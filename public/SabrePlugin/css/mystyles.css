@@ -1,0 +1,12 @@
+/*YOUR CUSTOM STYLES*/
+.top-area,
+.special-area {
+	height: 200px;
+}
+.search-tabs-abs {
+	width: 100%;
+	left: 0;
+}
+.mt50 {
+	margin-top: 0px !important;
+}

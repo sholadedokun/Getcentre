@@ -20,6 +20,13 @@
 		<link type="text/css"  rel="stylesheet" href="css/autocomplete.css">
 		<link type="text/css"  rel="stylesheet" href="bower_components/getcentre/jquery-ui.css">
 		<link rel="stylesheet" href="css/animate_angular.css" type="text/css" />
+		
+		<!-- sabre Iframe adjustable height -->
+		<script>
+		function resizeIframe(obj) {
+			obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+		}
+		</script>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -129,7 +136,7 @@
 								<div class="col-xs-18 hidden-xs hidden-sm">
 									<div class="col-xs-18">
 										<div class="tab-below  hideMe" id="searchMachine" ng-show="search">
-											<div ng-if="defaultSearch.module!='Visa' && defaultSearch.module!='Insurance' && defaultSearch.module!='Transfers'">
+											<div ng-if="defaultSearch.module!='Visa' && defaultSearch.module!='Flights'  && defaultSearch.module!='Insurance' && defaultSearch.module!='Transfers'">
 
 												<div class="col-xs-18 hidden-xs trip-type booking-form" ng-show="searchInit" ng-if="defaultSearch.moduleType!='regular'">
 													<div class="btn" ng-click="moduleChangeType(type)"  ng-repeat="type in searchObject.typeBreak"  ng-class="typeClasses( type.value, defaultSearch.moduleType)">
@@ -287,6 +294,9 @@
 											<div ng-show="defaultSearch.module=='Transfers'">
 												<transfer-engine class="col-xs-18 no-padding"></transfer-engine>
 											</div>
+											<div ng-show="defaultSearch.module=='Flights'" class="exemptDefaultCss">
+												<iframe width="100%" frameborder="0" src="SabrePlugin/flight.php" onload="resizeIframe(this)" ></iframe>
+											</div>
 											<div ng-show="defaultSearch.module=='Visa'">
 												<visa-engine class="col-xs-18 no-padding" ng-show="defaultSearch.module=='Visa'"  ng-controller="otherPages"></visa-engine>
 											</div>
@@ -302,7 +312,6 @@
 				</div>
 				<div class="row" ng-view autoscroll="true" id="appLoader"></div>
 				<footer-below subscribe="subscribe(subEmail)"></footer-below>
-
 				</div>
 				
 			</div>
@@ -318,6 +327,7 @@
 			ga('create', 'UA-74716647-2');
 			ga('send', 'pageview');
 	   	</script>
+		  
 	    <script src="bower_components/jquery/dist/jquery.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
